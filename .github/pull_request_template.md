@@ -1,6 +1,5 @@
 <!--- Provide a formatted commit message describing this PR in the Title above -->
-<!--- See our DEVELOPERS guide below: -->
-<!--- https://github.com/accordproject/techdocs/blob/master/DEVELOPERS.md#commit-message-format -->
+
 # Closes #<CORRESPONDING ISSUE NUMBER>
 <!--- Provide an overall summary of the pull request -->
 
