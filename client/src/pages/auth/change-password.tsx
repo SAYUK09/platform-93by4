@@ -1,5 +1,3 @@
 export default function ChangePassword() {
-    return (
-     <div>Change Password</div>
-    )
-  }
+  return <div>Change Password</div>
+}

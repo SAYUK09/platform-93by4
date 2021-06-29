@@ -1,5 +1,3 @@
 export default function EmailVerification() {
-    return (
-     <div>Email Verification</div>
-    )
-  }
+  return <div>Email Verification</div>
+}
