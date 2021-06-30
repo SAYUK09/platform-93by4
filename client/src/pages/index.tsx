@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {Main} from "./../components/Main"
+import { Main } from './../components/Main'
 
 const IndexPage: NextPage = () => {
   return (
