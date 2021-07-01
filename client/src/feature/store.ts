@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-export function makeStore() {
+export function makeStore(): any {
   return configureStore({
-    reducer:{}
+    reducer: {},
   })
 }
 const store = makeStore()
