@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import { ChakraProvider, theme } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
