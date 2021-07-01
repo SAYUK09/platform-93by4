@@ -1,2 +1,8 @@
-node_modules/
-.next
+node_modules
+.env
+logs
+.DS_Store
+dist
+client/node_modules
+client/.next
+client/out

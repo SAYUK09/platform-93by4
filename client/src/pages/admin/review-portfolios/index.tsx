@@ -1,5 +1,3 @@
-export default function ReviewPortfolios() {
-    return (
-     <div>Review Portfolios</div>
-    )
-  }
+export default function ReviewPortfolios(): JSX.Element {
+  return <div>Review Portfolios</div>
+}
