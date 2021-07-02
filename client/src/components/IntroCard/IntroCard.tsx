@@ -1,46 +1,32 @@
-import { Flex, Heading, Text, useMediaQuery } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import { colors } from "../../styles/themeVars/themeVars";
-export function IntroCard() {
-  const [isSmallerThan800] = useMediaQuery("(max-width: 800px)");
-  const [isSmallerThan400] = useMediaQuery("(max-width: 400px)");
+import DashboardImage from "../../images/dashboard-girl.png";
+export function IntroCard({ status, bgColor } : any) {
   return (
     <Flex
-      width={"100%"}
-      marginTop={"2rem"}
-      background={colors.darkGrey}
-      borderRadius={"8px"}
-      padding={isSmallerThan400 ? "1rem" : "2rem"}
-      flexDirection={isSmallerThan800 ? "column-reverse" : "row"}
+      className="welcome-section"
+      bgColor={bgColor}
+      p={8}
+      borderRadius={5}
+      flexDir={["column", "column", "row"]}
     >
       <Flex
-        flex={"1"}
-        justifyContent={"center"}
-        alignItems={isSmallerThan800 ? "center" : "flex-start"}
-        flexDirection={"column"}
-        marginTop={isSmallerThan800 ? "2rem" : ""}
-        textAlign={isSmallerThan800 ? "center" : "left"}
+        flexDir="column"
+        justifyContent="center"
+        width={["100%", "100%", "60%"]}
       >
-        <Heading color={colors.lightBlue}>Hi {"Tanay"}! 👋</Heading>
-        <Text
-          fontWeight={"500"}
-          margin={"1rem 0"}
-          color={colors.textColor}
-          maxWidth={"450px"}
-        >
-          Thank you for trusting us to start your programming journey. We are
-          sure you are going to love it.
+        <Heading fontSize={["xl", "2xl", "3xl"]}>
+          {" "}
+          Current Status : {status.statusText}
+        </Heading>
+        <Text fontWeight="500" color="blue.200" py={2}>
+          {status.statusDescription}
         </Text>
       </Flex>
-      <Flex
-        position={"relative"}
-        flex={"1"}
-        minHeight={isSmallerThan800 ? "200px" : "300px"}
-        maxWidth={isSmallerThan800 ? "100%" : "350px"}
-        alignItems={"center"}
-        padding={"2rem"}
-      >
-        <Image src={"/svgs/hello.svg"} layout={"fill"} />
+      <Spacer />
+      <Flex justifyContent="center" margin={["2rem", " 1rem", "0rem"]}>
+        <Image src={DashboardImage} />
       </Flex>
     </Flex>
   );
