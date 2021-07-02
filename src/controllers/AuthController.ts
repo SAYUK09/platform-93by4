@@ -88,11 +88,11 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
  * */
 export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
   async (req, res) => {
-    const { verificationToken, email } = req.body
+    const { verificationToken } = req.body
 
     try {
       const user = await User.findOne({
-        email,
+        verificationToken,
       })
 
       if (!user) {
@@ -122,20 +122,21 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
         user.verificationTokenExpiresIn = undefined
 
         await user.save()
+
+        const token = await createToken({
+          _id: user._id,
+          email: user.email,
+        })
+
+        res.cookie('token', token, {
+          httpOnly: true,
+        })
+
+        // TODO : send cookie here or session here
+        res.status(200).json({
+          msg: 'Your email address has been verified. You may now continue using the website.',
+        })
       }
-      const token = await createToken({
-        _id: user._id,
-        email: user.email,
-      })
-
-      res.cookie('token', token, {
-        httpOnly: true,
-      })
-
-      // TODO : send cookie here or session here
-      res.status(200).json({
-        msg: 'Your email address has been verified. You may now continue using the website.',
-      })
     } catch (error) {
       return res.status(500).json({
         msg: 'Something went wrong while verifying your email. Please try again or contact support@neogcamp.com',
@@ -189,6 +190,8 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
       msg: 'Logged in successfully !',
       email,
       firstName: user.firstName,
+      lastName: user.lastName,
+      userId: user._id,
       token,
     })
   } catch (error) {
@@ -365,7 +368,10 @@ export const userInfoHandler = async (req: AuthRequest, res: Response) => {
       email: user.email,
     })
     res.status(200).json({
-      foundUser,
+      email: foundUser?.email,
+      firstName: foundUser?.firstName,
+      lastName: foundUser?.lastName,
+      userId: foundUser?._id,
     })
   } catch (error) {
     res.status(500).json({
