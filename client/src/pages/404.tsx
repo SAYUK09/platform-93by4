@@ -4,15 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Heading, Box, Flex, Text } from '@chakra-ui/react'
+import { Navbar } from '../components'
 
 const Error = () => {
   return (
     <div>
       <Head>
-        <title>Something Went Wrong</title>
+        <title>404 | neoG.camp</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-
+      <Navbar />
       <Flex
         backgroundColor="blackAlpha.900"
         align="center"
@@ -30,7 +31,7 @@ const Error = () => {
           </Heading>
 
           <Link href="/">
-            <Text color="blue.300" cursor="pointer">
+            <Text color="blue.300" textDecoration="underline" cursor="pointer">
               Click here to go back home
             </Text>
           </Link>
