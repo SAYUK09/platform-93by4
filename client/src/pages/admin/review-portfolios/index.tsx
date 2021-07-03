@@ -29,12 +29,17 @@ export default function ReviewPortfolios(): JSX.Element {
   }
 
   return (
-    <div>
+    <Flex
+      backgroundColor="black.900"
+      align="center"
+      justify={{ base: 'center' }}
+      direction={{ base: 'column', md: 'column', sm: 'column' }}
+      minH="100%"
+    >
       <Navbar />
 
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>
         <Flex
-          backgroundColor="black.900"
           align="center"
           justify={{ base: 'center' }}
           direction={{ base: 'column', md: 'column', sm: 'column' }}
@@ -135,6 +140,6 @@ export default function ReviewPortfolios(): JSX.Element {
           </Container>
         </Flex>
       </div>
-    </div>
+    </Flex>
   )
 }
