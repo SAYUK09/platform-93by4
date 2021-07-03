@@ -1,7 +1,9 @@
 export { Layout } from "./Layout/Layout";
 export { Navbar } from "./Navbar/Navbar";
 export { IntroCard } from "./IntroCard/IntroCard";
+export { DashboardIntroCard } from "./DashboardIntroCard/DashboardIntroCard";
 export { Card } from "./Card/Card";
+export { DashboardCard } from "./DashboardCard/DashboardCard";
 export { LockIcon } from "./LockIcon/LockIcon";
 export { CardText } from "./CardText/CardText";
 export { CheckList } from "./CheckList/CheckList";

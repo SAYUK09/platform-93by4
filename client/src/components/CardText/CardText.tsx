@@ -62,7 +62,7 @@ export function CardText({
         {!collapsible && (
           <Text
             color={colors.textMuted}
-            marginTop={'0.5rem'}
+            // marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
           >
