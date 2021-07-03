@@ -101,12 +101,19 @@ export default function ReviewPortfolios(): JSX.Element {
                   />
                 </Box>
 
-                <Box
-                  flexWrap="wrap"
-                  padding="2"
-                  d="flex"
-                  mt="2"
-                  justifyContent="space-between"
+                <Flex
+                  align={{
+                    base: 'flex-start',
+                    md: 'center',
+                    xl: 'center',
+                  }}
+                  justify={{
+                    base: 'center',
+                    md: 'space-around',
+                    xl: 'space-between',
+                  }}
+                  direction={{ base: 'column-reverse', md: 'row' }}
+                  wrap="wrap"
                 >
                   <Button
                     my="2"
@@ -122,7 +129,7 @@ export default function ReviewPortfolios(): JSX.Element {
                   <Button my="2" variant="solid" bg="brand.300" size="md">
                     Ready For Mark15
                   </Button>
-                </Box>
+                </Flex>
               </Box>
             </Box>
           </Container>
