@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
 
-const SubmissionWindow: React.FC = () => {
+const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
   const inputRef = useRef<any>()
   const [output, setOutput] = useState<string>('')
@@ -31,31 +31,23 @@ const SubmissionWindow: React.FC = () => {
   }
 
   const submitPortfolioUrl = async () => {
-    try {
-      const response = await axios.post('http://localhost:3001/', {
-        portfolioUrl: inputRef.current.value,
-      })
-      console.log(response)
-
-      if (response.status === 202) {
-        router.push('./congrats-card')
-      } else {
-        setOutput(
-          'Portfolio URL already exists, try again with your own URL'
-        )
-      }
-      console.log(response.data)
-      return response.data
-    } catch (err) {
-      console.error(err)
-    }
+    console.log('cool')
+    router.push("./recongrats-card")
   }
   return (
     <>
       <Layout>
-        <Heading as="h1" size="xl" color="#00F0FF" fontFamily="Inter">
-          Congrats, your portfolio is ready to submit!
-        </Heading>
+        <Flex flexDirection="column" width="auto">
+          <Heading as="h1" size="xl" color="#00F0FF" fontFamily="Inter">
+            Kudos! Are you ready to re-submit?
+          </Heading>
+          <Text color="white" fontSize="16px" noOfLines={4}>
+            Please check the feedback provided by the reviwer and re-submit your
+            complete portfolio. We would encourage you to go through the
+            <span style={{ color: '#00F0FF' }}> mark15 guide</span> once more
+            too.
+          </Text>
+        </Flex>
         <Box
           borderWidth="1px"
           borderRadius="lg"
@@ -68,10 +60,19 @@ const SubmissionWindow: React.FC = () => {
         >
           <Flex flexDirection="column">
             <Flex>
-              <Heading as="h2" size="md" p="2" ml="2" color="white">
-                Submit your portfolio for review:
+              <Heading as="h2" size="md" color="#00F0FF" fontFamily="Inter">
+                You did a great job, but missed a few things.
               </Heading>
             </Flex>
+            <Heading as="h3" size="sm" color="white" fontFamily="Inter" pt="2">
+              Your portfolio needs revision and resubmission. Here are a few
+              pointers and feedback:
+            </Heading>
+            <Text color="white" fontSize="16px" pt="3">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Inventore, deleniti consequatur! Officiis consequuntur quia
+              molestias quibusdam architecto! Recusandae beatae.
+            </Text>
             <Flex justifyContent="center" alignItems="center" p="5">
               <Input
                 placeholder="https://adarshbalika.netlify.app"
@@ -89,7 +90,7 @@ const SubmissionWindow: React.FC = () => {
                 onClick={submitPortfolioUrl}
                 color="#151515"
               >
-                Submit
+                ReSubmit
               </Button>
             </Flex>
             <Text color="red" alignSelf="center">
@@ -102,4 +103,4 @@ const SubmissionWindow: React.FC = () => {
   )
 }
 
-export default SubmissionWindow
+export default ReSubmissionWindow
