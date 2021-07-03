@@ -9,13 +9,16 @@ import {
   Button,
   Link,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form, Field, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import { Navbar, AuthLayout } from '../../components'
 import { login } from '../../services/axiosService'
+import { useAuth } from '../../context/AuthContext'
+import { useRouter } from 'next/router'
 
 export interface LoginValues {
   email: string
@@ -31,10 +34,49 @@ const SignInSchema = yup.object().shape({
 })
 
 export default function Login() {
+  const { setState } = useAuth()
+  const router = useRouter()
+  const toast = useToast()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   async function handleSubmit(data: LoginValues) {
+    setIsLoading(true)
     await login(data)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error.response.data))
+      .then((res) => {
+        console.log(res.data)
+        if (res.status === 200) {
+          setState({
+            isAuthenticated: true,
+            user: {
+              email: res.data.email,
+              firstName: res.data.firstName,
+              lastName: res.data.lastName,
+              userId: res.data.userId,
+            },
+          })
+          setIsLoading(false)
+          toast({
+            title: 'Logged in..!',
+            isClosable: true,
+            status: 'success',
+          })
+          router.push('/dashboard')
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+        setIsLoading(false)
+        setState({
+          isAuthenticated: false,
+          user: null,
+        })
+        toast({
+          title: 'Failed to log you in.',
+          description: error.response.data.msg,
+          status: 'error',
+          isClosable: true,
+        })
+      })
   }
 
   return (
@@ -133,6 +175,8 @@ export default function Login() {
                         type="submit"
                         colorScheme={'blue'}
                         variant={'solid'}
+                        isLoading={isLoading}
+                        loadingText="Signing you in"
                       >
                         Login
                       </Button>
