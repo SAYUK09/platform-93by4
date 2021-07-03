@@ -1,6 +1,8 @@
-import { Flex, Text, Heading, WrapItem, Avatar } from "@chakra-ui/react";
+import { Flex, WrapItem  , Menu , MenuButton , MenuList , MenuGroup , MenuItem} from "@chakra-ui/react";
 import { colors } from "../../styles/themeVars/themeVars";
-
+import Logo from '../../images/logo.png'
+import Image from 'next/image'
+import { FaUserCircle } from 'react-icons/fa';
 export function Navbar() {
   return (
     <Flex
@@ -10,9 +12,6 @@ export function Navbar() {
       minHeight={"60px"}
       alignItems={"center"}
       justifyContent={"center"}
-      position={"sticky"}
-      top={"0"}
-      left={"0"}
     >
       <Flex
         background={colors.darkGrey}
@@ -20,18 +19,22 @@ export function Navbar() {
         height={"100%"}
         alignItems={"center"}
         maxWidth={"1100px"}
-        padding={"0 1rem"}
         justifyContent={"space-between"}
       >
-        <Heading
-          fontSize={"1.8rem"}
-          backgroundImage={colors.blueGradient}
-          backgroundClip={"text"}
-        >
-          neoG.camp
-        </Heading>
+        <Image src={Logo} />
         <WrapItem>
-          <Avatar name="tanay pratap" />
+          
+          <Menu>
+  <MenuButton >
+  <FaUserCircle style={{width:"2rem" , height : "2rem" , strokeWidth:"20px" , fill: "none"}}/>
+  </MenuButton>
+  <MenuList background={colors.darkGrey}>
+    <MenuGroup>
+      <MenuItem>Logout </MenuItem>
+    </MenuGroup>
+    
+  </MenuList>
+</Menu>
         </WrapItem>
       </Flex>
     </Flex>
