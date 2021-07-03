@@ -41,7 +41,12 @@ const ReSubmissionWindow: React.FC = () => {
           >
             {ResubmissionData.heading}
           </Heading>
-          <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={5} pb="1rem">
+          <Text
+            color={theme.colors.black['50']}
+            fontSize="16px"
+            noOfLines={5}
+            pb="1rem"
+          >
             {ResubmissionData.discription}
           </Text>
         </Flex>
@@ -75,7 +80,7 @@ const ReSubmissionWindow: React.FC = () => {
             >
               {ResubmissionData.subTitle}
             </Heading>
-            <Text color={theme.colors.black['50']} fontSize="16px"  pb="1rem">
+            <Text color={theme.colors.black['50']} fontSize="16px" pb="1rem">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Inventore, deleniti consequatur! Officiis consequuntur quia
               molestias quibusdam architecto! Recusandae beatae.

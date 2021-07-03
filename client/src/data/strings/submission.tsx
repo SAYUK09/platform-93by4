@@ -1,5 +1,5 @@
-import { Text } from '@chakra-ui/react';
-import { theme } from '../../themes';
+import { Text } from '@chakra-ui/react'
+import { theme } from '../../themes'
 
 export const SubmissionData = {
   heading: 'Congrats, your portfolio is ready to submit!',
@@ -11,11 +11,11 @@ export const ResubmissionData = {
   discription: (
     <>
       Please check the feedback provided by the reviewer and re-submit your
-      complete portfolio. We would encourage you to go through <Text color={theme.colors.brand['500']} d="inline">
-              {' '}
-              mark15 guide
-            </Text>{' '}
-            
+      complete portfolio. We would encourage you to go through{' '}
+      <Text color={theme.colors.brand['500']} d="inline">
+        {' '}
+        mark15 guide
+      </Text>{' '}
       once more too.{' '}
     </>
   ),
