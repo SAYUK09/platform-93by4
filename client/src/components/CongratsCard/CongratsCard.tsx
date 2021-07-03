@@ -37,7 +37,11 @@ export function CongratsCard({
         flexDirection={{ base: 'column', md: 'row' }}
       >
         <Heading fontSize="md" p={{ base: '3', md: '0' }}>
-          <Link href="https://twitter.com" isExternal color="cyan">
+          <Link
+            href="https://twitter.com/intent/tweet?text=I%20have%20successfully%20submitted%20my%20application.%20Thanks%20to%20%40tanaypratap%20%40neogcamp%20for%20such%20a%20great%20experience."
+            isExternal
+            color="cyan"
+          >
             Tweet this out!
           </Link>
         </Heading>
