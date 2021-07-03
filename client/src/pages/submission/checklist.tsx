@@ -88,7 +88,7 @@ export function CheckList() {
           colorScheme="blue"
           size={'lg'}
           onClick={() => handleNextButton()}
-          visibility={checkAllIdsInArray() ? 'visible' : 'hidden'}
+          disabled={!checkAllIdsInArray()}
         >
           Next
         </Button>

@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import { ChecksType } from '../../data/staticData/mark15';
 import { colors } from '../../styles/themeVars/themeVars';
@@ -20,17 +20,15 @@ export function CardText({
   checklist,
   checkedCount,
 }: CardTextPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
-
   return (
     <>
       <Flex
         flexDirection={collapsible ? 'row' : 'column'}
         justifyContent={collapsible ? 'flex-start' : 'center'}
-        alignItems={collapsible || isSmallerThan700 ? 'center' : 'flex-start'}
+        alignItems={['center', 'flex-start']}
         flex={'1'}
-        margin={isSmallerThan700 ? '1rem 0' : ''}
-        textAlign={isSmallerThan700 ? 'center' : 'left'}
+        margin={['1rem 0', '']}
+        textAlign={['center', 'left']}
       >
         {collapsible && (
           <Flex
@@ -65,6 +63,7 @@ export function CardText({
             marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
+            paddingRight={'1rem'}
           >
             {subTitle}
           </Text>

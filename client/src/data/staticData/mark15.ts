@@ -11,7 +11,7 @@ export interface CheckListType {
   checks?: ChecksType[];
 }
 
-export const CardOnEachPage = 3;
+export const CardOnEachPage = 4;
 
 export const CheckListData: CheckListType[] = [
   {

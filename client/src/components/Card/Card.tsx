@@ -1,4 +1,4 @@
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { colors } from '../../styles/themeVars/themeVars';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,7 +31,6 @@ export function Card({
   setAllMarksChecked,
   lockIcon,
 }: CardPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
   const [openDrawer, setOpenDrawer] = useState(false);
   const [checkCount, setCheckCount] = useState([]);
 
@@ -53,7 +52,7 @@ export function Card({
         background={colors.darkGrey}
         padding={'1.5rem'}
         alignItems={'center'}
-        flexDirection={!collapsible && isSmallerThan700 ? 'column' : 'row'}
+        flexDirection={[!collapsible ? 'column' : 'row', 'row']}
         onClick={() =>
           collapsible && setOpenDrawer((openDrawer) => !openDrawer)
         }

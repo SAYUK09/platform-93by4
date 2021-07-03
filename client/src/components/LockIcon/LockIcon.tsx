@@ -1,4 +1,4 @@
-import { Flex, Text, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { colors } from '../../styles/themeVars/themeVars';
 
 interface LockIconPropType {
@@ -8,15 +8,10 @@ interface LockIconPropType {
 }
 
 export function LockIcon({ collapsible, status, index }: LockIconPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
-
   return (
     <>
       {!collapsible && (
-        <Flex
-          alignItems={'center'}
-          transform={isSmallerThan700 ? 'scale(1)' : 'scale(0.85)'}
-        >
+        <Flex alignItems={'center'} transform={['scale(1)', 'scale(0.85)']}>
           <Text
             background={
               status === 'submitted' ? colors.lightBlue : colors.textMuted
@@ -28,7 +23,7 @@ export function LockIcon({ collapsible, status, index }: LockIconPropType) {
             width={'29px'}
             borderRadius={'4px'}
             fontWeight={'600'}
-            margin={!collapsible && isSmallerThan700 ? '1.2rem 0' : '0 1.2rem'}
+            margin={['1.2rem 0', '0 1.2rem']}
             marginLeft={'0'}
             position={'relative'}
             fontSize={'1.1rem'}
