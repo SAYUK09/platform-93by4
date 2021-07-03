@@ -5,13 +5,49 @@ import {
   AlertTitle,
   AlertDescription,
   Progress,
+  Button,
+  toast,
+  useToast,
 } from '@chakra-ui/react'
-
-export function EmailVerification() {
-  return <div>Email Verification</div>
-}
+import { useRouter } from 'next/router'
+import { useAuth } from '../../../context/AuthContext'
+import { resendLink } from '../../../services/axiosService'
 
 export default function EmailSent() {
+  const { authState } = useAuth()
+  const toast = useToast()
+
+  console.log(authState?.user)
+
+  const router = useRouter()
+
+  async function handleResend() {
+    await resendLink(authState?.user?.email)
+      .then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          toast({
+            title: 'Your email address has already been verified.',
+            status: 'info',
+          })
+          router.push('/dashboard')
+        }
+        if (res.status === 201) {
+          toast({
+            title: 'Link has been resent to your email address.',
+            status: 'info',
+          })
+        }
+      })
+      .catch((error) => {
+        console.log({ error })
+        toast({
+          title: "Couldn't resend email.",
+          description: 'Please try later.',
+        })
+      })
+  }
+
   return (
     <Box
       rounded="10px"
@@ -40,7 +76,8 @@ export default function EmailSent() {
         <AlertDescription maxWidth="sm">
           In order to continue using application, we need to verify your email.
           A verification link has been sent to you. Please click it verify your
-          account. Haven't recieved email yet ? Click here to resend.
+          account. Haven't recieved email yet ?
+          <Button onClick={handleResend}>Click here to resend.</Button>
         </AlertDescription>
       </Alert>
     </Box>
