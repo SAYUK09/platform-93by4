@@ -26,7 +26,7 @@ const ReSubmissionWindow: React.FC = () => {
 
   const submitPortfolioUrl = async (): Promise<void> => {
     console.log('cool')
-    router.push('./resubmission/recongrats-card')
+    router.push('./resubmission/congrats')
   }
   return (
     <>

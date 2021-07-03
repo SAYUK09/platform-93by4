@@ -1,36 +1,33 @@
-import { Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react'
+import { Flex, Heading, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import { ChecksType } from '../../data/staticData/mark15'
-import { colors } from '../../styles/themeVars/themeVars'
+import { theme } from '../../themes'
 
 interface CardTextPropType {
   collapsible?: boolean
   status?: string
-  title: string
-  subTitle: string | JSX.Element
+  title?: string
+  subTitle?: string | JSX.Element
   checklist?: ChecksType[]
   checkedCount?: number
 }
 
 export function CardText({
   collapsible,
-  status,
   title,
   subTitle,
   checklist,
   checkedCount,
 }: CardTextPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)')
-
   return (
     <>
       <Flex
         flexDirection={collapsible ? 'row' : 'column'}
         justifyContent={collapsible ? 'flex-start' : 'center'}
-        alignItems={collapsible || isSmallerThan700 ? 'center' : 'flex-start'}
+        alignItems={['center', 'flex-start']}
         flex={'1'}
-        margin={isSmallerThan700 ? '1rem 0' : ''}
-        textAlign={isSmallerThan700 ? 'center' : 'left'}
+        margin={['1rem 0', '']}
+        textAlign={['center', 'left']}
       >
         {collapsible && (
           <Flex
@@ -39,7 +36,7 @@ export function CardText({
             position={'relative'}
             top={'-2px'}
           >
-            {checkedCount === checklist.length ? (
+            {checkedCount === checklist?.length ? (
               <Image
                 src={'/svgs/circleCheck.svg'}
                 height={'24'}
@@ -56,15 +53,16 @@ export function CardText({
             )}
           </Flex>
         )}
-        <Heading color={colors.textColor} fontSize={'1.3rem'}>
+        <Heading color={theme.colors.black['50']} fontSize={'1.3rem'}>
           {title}
         </Heading>
         {!collapsible && (
           <Text
-            color={colors.textMuted}
+            color={theme.colors.black['100']}
             marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
+            padding={'0 0.5rem'}
           >
             {subTitle}
           </Text>
@@ -72,8 +70,8 @@ export function CardText({
       </Flex>
       {collapsible && (
         <Flex flex={'1'} justifyContent={'center'}>
-          <Text color={colors.textMuted} paddingLeft={'3.5rem'}>
-            {checkedCount}/{checklist.length}
+          <Text color={theme.colors.black['100']} paddingLeft={'3.5rem'}>
+            {checkedCount}/{checklist?.length}
           </Text>
         </Flex>
       )}

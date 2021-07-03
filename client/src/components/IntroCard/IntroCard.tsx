@@ -1,31 +1,30 @@
-import { Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react'
+import { Flex, Heading, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { colors } from '../../styles/themeVars/themeVars'
+import { theme } from '../../themes'
+
 export function IntroCard() {
-  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
-  const [isSmallerThan400] = useMediaQuery('(max-width: 400px)')
   return (
     <Flex
       width={'100%'}
       marginTop={'2rem'}
-      background={colors.darkGrey}
+      background={theme.colors.black['800']}
       borderRadius={'8px'}
-      padding={isSmallerThan400 ? '1rem' : '2rem'}
-      flexDirection={isSmallerThan800 ? 'column-reverse' : 'row'}
+      padding={['1rem', '2rem']}
+      flexDirection={['column-reverse', 'row']}
     >
       <Flex
         flex={'1'}
         justifyContent={'center'}
-        alignItems={isSmallerThan800 ? 'center' : 'flex-start'}
+        alignItems={['center', 'flex-start']}
         flexDirection={'column'}
-        marginTop={isSmallerThan800 ? '2rem' : ''}
-        textAlign={isSmallerThan800 ? 'center' : 'left'}
+        marginTop={['2rem', '']}
+        textAlign={['center', 'left']}
       >
-        <Heading color={colors.lightBlue}>Hi {'Tanay'}! 👋</Heading>
+        <Heading color={theme.colors.brand['500']}>Hi {'Tanay'}! 👋</Heading>
         <Text
           fontWeight={'500'}
           margin={'1rem 0'}
-          color={colors.textColor}
+          color={theme.colors.black['50']}
           maxWidth={'450px'}
         >
           Thank you for trusting us to start your programming journey. We are
@@ -35,8 +34,8 @@ export function IntroCard() {
       <Flex
         position={'relative'}
         flex={'1'}
-        minHeight={isSmallerThan800 ? '200px' : '300px'}
-        maxWidth={isSmallerThan800 ? '100%' : '350px'}
+        minHeight={['200px', '300px']}
+        maxWidth={['100%', '350px']}
         alignItems={'center'}
         padding={'2rem'}
       >

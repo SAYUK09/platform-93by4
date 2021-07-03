@@ -72,7 +72,7 @@ export function CheckList() {
 
       <Flex marginTop={'3rem'} justifyContent={'space-between'}>
         <Button
-          colorScheme="blue"
+          colorscheme="blue"
           size={'lg'}
           variant="outline"
           _hover={{ bg: 'rgba(49, 130, 206, 0.1)' }}
@@ -85,16 +85,14 @@ export function CheckList() {
         </Button>
 
         <Button
-          colorScheme="blue"
+          colorscheme="blue"
           size={'lg'}
           onClick={() => handleNextButton()}
-          visibility={checkAllIdsInArray() ? 'visible' : 'hidden'}
+          disabled={!checkAllIdsInArray()}
         >
           Next
         </Button>
       </Flex>
-
-      {/* CheckListData.length === allMarksChecked.length */}
     </Layout>
   )
 }

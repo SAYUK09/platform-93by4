@@ -13,7 +13,7 @@ export function CongratsCard({
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      colorScheme="black.200"
+      colorscheme="black.200"
       m="10"
       p="10"
       background="black.800"
@@ -45,7 +45,7 @@ export function CongratsCard({
             Tweet this out!
           </Link>
         </Heading>
-        <Button colorScheme="brand" color="black">
+        <Button colorscheme="brand" color="black">
           <a href="/">Go back to Dashboard</a>
         </Button>
       </Flex>

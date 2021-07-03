@@ -33,7 +33,7 @@ const SubmissionWindow: React.FC = () => {
       console.log(response)
 
       if (response.status === 202) {
-        router.push('./submission/congrats-card')
+        router.push('./submission/congrats')
       } else {
         setOutput('Portfolio URL already exists, try again with your own URL')
       }
