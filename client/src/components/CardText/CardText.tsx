@@ -6,8 +6,8 @@ import { theme } from '../../themes'
 interface CardTextPropType {
   collapsible?: boolean
   status?: string
-  title: string
-  subTitle: string | JSX.Element
+  title?: string
+  subTitle?: string | JSX.Element
   checklist?: ChecksType[]
   checkedCount?: number
 }
@@ -36,7 +36,7 @@ export function CardText({
             position={'relative'}
             top={'-2px'}
           >
-            {checkedCount === checklist.length ? (
+            {checkedCount === checklist?.length ? (
               <Image
                 src={'/svgs/circleCheck.svg'}
                 height={'24'}
@@ -70,8 +70,8 @@ export function CardText({
       </Flex>
       {collapsible && (
         <Flex flex={'1'} justifyContent={'center'}>
-          <Text color={theme.colors.white['100']} paddingLeft={'3.5rem'}>
-            {checkedCount}/{checklist.length}
+          <Text color={theme.colors.black['100']} paddingLeft={'3.5rem'}>
+            {checkedCount}/{checklist?.length}
           </Text>
         </Flex>
       )}

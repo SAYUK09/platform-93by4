@@ -31,8 +31,8 @@ export function Card({
   setAllMarksChecked,
   lockIcon,
 }: CardPropType) {
-  const [openDrawer, setOpenDrawer] = useState(false)
-  const [checkCount, setCheckCount] = useState([])
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
+  const [checkCount, setCheckCount] = useState<string[]>([])
 
   useEffect(() => {
     if (checks) {
@@ -73,7 +73,7 @@ export function Card({
             <Link href={`${link}`}>
               <Image
                 src={
-                  link.includes('/checklist')
+                  link && link.includes('/checklist')
                     ? '/svgs/rightArrow.svg'
                     : '/svgs/link.svg'
                 }

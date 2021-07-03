@@ -1,26 +1,30 @@
-import { v4 as uuid } from 'uuid'
 // status will come from server
 
-export const addmissionStagesData = [
+export const statusData = {
+  status: 'interview_done_passed',
+  level: 1, // control the locks
+  statusText: 'Portfolio Not Submitted', // show your header
+  statusDescription: 'Click on step 1 and submit your portfolio for review.',
+}
+
+// data for the step cards
+
+export const steps = [
   {
-    id: uuid(),
-    title: 'Submit your levelZero Portfolio',
-    subTitle: 'Current status: submitted',
-    link: '/submission/questions',
-    status: 'submitted',
+    content: 'Submit your portfolio',
+    link: '/portfolio',
+    level: 1,
   },
   {
-    id: uuid(),
-    title: 'Give your Interview',
-    subTitle: 'Current status: not submitted',
-    link: '/',
-    status: 'locked',
+    content: 'Interview',
+    link: '/interview',
+    level: 2,
   },
   {
-    id: uuid(),
-    title: 'Secure your seat',
-    subTitle: 'Current status: not submitted',
-    link: '/',
-    status: 'locked',
+    content: 'Payment',
+    link: '/payment',
+    level: 3,
   },
 ]
+
+export const submissionSting = 'Submission in Neog camp is a 3 step process : '

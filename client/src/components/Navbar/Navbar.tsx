@@ -1,5 +1,15 @@
-import { Flex, Heading, WrapItem, Avatar } from '@chakra-ui/react'
+import {
+  Flex,
+  Heading,
+  WrapItem,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuGroup,
+  MenuItem,
+} from '@chakra-ui/react'
 import { theme } from '../../themes'
+import { FaUserCircle } from 'react-icons/fa'
 
 export function Navbar() {
   return (
@@ -32,7 +42,24 @@ export function Navbar() {
           neoG.camp
         </Heading>
         <WrapItem>
-          <Avatar name="tanay pratap" />
+          <Menu>
+            <MenuButton>
+              <FaUserCircle
+                style={{
+                  width: '2rem',
+                  height: '2rem',
+                  strokeWidth: '20px',
+                  fill: 'none',
+                  color: theme.colors.black['100'],
+                }}
+              />
+            </MenuButton>
+            <MenuList background={theme.colors.black['700']}>
+              <MenuGroup>
+                <MenuItem>Logout </MenuItem>
+              </MenuGroup>
+            </MenuList>
+          </Menu>
         </WrapItem>
       </Flex>
     </Flex>
