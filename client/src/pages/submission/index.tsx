@@ -5,6 +5,7 @@ import { Layout } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
+import { SubmissionData } from '../../data/strings/submission'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -51,7 +52,7 @@ const SubmissionWindow: React.FC = () => {
           color={theme.colors.brand['500']}
           fontFamily="Inter"
         >
-          Congrats, your portfolio is ready to submit!
+          {SubmissionData.heading}
         </Heading>
         <Box
           borderWidth="1px"
@@ -71,7 +72,7 @@ const SubmissionWindow: React.FC = () => {
                 ml="2"
                 color={theme.colors.black['50']}
               >
-                Submit your portfolio for review:
+                {SubmissionData.text}
               </Heading>
             </Flex>
             <Flex justifyContent="center" alignItems="center" p="5">

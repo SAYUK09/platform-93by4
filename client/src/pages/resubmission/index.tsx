@@ -2,8 +2,9 @@ import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
 import { useRef, useState, useEffect } from 'react'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
-import { theme } from '../../themes';
-import { isUrlValid } from '../../utils/utils';
+import { theme } from '../../themes'
+import { isUrlValid } from '../../utils/utils'
+import { ResubmissionData } from '../../data/strings/submission'
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -15,7 +16,7 @@ const ReSubmissionWindow: React.FC = () => {
     inputRef.current.focus()
   }, [])
 
-const checkPortfolioUrl = ():void => {
+  const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
       setDisabledButton(false)
     } else {
@@ -23,7 +24,7 @@ const checkPortfolioUrl = ():void => {
     }
   }
 
-  const submitPortfolioUrl = async ():Promise<void> => {
+  const submitPortfolioUrl = async (): Promise<void> => {
     console.log('cool')
     router.push('./resubmission/recongrats-card')
   }
@@ -37,16 +38,10 @@ const checkPortfolioUrl = ():void => {
             color={theme.colors.brand['500']}
             fontFamily="Inter"
           >
-            Kudos! Are you ready to re-submit?
+            {ResubmissionData.heading}
           </Heading>
           <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={4}>
-            Please check the feedback provided by the reviwer and re-submit your
-            complete portfolio. We would encourage you to go through the
-            <Text color={theme.colors.brand['500']} d="inline">
-              {' '}
-              mark15 guide
-            </Text>{' '}
-            once more too.
+           {ResubmissionData.discription}
           </Text>
         </Flex>
         <Box
@@ -66,7 +61,7 @@ const checkPortfolioUrl = ():void => {
                 color={theme.colors.brand['500']}
                 fontFamily="Inter"
               >
-                You did a great job, but missed a few things.
+                {ResubmissionData.title}
               </Heading>
             </Flex>
             <Heading
@@ -76,8 +71,7 @@ const checkPortfolioUrl = ():void => {
               fontFamily="Inter"
               pt="2"
             >
-              Your portfolio needs revision and resubmission. Here are a few
-              pointers and feedback:
+              {ResubmissionData.subTitle}
             </Heading>
             <Text color={theme.colors.black['50']} fontSize="16px" pt="3">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
