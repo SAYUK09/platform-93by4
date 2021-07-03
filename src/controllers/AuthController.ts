@@ -29,8 +29,8 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
   })
 
   if (isAlreadyRegistered) {
-    return res.json({
-      msg: 'An account with that email already exists. Please try signing up using another email. If you think this is a mistake, please contact support@neog.camp',
+    return res.status(409).json({
+      msg: 'An account with that email already exists. Please log in instead.',
     })
   }
 
@@ -43,6 +43,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
     })
 
     const verificationToken = await user.getEmailVerificationToken()
+    const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
 
     await user.save((err) => {
       if (err) {
@@ -59,7 +60,14 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         from: 'Sushil from Neog <neogcamp@neog.com>',
         to: user.email,
         subject: 'Confirm your email address.',
-        html: `<h1>Hello world Here is your token ${verificationToken}</h1>`,
+        html: `<div>
+        Thank you for registering on neog.camp ! We are excited to have you onboard.
+        Please click this link to confirm your email address with us. We hope you are ready for neog!
+        
+        <a href=${verificationLink} target="_blank noreferrer noopener"/>
+          <button> Verify Email Addres </button>
+        </a>
+        </div>`,
       })
       return res.status(200).json({
         msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
@@ -88,11 +96,11 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
  * */
 export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
   async (req, res) => {
-    const { verificationToken, email } = req.body
+    const { verificationToken } = req.body
 
     try {
       const user = await User.findOne({
-        email,
+        verificationToken,
       })
 
       if (!user) {
@@ -122,20 +130,21 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
         user.verificationTokenExpiresIn = undefined
 
         await user.save()
+
+        const token = await createToken({
+          _id: user._id,
+          email: user.email,
+        })
+
+        res.cookie('token', token, {
+          httpOnly: true,
+        })
+
+        // TODO : send cookie here or session here
+        res.status(200).json({
+          msg: 'Your email address has been verified. You may now continue using the website.',
+        })
       }
-      const token = await createToken({
-        _id: user._id,
-        email: user.email,
-      })
-
-      res.cookie('token', token, {
-        httpOnly: true,
-      })
-
-      // TODO : send cookie here or session here
-      res.status(200).json({
-        msg: 'Your email address has been verified. You may now continue using the website.',
-      })
     } catch (error) {
       return res.status(500).json({
         msg: 'Something went wrong while verifying your email. Please try again or contact support@neogcamp.com',
@@ -189,6 +198,8 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
       msg: 'Logged in successfully !',
       email,
       firstName: user.firstName,
+      lastName: user.lastName,
+      userId: user._id,
       token,
     })
   } catch (error) {
@@ -222,7 +233,7 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   }
 
   const verificationToken = await user.getEmailVerificationToken()
-
+  const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
   await user.save((err) => {
     if (err) {
       return res.status(500).json({
@@ -237,9 +248,16 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
       from: 'Sushil from Neog <neogcamp@neog.com>',
       to: user.email,
       subject: 'Confirm your email address.',
-      html: `<h1>Verify Email : Here is your token ${verificationToken}</h1>`,
+      html: `<div>
+      Thank you for registering on neog.camp ! We are excited to have you onboard.
+      Please click this link to confirm your email address with us. We hope you are ready for neog!
+      
+      <a href=${verificationLink} target="_blank noreferrer noopener"/>
+        <button> Verify Email Addres </button>
+      </a>
+      </div>`,
     })
-    return res.status(200).json({
+    return res.status(201).json({
       msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
     })
   } catch (error) {
@@ -273,14 +291,20 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
     await user.save()
 
     // Ṭodo -> this can be better.
-    // const resetURL = `http://localhost:3000/auth/resetpassword/${resetToken}`
+    const resetURL = `http://localhost:3000/auth/forgot-password/${resetToken}`
 
     try {
       await sendEmail({
         from: 'no-reply@neog.camp',
         to: user.email,
         subject: '[NeoG Camp] Password Reset Requested',
-        html: `<h1>Password Reset Token for ${user.email} ${resetToken}</h1>`,
+        html: `<div>
+          <p> Password Reset Link for ${user.email}. Please click this link to reset your password. Ignore if password
+          reset was not issued by you.</p> 
+          
+         <a href=${resetURL} target="_blank noreferrer noopener"><button>Click here to reset password</button></a> 
+
+          </div>`,
       })
       return res.status(200).json({
         msg: 'An email containing link to reset password has been sent to you. Please check your inbox.',
@@ -365,7 +389,10 @@ export const userInfoHandler = async (req: AuthRequest, res: Response) => {
       email: user.email,
     })
     res.status(200).json({
-      foundUser,
+      email: foundUser?.email,
+      firstName: foundUser?.firstName,
+      lastName: foundUser?.lastName,
+      userId: foundUser?._id,
     })
   } catch (error) {
     res.status(500).json({
