@@ -38,9 +38,7 @@ export const sendVerificationToken = async (
   return response
 }
 
-export const sendForgotPasswordRequest = async (data: {
-  passwordResetToken: string | undefined
-}) => {
+export const sendForgotPasswordRequest = async (data: { email: string }) => {
   const response = await apiClient.post('/auth/forgot-password', {
     ...data,
   })
@@ -67,5 +65,12 @@ export const getUser = async () => {
 
 export const logout = async () => {
   const response = await apiClient.post('/auth/logout')
+  return response
+}
+
+export const resendLink = async (email: string | undefined) => {
+  const response = await apiClient.post('/auth/email-verification/resend', {
+    email,
+  })
   return response
 }
