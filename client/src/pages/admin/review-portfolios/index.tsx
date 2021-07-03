@@ -21,7 +21,7 @@ import Head from 'next/head'
 export default function ReviewPortfolios(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true)
 
-  function handleInputChange(e: { target: { value: string | number } }) {
+  function addReviewComment(e: { target: { value: string | number } }): void {
     if (e.target.value) {
       setDisableButton(false)
     } else {
@@ -102,7 +102,7 @@ export default function ReviewPortfolios(): JSX.Element {
 
                 <Box paddingY="6" paddingX="2">
                   <Textarea
-                    onChange={handleInputChange}
+                    onChange={addReviewComment}
                     border="black.800"
                     color="white"
                     bg="black.700"
