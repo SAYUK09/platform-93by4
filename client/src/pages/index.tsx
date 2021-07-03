@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import { Layout } from '../components';
 import { colors } from '../styles/themeVars/themeVars';
 import { Text } from '@chakra-ui/react';
