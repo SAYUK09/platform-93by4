@@ -124,7 +124,3 @@ const ReSubmissionWindow: React.FC = () => {
 }
 
 export default ReSubmissionWindow
-
-
-
-

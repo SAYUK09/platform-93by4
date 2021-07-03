@@ -1,5 +1,5 @@
 import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
-import { useRef, useState, useEffect, RefObject } from 'react'
+import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
@@ -9,12 +9,12 @@ import { SubmissionData } from '../../data/strings/submission'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
-  const inputRef = useRef<any>(null)
+  const inputRef = useRef() as MutableRefObject<HTMLInputElement>
   const [output, setOutput] = useState<string>('')
   const router = useRouter()
 
   useEffect(() => {
-    inputRef.current.focus()
+    inputRef.current?.focus()
   }, [])
 
   const checkPortfolioUrl = (): void => {
