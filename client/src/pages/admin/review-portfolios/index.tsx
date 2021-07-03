@@ -16,6 +16,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { Navbar } from '../../../components'
 import { useState } from 'react'
+import Head from 'next/head'
 
 export default function ReviewPortfolios(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true)
@@ -36,6 +37,10 @@ export default function ReviewPortfolios(): JSX.Element {
       direction={{ base: 'column', md: 'column', sm: 'column' }}
       minH="100%"
     >
+      <Head>
+        <title>Review Portfolio</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Navbar />
 
       <div style={{ minHeight: 'calc(100vh - 60px)' }}>
@@ -131,6 +136,7 @@ export default function ReviewPortfolios(): JSX.Element {
                   >
                     Needs Revision
                   </Button>
+
                   <Button my="2" variant="solid" bg="brand.300" size="md">
                     Ready For Mark15
                   </Button>
