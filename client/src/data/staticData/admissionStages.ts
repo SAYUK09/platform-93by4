@@ -1,31 +1,30 @@
-// statusData will come from server
+// status will come from server
 
-export const statusData =  {
-  status: "interview_done_passed",
+export const statusData = {
+  status: 'interview_done_passed',
   level: 1, // control the locks
-  statusText: "Portfolio Not Submitted", // show your header
-  statusDescription: "Click on step 1 and submit your portfolio for review.",
+  statusText: 'Portfolio Not Submitted', // show your header
+  statusDescription: 'Click on step 1 and submit your portfolio for review.',
 }
 
-
-// data for the step cards 
+// data for the step cards
 
 export const steps = [
   {
-    content: "Submit your portfolio",
-    link: "/portfolio",
+    content: 'Submit your portfolio',
+    link: '/portfolio',
     level: 1,
   },
   {
-    content: "Interview",
-    link: "/interview",
+    content: 'Interview',
+    link: '/interview',
     level: 2,
   },
   {
-    content: "Payment",
-    link: "/payment",
+    content: 'Payment',
+    link: '/payment',
     level: 3,
   },
-];
+]
 
-export const submissionSting = "Submission in Neog camp is a 3 step process : "
+export const submissionSting = 'Submission in Neog camp is a 3 step process : '
