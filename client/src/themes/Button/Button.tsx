@@ -1,20 +1,24 @@
 export const Button = {
   baseStyle: {
-    fontWeight: 'bold',
+    fontWeight: 'medium',
     borderRadius: 'base',
   },
   sizes: {},
   variants: {
+    solid: {
+      bg: 'brand.500',
+      color: 'black.800',
+      _hover: { bg: 'brand.600' },
+    },
     outline: {
+      bg: 'black.800',
       border: '2px solid',
       borderColor: 'brand.500',
       color: 'brand.500',
-      _hover: { color: 'white', borderColor: 'white', bg: 'black' },
+      _hover: { color: 'brand.600', borderColor: 'brand.600', bg: 'black.800' },
     },
-    solid: {
-      bg: 'brand.500',
-      color: 'black',
-      _hover: { bg: 'white' },
+    link: {
+      color: 'white',
     },
   },
   defaultProps: {
