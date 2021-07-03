@@ -1,11 +1,11 @@
 import React from "react";
 import { Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import DashboardImage from "../../images/dashboard-girl.png";
-export function IntroCard({ status, bgColor } : any) {
+import DashboardImage from "../../images/dashboard-girl.png"
+export function StatusCard({ status, bgColor } : any) {
+  
   return (
     <Flex
-      className="welcome-section"
       bgColor={bgColor}
       p={8}
       borderRadius={5}

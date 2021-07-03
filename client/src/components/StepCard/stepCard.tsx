@@ -1,7 +1,5 @@
 import React from "react";
 import { Flex, Box, Heading } from "@chakra-ui/react";
-import Link from "next/link";
-
 import { UnlockIcon, LockIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 export default function StepCard({ bgColor, step, status }: any) {
   return (
@@ -27,9 +25,9 @@ export default function StepCard({ bgColor, step, status }: any) {
       </Heading>
 
       {status.level == step.level ? (
-        <Link href={step.link}>
+        <a href={step.link}>
           <ExternalLinkIcon boxSize="30px" m={2} />
-        </Link>
+        </a>
       ) : (
         <ExternalLinkIcon boxSize="30px" m={2} color="gray.600" />
       )}
