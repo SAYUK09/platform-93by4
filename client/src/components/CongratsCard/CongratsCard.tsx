@@ -30,8 +30,13 @@ export function CongratsCard({
       <Text fontSize="14px" fontStyle="bold" color="white">
         Current Status: {currentStatus}
       </Text>
-      <Flex pt="5" justifyContent="space-between" alignItems="center">
-        <Heading fontSize="md">
+      <Flex
+        pt="5"
+        justifyContent="space-between"
+        alignItems="center"
+        flexDirection={{ base: 'column', md: 'row' }}
+      >
+        <Heading fontSize="md" p={{ base: '3', md: '0' }}>
           <Link href="https://twitter.com" isExternal color="cyan">
             Tweet this out!
           </Link>

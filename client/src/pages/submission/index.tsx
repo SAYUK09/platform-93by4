@@ -75,22 +75,29 @@ const SubmissionWindow: React.FC = () => {
                 {SubmissionData.text}
               </Heading>
             </Flex>
-            <Flex justifyContent="center" alignItems="center" p="5">
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              p="5"
+              flexDirection={['column', 'row']}
+              gap="1rem"
+            >
               <Input
                 placeholder="https://adarshbalika.netlify.app"
                 onChange={checkPortfolioUrl}
                 ref={inputRef}
                 border="none"
                 background={theme.colors.black['600']}
-                width="auto"
-                color={theme.colors.black['100']}
+                width="100%"
+                color={theme.colors.black['50']}
               />
               <Button
-                ml="10"
                 background={theme.colors.brand['500']}
                 isDisabled={disableButton}
                 onClick={submitPortfolioUrl}
                 color={theme.colors.black['900']}
+                mt={['1rem', '0']}
+                ml={['0', '1rem']}
               >
                 Submit
               </Button>

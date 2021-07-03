@@ -41,15 +41,15 @@ const ReSubmissionWindow: React.FC = () => {
             {ResubmissionData.heading}
           </Heading>
           <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={4}>
-           {ResubmissionData.discription}
+            {ResubmissionData.discription}
           </Text>
         </Flex>
         <Box
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
-          m="10"
-          p="5"
+          m={["2rem 0","2rem"]}
+          p="2rem"
           background={theme.colors.black['700']}
           border="none"
         >
@@ -78,22 +78,23 @@ const ReSubmissionWindow: React.FC = () => {
               Inventore, deleniti consequatur! Officiis consequuntur quia
               molestias quibusdam architecto! Recusandae beatae.
             </Text>
-            <Flex justifyContent="center" alignItems="center" p="5">
+            <Flex justifyContent="center" alignItems="center" p="5" flexDirection={["column","row"]} gap="1rem">
               <Input
                 placeholder="https://adarshbalika.netlify.app"
                 onChange={checkPortfolioUrl}
                 ref={inputRef}
                 border="none"
                 background={theme.colors.black['600']}
-                width="auto"
+                width="100%"
                 color={theme.colors.black['50']}
               />
               <Button
-                ml="10"
                 background={theme.colors.brand['500']}
                 isDisabled={disableButton}
                 onClick={submitPortfolioUrl}
                 color={theme.colors.black['900']}
+                mt={["1rem","0"]}
+                ml={["0","1rem"]}
               >
                 Resubmit
               </Button>
