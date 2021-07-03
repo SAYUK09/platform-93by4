@@ -7,7 +7,7 @@ function IndexPage() {
     <Layout>
       <Text color={colors.textColor}>HI</Text>
     </Layout>
-  );
+  )
 }
 
-export default IndexPage;
+export default IndexPage
