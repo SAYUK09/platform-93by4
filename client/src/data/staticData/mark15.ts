@@ -1,17 +1,17 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 export interface ChecksType {
-  id: string;
-  text: string;
+  id: string
+  text: string
 }
 
 export interface CheckListType {
-  id: string;
-  title?: string;
-  checks?: ChecksType[];
+  id: string
+  title?: string
+  checks?: ChecksType[]
 }
 
-export const CardOnEachPage = 4;
+export const CardOnEachPage = 4
 
 export const CheckListData: CheckListType[] = [
   {
@@ -130,4 +130,4 @@ export const CheckListData: CheckListType[] = [
       },
     ],
   },
-];
+]

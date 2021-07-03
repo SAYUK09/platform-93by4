@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-import { Flex, Text, Heading, WrapItem, Avatar } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
-=======
-import { Flex, Text, Heading, WrapItem, Avatar } from '@chakra-ui/react'
-import { colors } from '../../styles/themeVars/themeVars'
->>>>>>> 4e33e15b90eb8a862ae643e6bebe2721d5f03277
+import { Flex, Heading, WrapItem, Avatar } from '@chakra-ui/react'
+import { theme } from '../../themes'
 
 export function Navbar() {
   return (
     <Flex
-      background={colors.darkGrey}
-<<<<<<< HEAD
+      background={theme.colors.black['700']}
       width={'100vw'}
-=======
-      width={'100%'}
->>>>>>> 4e33e15b90eb8a862ae643e6bebe2721d5f03277
       maxHeight={'60px'}
       minHeight={'60px'}
       alignItems={'center'}
@@ -22,13 +13,10 @@ export function Navbar() {
       position={'sticky'}
       top={'0'}
       left={'0'}
-<<<<<<< HEAD
       zIndex={'2'}
-=======
->>>>>>> 4e33e15b90eb8a862ae643e6bebe2721d5f03277
     >
       <Flex
-        background={colors.darkGrey}
+        background={theme.colors.black['700']}
         width={'100vw'}
         height={'100%'}
         alignItems={'center'}
@@ -38,7 +26,7 @@ export function Navbar() {
       >
         <Heading
           fontSize={'1.8rem'}
-          backgroundImage={colors.blueGradient}
+          backgroundImage={`linear-gradient(${theme.colors.brand['500']}, ${theme.colors.brand['600']})`}
           backgroundClip={'text'}
         >
           neoG.camp

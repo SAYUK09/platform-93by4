@@ -1,10 +1,10 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Text } from '@chakra-ui/react'
+import { theme } from '../../themes'
 
 interface LockIconPropType {
-  collapsible?: boolean;
-  status?: string;
-  index?: number;
+  collapsible?: boolean
+  status?: string
+  index?: number
 }
 
 export function LockIcon({ collapsible, status, index }: LockIconPropType) {
@@ -14,7 +14,9 @@ export function LockIcon({ collapsible, status, index }: LockIconPropType) {
         <Flex alignItems={'center'} transform={['scale(1)', 'scale(0.85)']}>
           <Text
             background={
-              status === 'submitted' ? colors.lightBlue : colors.textMuted
+              status === 'submitted'
+                ? theme.colors.green['300']
+                : theme.colors.gray['300']
             }
             display={'flex'}
             justifyContent={'center'}
@@ -35,17 +37,16 @@ export function LockIcon({ collapsible, status, index }: LockIconPropType) {
                 left={'3px'}
                 transform={'rotate(180deg)'}
                 fontSize={'2rem'}
-                color={colors.textMuted}
+                color={theme.colors.gray['300']}
               >
                 U
               </Text>
             )}
-            <Text position={'relative'} top={'2px'}>
-              {index + 1}
-            </Text>
+
+            {index + 1}
           </Text>
         </Flex>
       )}
     </>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { Flex, Box } from '@chakra-ui/react';
-import { ReactNode } from 'react';
-import Head from 'next/head';
-import { colors } from '../../styles/themeVars/themeVars';
-import { Navbar } from '../';
+import { Flex, Box } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import Head from 'next/head'
+import { Navbar } from '../'
+import { theme } from '../../themes'
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <Flex
-      background={colors.blackColor}
+      background={theme.colors.black['900']}
       height={`100vh`}
       maxWidth={`100vw`}
       margin={'auto'}
@@ -30,5 +30,5 @@ export function Layout({ children }: { children: ReactNode }) {
         {children}
       </Box>
     </Flex>
-  );
+  )
 }

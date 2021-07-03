@@ -1,6 +1,6 @@
-import { Schema, model, Model } from 'mongoose';
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
+import { Schema, model, Model } from 'mongoose'
+import bcrypt from 'bcrypt'
+import crypto from 'crypto'
 
 // note : Add user roles as enum
 /**
@@ -8,18 +8,18 @@ import crypto from 'crypto';
  * you are attaching in DB in this interface
  */
 export interface IUser {
-  email: string;
-  isVerified: boolean;
-  firstName: string;
-  lastName: string;
-  password: string;
-  verificationToken: string | undefined;
-  passwordResetToken: string | undefined;
-  passwordResetTokenExpire: Date | undefined;
-  verificationTokenExpiresIn: Date | undefined;
-  getPasswordResetToken: () => Promise<string>;
-  getEmailVerificationToken: () => Promise<string>;
-  matchPasswords: (password: string) => Promise<boolean>;
+  email: string
+  isVerified: boolean
+  firstName: string
+  lastName: string
+  password: string
+  verificationToken: string | undefined
+  passwordResetToken: string | undefined
+  passwordResetTokenExpire: Date | undefined
+  verificationTokenExpiresIn: Date | undefined
+  getPasswordResetToken: () => Promise<string>
+  getEmailVerificationToken: () => Promise<string>
+  matchPasswords: (password: string) => Promise<boolean>
 }
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
@@ -66,40 +66,40 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
   {
     timestamps: true,
   }
-);
+)
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    next();
+    next()
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+  next()
+})
 
 userSchema.methods.matchPasswords = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
+  return await bcrypt.compare(password, this.password)
+}
 
 userSchema.methods.getEmailVerificationToken = function () {
-  const verificationToken = crypto.randomBytes(16).toString('hex');
-  this.verificationToken = verificationToken;
+  const verificationToken = crypto.randomBytes(16).toString('hex')
+  this.verificationToken = verificationToken
   this.verificationTokenExpiresIn = new Date(
     new Date().getTime() + 24 * 60 * 60 * 1000
-  );
-  return verificationToken;
-};
+  )
+  return verificationToken
+}
 
 userSchema.methods.getPasswordResetToken = async function () {
-  const resetToken = crypto.randomBytes(20).toString('hex');
+  const resetToken = crypto.randomBytes(20).toString('hex')
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)
-    .digest('hex');
+    .digest('hex')
   this.passwordResetTokenExpire = new Date(
     new Date().getTime() + 10 * (60 * 1000)
-  );
-  return resetToken;
-};
+  )
+  return resetToken
+}
 
-export const User = model<IUser>('User', userSchema);
+export const User = model<IUser>('User', userSchema)

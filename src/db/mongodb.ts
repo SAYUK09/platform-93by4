@@ -4,8 +4,8 @@
 /**
  * Why is this rule disabled ? we are sure env vars are non null..
  * */
-import mongoose from 'mongoose';
-import log from '../utils/logger';
+import mongoose from 'mongoose'
+import log from '../utils/logger'
 
 /**
  * This function creates connection to the database with given options.
@@ -25,13 +25,13 @@ export const makeConnection = async () => {
       }
     )
     .then(() => {
-      log.info(`[${process.env.NODE_ENV}]` + '📀 Connected to Database');
+      log.info(`[${process.env.NODE_ENV}]` + '📀 Connected to Database')
     })
     .catch((error: Error) => {
       log.error(
         `There was an error while connecting to database. 
 			You likely forgot to include mongoDB connection URL or it is invalid.`,
         error
-      );
-    });
-};
+      )
+    })
+}

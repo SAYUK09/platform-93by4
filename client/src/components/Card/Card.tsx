@@ -1,22 +1,22 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { LockIcon, CardText, CheckList } from '../';
-import { CheckListType } from '../../data/staticData/mark15';
-import { handleMarksChecked } from './handlers';
+import { Box, Flex } from '@chakra-ui/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { LockIcon, CardText, CheckList } from '../'
+import { CheckListType } from '../../data/staticData/mark15'
+import { theme } from '../../themes'
+import { handleMarksChecked } from './handlers'
 
 interface CardPropType extends CheckListType {
-  collapsible?: boolean;
-  status?: string;
-  id: string;
-  title?: string;
-  subTitle?: string | JSX.Element;
-  link?: string;
-  index?: number;
-  lockIcon?: boolean;
-  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>;
+  collapsible?: boolean
+  status?: string
+  id: string
+  title?: string
+  subTitle?: string | JSX.Element
+  link?: string
+  index?: number
+  lockIcon?: boolean
+  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>
 }
 
 export function Card({
@@ -31,8 +31,8 @@ export function Card({
   setAllMarksChecked,
   lockIcon,
 }: CardPropType) {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [checkCount, setCheckCount] = useState([]);
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const [checkCount, setCheckCount] = useState([])
 
   useEffect(() => {
     if (checks) {
@@ -41,15 +41,15 @@ export function Card({
         checks.length,
         checkCount.length,
         setAllMarksChecked
-      );
+      )
     }
-  }, [checks, id, setAllMarksChecked, checkCount]);
+  }, [checks, id, setAllMarksChecked, checkCount])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
       <Flex
         width={'100%'}
-        background={colors.darkGrey}
+        background={theme.colors.black['800']}
         padding={'1.5rem'}
         alignItems={'center'}
         flexDirection={[!collapsible ? 'column' : 'row', 'row']}
@@ -99,7 +99,7 @@ export function Card({
         <Flex
           display={'flex'}
           flexDirection={'column'}
-          background={colors.darkGrey}
+          background={theme.colors.black['800']}
           padding={openDrawer ? '0rem 3rem 1.7rem 3rem' : '0 3rem'}
           transition={'0s padding ease, 0.4s all ease'}
           maxHeight={openDrawer ? '10000vh' : '0'}
@@ -111,5 +111,5 @@ export function Card({
         </Flex>
       )}
     </Box>
-  );
+  )
 }

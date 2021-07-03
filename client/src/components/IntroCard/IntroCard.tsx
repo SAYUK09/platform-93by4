@@ -1,12 +1,13 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
-import Image from 'next/image';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Heading, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import { theme } from '../../themes'
+
 export function IntroCard() {
   return (
     <Flex
       width={'100%'}
       marginTop={'2rem'}
-      background={colors.darkGrey}
+      background={theme.colors.black['800']}
       borderRadius={'8px'}
       padding={['1rem', '2rem']}
       flexDirection={['column-reverse', 'row']}
@@ -19,11 +20,11 @@ export function IntroCard() {
         marginTop={['2rem', '']}
         textAlign={['center', 'left']}
       >
-        <Heading color={colors.lightBlue}>Hi {'Tanay'}! 👋</Heading>
+        <Heading color={theme.colors.brand['500']}>Hi {'Tanay'}! 👋</Heading>
         <Text
           fontWeight={'500'}
           margin={'1rem 0'}
-          color={colors.textColor}
+          color={theme.colors.black['50']}
           maxWidth={'450px'}
         >
           Thank you for trusting us to start your programming journey. We are
@@ -41,5 +42,5 @@ export function IntroCard() {
         <Image src={'/svgs/hello.svg'} layout={'fill'} />
       </Flex>
     </Flex>
-  );
+  )
 }

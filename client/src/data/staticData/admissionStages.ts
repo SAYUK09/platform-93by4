@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 // status will come from server
 
 export const addmissionStagesData = [
@@ -23,4 +23,4 @@ export const addmissionStagesData = [
     link: '/',
     status: 'locked',
   },
-];
+]

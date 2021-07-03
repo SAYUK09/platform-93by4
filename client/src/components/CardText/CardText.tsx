@@ -1,20 +1,19 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
-import Image from 'next/image';
-import { ChecksType } from '../../data/staticData/mark15';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Heading, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import { ChecksType } from '../../data/staticData/mark15'
+import { theme } from '../../themes'
 
 interface CardTextPropType {
-  collapsible?: boolean;
-  status?: string;
-  title: string;
-  subTitle: string | JSX.Element;
-  checklist?: ChecksType[];
-  checkedCount?: number;
+  collapsible?: boolean
+  status?: string
+  title: string
+  subTitle: string | JSX.Element
+  checklist?: ChecksType[]
+  checkedCount?: number
 }
 
 export function CardText({
   collapsible,
-  status,
   title,
   subTitle,
   checklist,
@@ -54,16 +53,16 @@ export function CardText({
             )}
           </Flex>
         )}
-        <Heading color={colors.textColor} fontSize={'1.3rem'}>
+        <Heading color={theme.colors.black['50']} fontSize={'1.3rem'}>
           {title}
         </Heading>
         {!collapsible && (
           <Text
-            color={colors.textMuted}
+            color={theme.colors.black['100']}
             marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
-            paddingRight={'1rem'}
+            padding={'0 0.5rem'}
           >
             {subTitle}
           </Text>
@@ -71,11 +70,11 @@ export function CardText({
       </Flex>
       {collapsible && (
         <Flex flex={'1'} justifyContent={'center'}>
-          <Text color={colors.textMuted} paddingLeft={'3.5rem'}>
+          <Text color={theme.colors.white['100']} paddingLeft={'3.5rem'}>
             {checkedCount}/{checklist.length}
           </Text>
         </Flex>
       )}
     </>
-  );
+  )
 }

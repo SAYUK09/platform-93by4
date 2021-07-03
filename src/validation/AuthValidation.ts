@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 export const signUpSchema = yup.object({
   firstName: yup.string().required('First name is a required field.'),
@@ -16,7 +16,7 @@ export const signUpSchema = yup.object({
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case character'
     ),
-});
+})
 
 export const signInSchema = yup.object({
   email: yup
@@ -24,20 +24,20 @@ export const signInSchema = yup.object({
     .required('Email is required to sign in.')
     .email('Make sure email is valid.'),
   password: yup.string().required('Password is required to sign in.'),
-});
+})
 
 export const emailVerificationSchema = yup.object({
   email: yup.string().email().required(),
   verificationToken: yup.string().required(),
-});
+})
 
 export const resendLinkSchema = yup.object({
   email: yup.string().email().required(),
-});
+})
 
-export type SignUpBody = yup.InferType<typeof signUpSchema>;
-export type SignInBody = yup.InferType<typeof signInSchema>;
+export type SignUpBody = yup.InferType<typeof signUpSchema>
+export type SignInBody = yup.InferType<typeof signInSchema>
 export type EmailVerificationBody = yup.InferType<
   typeof emailVerificationSchema
->;
-export type ResendLinkBody = yup.InferType<typeof resendLinkSchema>;
+>
+export type ResendLinkBody = yup.InferType<typeof resendLinkSchema>

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react'
 
 export function handleMarksChecked(
   id: string,
@@ -7,10 +7,10 @@ export function handleMarksChecked(
   setAllMarksChecked: Dispatch<SetStateAction<string[]>>
 ) {
   if (checkCount === checksLength) {
-    setAllMarksChecked((allMarksChecked) => [...allMarksChecked, id]);
+    setAllMarksChecked((allMarksChecked) => [...allMarksChecked, id])
   } else {
     setAllMarksChecked((allMarksChecked) => {
-      return allMarksChecked.filter((markCheckItem) => markCheckItem !== id);
-    });
+      return allMarksChecked.filter((markCheckItem) => markCheckItem !== id)
+    })
   }
 }
