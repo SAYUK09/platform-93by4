@@ -18,6 +18,18 @@ import { Navbar } from '../../../components'
 import { useState } from 'react'
 import Head from 'next/head'
 
+export type Data = {
+  applicationNo: string | number
+  name: string
+  portfolioLink: string
+}
+
+export const data: Data = {
+  applicationNo: '420',
+  name: 'Tanay Pratap',
+  portfolioLink: 'https://tanay.netlify.app/',
+}
+
 export default function ReviewPortfolios(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true)
 
@@ -86,17 +98,17 @@ export default function ReviewPortfolios(): JSX.Element {
                   color="brand.300"
                   fontSize="sm"
                 >
-                  Application Number : #420
+                  Application Number : #{data.applicationNo}
                 </Text>
                 <Text fontWeight="bold" color="white" fontSize="lg">
                   Name :{' '}
-                  <span style={{ fontWeight: 'normal' }}>Tanay Pratap</span>
+                  <span style={{ fontWeight: 'normal' }}>{data.name}</span>
                 </Text>
 
                 <Text fontWeight="bold" color="white" fontSize="lg">
                   Portfolio Link :{' '}
                   <span style={{ fontWeight: 'normal' }}>
-                    https://tanay.netlify.app/
+                    {data.portfolioLink}
                   </span>
                 </Text>
 
@@ -119,11 +131,10 @@ export default function ReviewPortfolios(): JSX.Element {
                   }}
                   justify={{
                     base: 'center',
-                    md: 'space-around',
+                    md: 'space-between',
                     xl: 'space-between',
                   }}
                   direction={{ base: 'column-reverse', md: 'row' }}
-                  wrap="wrap"
                 >
                   <Button
                     my="2"
@@ -132,12 +143,11 @@ export default function ReviewPortfolios(): JSX.Element {
                     borderColor="brand.300"
                     _hover={{ bg: 'brand.300', color: 'black' }}
                     color="brand.300"
-                    size="md"
                   >
                     Needs Revision
                   </Button>
 
-                  <Button my="2" variant="solid" bg="brand.300" size="md">
+                  <Button my="2" variant="solid" bg="brand.300">
                     Ready For Mark15
                   </Button>
                 </Flex>
