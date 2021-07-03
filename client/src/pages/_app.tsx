@@ -2,7 +2,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
 import { theme } from './../themes/index'
-
 import store from './../feature/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
