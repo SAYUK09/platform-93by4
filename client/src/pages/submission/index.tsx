@@ -90,6 +90,7 @@ const SubmissionWindow: React.FC = () => {
                 background={theme.colors.black['600']}
                 width="100%"
                 color={theme.colors.black['50']}
+                maxWidth="300px"
               />
               <Button
                 background={theme.colors.brand['500']}

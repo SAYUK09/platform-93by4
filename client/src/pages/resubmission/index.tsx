@@ -37,10 +37,11 @@ const ReSubmissionWindow: React.FC = () => {
             size="xl"
             color={theme.colors.brand['500']}
             fontFamily="Inter"
+            pb="1rem"
           >
             {ResubmissionData.heading}
           </Heading>
-          <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={4}>
+          <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={5} pb="1rem">
             {ResubmissionData.discription}
           </Text>
         </Flex>
@@ -48,7 +49,7 @@ const ReSubmissionWindow: React.FC = () => {
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
-          m={["2rem 0","2rem"]}
+          m={['2rem 0', '2rem']}
           p="2rem"
           background={theme.colors.black['700']}
           border="none"
@@ -60,6 +61,7 @@ const ReSubmissionWindow: React.FC = () => {
                 size="md"
                 color={theme.colors.brand['500']}
                 fontFamily="Inter"
+                pb="1rem"
               >
                 {ResubmissionData.title}
               </Heading>
@@ -69,16 +71,22 @@ const ReSubmissionWindow: React.FC = () => {
               size="sm"
               color={theme.colors.black['50']}
               fontFamily="Inter"
-              pt="2"
+              pb="1rem"
             >
               {ResubmissionData.subTitle}
             </Heading>
-            <Text color={theme.colors.black['50']} fontSize="16px" pt="3">
+            <Text color={theme.colors.black['50']} fontSize="16px"  pb="1rem">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Inventore, deleniti consequatur! Officiis consequuntur quia
               molestias quibusdam architecto! Recusandae beatae.
             </Text>
-            <Flex justifyContent="center" alignItems="center" p="5" flexDirection={["column","row"]} gap="1rem">
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              p="5"
+              flexDirection={['column', 'row']}
+              gap="1rem"
+            >
               <Input
                 placeholder="https://adarshbalika.netlify.app"
                 onChange={checkPortfolioUrl}
@@ -87,14 +95,15 @@ const ReSubmissionWindow: React.FC = () => {
                 background={theme.colors.black['600']}
                 width="100%"
                 color={theme.colors.black['50']}
+                maxWidth="300px"
               />
               <Button
                 background={theme.colors.brand['500']}
                 isDisabled={disableButton}
                 onClick={submitPortfolioUrl}
                 color={theme.colors.black['900']}
-                mt={["1rem","0"]}
-                ml={["0","1rem"]}
+                mt={['1rem', '0']}
+                ml={['0', '1rem']}
               >
                 Resubmit
               </Button>
