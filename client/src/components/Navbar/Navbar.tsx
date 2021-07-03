@@ -5,6 +5,7 @@ export function Navbar() {
   return (
     <Flex
       background={colors.darkGrey}
+      width={'100%'}
       maxHeight={'60px'}
       minHeight={'60px'}
       alignItems={'center'}

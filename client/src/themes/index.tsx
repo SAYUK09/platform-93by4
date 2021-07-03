@@ -1,6 +1,12 @@
 import { extendTheme } from '@chakra-ui/react'
+import { Button } from './Button/Button'
+import { Checkbox } from './Checkbox/Checkbox'
 
 export const theme = extendTheme({
+  components: {
+    Button,
+    Checkbox,
+  },
   fonts: {
     body: 'Inter, system-ui, sans-serif',
     heading: 'Inter, system-ui, sans-serif',
