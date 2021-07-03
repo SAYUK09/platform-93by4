@@ -27,3 +27,5 @@ export const steps = [
     level: 3,
   },
 ];
+
+export const submissionSting = "Submission in Neog camp is a 3 step process : "
