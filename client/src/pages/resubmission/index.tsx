@@ -1,8 +1,9 @@
 import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
 import { useRef, useState, useEffect } from 'react'
-import axios from 'axios'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
+import { theme } from '../../themes';
+import { isUrlValid } from '../../utils/utils';
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -14,15 +15,7 @@ const ReSubmissionWindow: React.FC = () => {
     inputRef.current.focus()
   }, [])
 
-  function isUrlValid(portfolioUrl: string): boolean {
-    // eslint-disable-next-line no-useless-escape
-    const urlRegex =
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-    const res = portfolioUrl.match(urlRegex)
-    return res !== null
-  }
-
-  function checkPortfolioUrl() {
+const checkPortfolioUrl = ():void => {
     if (isUrlValid(inputRef.current.value)) {
       setDisabledButton(false)
     } else {
@@ -30,45 +23,63 @@ const ReSubmissionWindow: React.FC = () => {
     }
   }
 
-  const submitPortfolioUrl = async () => {
+  const submitPortfolioUrl = async ():Promise<void> => {
     console.log('cool')
-    router.push("./recongrats-card")
+    router.push('./resubmission/recongrats-card')
   }
   return (
     <>
       <Layout>
         <Flex flexDirection="column" width="auto">
-          <Heading as="h1" size="xl" color="#00F0FF" fontFamily="Inter">
+          <Heading
+            as="h1"
+            size="xl"
+            color={theme.colors.brand['500']}
+            fontFamily="Inter"
+          >
             Kudos! Are you ready to re-submit?
           </Heading>
-          <Text color="white" fontSize="16px" noOfLines={4}>
+          <Text color={theme.colors.black['50']} fontSize="16px" noOfLines={4}>
             Please check the feedback provided by the reviwer and re-submit your
             complete portfolio. We would encourage you to go through the
-            <span style={{ color: '#00F0FF' }}> mark15 guide</span> once more
-            too.
+            <Text color={theme.colors.brand['500']} d="inline">
+              {' '}
+              mark15 guide
+            </Text>{' '}
+            once more too.
           </Text>
         </Flex>
         <Box
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
-          colorScheme="black.200"
           m="10"
           p="5"
-          background="black.800"
+          background={theme.colors.black['700']}
           border="none"
         >
           <Flex flexDirection="column">
             <Flex>
-              <Heading as="h2" size="md" color="#00F0FF" fontFamily="Inter">
+              <Heading
+                as="h2"
+                size="md"
+                color={theme.colors.brand['500']}
+                fontFamily="Inter"
+              >
                 You did a great job, but missed a few things.
               </Heading>
             </Flex>
-            <Heading as="h3" size="sm" color="white" fontFamily="Inter" pt="2">
+            <Heading
+              as="h3"
+              size="sm"
+              color={theme.colors.black['50']}
+              fontFamily="Inter"
+              pt="2"
+            >
               Your portfolio needs revision and resubmission. Here are a few
               pointers and feedback:
             </Heading>
-            <Text color="white" fontSize="16px" pt="3">
+            <Text color={theme.colors.black['50']} fontSize="16px" pt="3">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Inventore, deleniti consequatur! Officiis consequuntur quia
               molestias quibusdam architecto! Recusandae beatae.
@@ -79,21 +90,21 @@ const ReSubmissionWindow: React.FC = () => {
                 onChange={checkPortfolioUrl}
                 ref={inputRef}
                 border="none"
-                background="black.600"
+                background={theme.colors.black['600']}
                 width="auto"
-                color="black.100"
+                color={theme.colors.black['50']}
               />
               <Button
                 ml="10"
-                colorScheme="brand"
+                background={theme.colors.brand['500']}
                 isDisabled={disableButton}
                 onClick={submitPortfolioUrl}
-                color="#151515"
+                color={theme.colors.black['900']}
               >
-                ReSubmit
+                Resubmit
               </Button>
             </Flex>
-            <Text color="red" alignSelf="center">
+            <Text color={theme.colors.red['500']} alignSelf="center">
               {output}
             </Text>
           </Flex>

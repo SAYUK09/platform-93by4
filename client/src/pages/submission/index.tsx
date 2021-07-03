@@ -1,73 +1,107 @@
-import { Flex, Input, Button, Heading } from '@chakra-ui/react';
-import { useRef, useState, useEffect } from 'react';
-import { Layout } from '../../components';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
+import { useRef, useState, useEffect } from 'react'
+import axios from 'axios'
+import { Layout } from '../../components'
+import { useRouter } from 'next/router'
+import { isUrlValid } from '../../utils/utils'
+import { theme } from '../../themes'
 
-export default function SubmissionPage() {
-  const [disableButton, setDisabledButton] = useState(true);
-  const inputRef = useRef(null);
+const SubmissionWindow: React.FC = () => {
+  const [disableButton, setDisabledButton] = useState<boolean>(true)
+  const inputRef = useRef<any>()
+  const [output, setOutput] = useState<string>('')
+  const router = useRouter()
 
-  function isUrlValid(portfolioUrl) {
-    const res = portfolioUrl.match(
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/g
-    );
-    return res !== null;
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
+  const checkPortfolioUrl = (): void => {
+    if (isUrlValid(inputRef.current.value)) {
+      setDisabledButton(false)
+    } else {
+      setDisabledButton(true)
+    }
   }
 
-  const checkPortfolioUrl = () => {
-    if (isUrlValid(inputRef.current.value)) {
-      setDisabledButton(false);
-      console.log('correct');
-    } else {
-      setDisabledButton(true);
-      console.log('please enter the correct URL');
-    }
-  };
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const submitPortfolioUrl = async (): Promise<void> => {
+    try {
+      const response = await axios.post('http://localhost:3001/', {
+        portfolioUrl: inputRef.current.value,
+      })
+      console.log(response)
 
-  const submitPortfolioUrl = () => {
-    console.log('noice :))');
-  };
+      if (response.status === 202) {
+        router.push('./submission/congrats-card')
+      } else {
+        setOutput('Portfolio URL already exists, try again with your own URL')
+      }
+      console.log(response.data)
+      return response.data
+    } catch (err) {
+      console.error(err)
+    }
+  }
   return (
-    <Layout>
-      <Flex
-        flexDirection={'column'}
-        justifyContent="center"
-        alignItems="center"
-        pt="10"
-      >
-        <Heading color={colors.lightBlue}>
-          Congrats your Portfolio is ready to submit!
-        </Heading>
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          width={'100%'}
-          marginTop={'3rem'}
+    <>
+      <Layout>
+        <Heading
+          as="h1"
+          size="xl"
+          color={theme.colors.brand['500']}
+          fontFamily="Inter"
         >
-          <Input
-            colorScheme="blackAlpha"
-            maxWidth="30%"
-            placeholder="https://adarshbalika.netlify.app"
-            onChange={() => checkPortfolioUrl()}
-            ref={inputRef}
-            color={colors.textColor}
-            background={colors.darkGrey}
-            borderColor={colors.mediumGrey}
-            _hover={{ borderColor: colors.mediumBlue }}
-          />
-          <Button
-            ml="10"
-            colorScheme="teal"
-            isDisabled={disableButton}
-            onClick={submitPortfolioUrl}
-          >
-            Submit
-          </Button>
-        </Flex>
-      </Flex>
-    </Layout>
-  );
+          Congrats, your portfolio is ready to submit!
+        </Heading>
+        <Box
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          m="10"
+          p="5"
+          background={theme.colors.black['700']}
+          border="none"
+        >
+          <Flex flexDirection="column">
+            <Flex>
+              <Heading
+                as="h2"
+                size="md"
+                p="2"
+                ml="2"
+                color={theme.colors.black['50']}
+              >
+                Submit your portfolio for review:
+              </Heading>
+            </Flex>
+            <Flex justifyContent="center" alignItems="center" p="5">
+              <Input
+                placeholder="https://adarshbalika.netlify.app"
+                onChange={checkPortfolioUrl}
+                ref={inputRef}
+                border="none"
+                background={theme.colors.black['600']}
+                width="auto"
+                color={theme.colors.black['100']}
+              />
+              <Button
+                ml="10"
+                background={theme.colors.brand['500']}
+                isDisabled={disableButton}
+                onClick={submitPortfolioUrl}
+                color={theme.colors.black['900']}
+              >
+                Submit
+              </Button>
+            </Flex>
+            <Text color={theme.colors.red['500']} alignSelf="center">
+              {output}
+            </Text>
+          </Flex>
+        </Box>
+      </Layout>
+    </>
+  )
 }
+
+export default SubmissionWindow

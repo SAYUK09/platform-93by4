@@ -1,14 +1,14 @@
-import { Flex, Box, useMediaQuery, IconButton } from '@chakra-ui/react';
-import { ReactNode } from 'react';
-import Head from 'next/head';
-import { colors } from '../../styles/themeVars/themeVars';
-import { Navbar } from '../';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { Flex, Box, useMediaQuery, IconButton } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import Head from 'next/head'
+import { colors } from '../../styles/themeVars/themeVars'
+import { Navbar } from '../'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export function Layout({ children }: { children: ReactNode }) {
-  const [isSmallerThan400] = useMediaQuery('(max-width: 400px)');
-  const router = useRouter();
+  const [isSmallerThan400] = useMediaQuery('(max-width: 400px)')
+  const router = useRouter()
   return (
     <Flex
       background={colors.blackColor}
@@ -51,7 +51,7 @@ export function Layout({ children }: { children: ReactNode }) {
               />
             }
             onClick={() => {
-              window.history.back();
+              window.history.back()
             }}
           />
           <IconButton
@@ -70,7 +70,7 @@ export function Layout({ children }: { children: ReactNode }) {
               />
             }
             onClick={() => {
-              window.history.forward();
+              window.history.forward()
             }}
           />
         </Flex>
@@ -84,5 +84,5 @@ export function Layout({ children }: { children: ReactNode }) {
         {children}
       </Box>
     </Flex>
-  );
+  )
 }

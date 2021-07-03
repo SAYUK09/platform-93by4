@@ -1,6 +1,6 @@
-import { Text } from '@chakra-ui/react';
-import { v4 as uuid } from 'uuid';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Text } from '@chakra-ui/react'
+import { v4 as uuid } from 'uuid'
+import { colors } from '../../styles/themeVars/themeVars'
 
 export const QuestionData = [
   {
@@ -46,4 +46,4 @@ export const QuestionData = [
     ),
     link: '/submission/checklist',
   },
-];
+]

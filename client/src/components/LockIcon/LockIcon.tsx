@@ -1,14 +1,14 @@
-import { Flex, Text, useMediaQuery } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Text, useMediaQuery } from '@chakra-ui/react'
+import { colors } from '../../styles/themeVars/themeVars'
 
 interface LockIconPropType {
-  collapsible?: boolean;
-  status?: string;
-  index?: number;
+  collapsible?: boolean
+  status?: string
+  index?: number
 }
 
 export function LockIcon({ collapsible, status, index }: LockIconPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
+  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)')
 
   return (
     <>
@@ -52,5 +52,5 @@ export function LockIcon({ collapsible, status, index }: LockIconPropType) {
         </Flex>
       )}
     </>
-  );
+  )
 }

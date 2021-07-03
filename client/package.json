@@ -8,7 +8,8 @@
     "type-check": "tsc",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "format": "prettier --write src/**/*.ts{,x}"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",

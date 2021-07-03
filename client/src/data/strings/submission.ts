@@ -1,4 +1,4 @@
-export const IntroString = {
+export const Submission = {
   greeting: 'Hi',
   emoji: '👋',
   welcomeText:

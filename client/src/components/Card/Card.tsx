@@ -1,22 +1,22 @@
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { LockIcon, CardText, CheckList } from '../';
-import { CheckListType } from '../../data/staticData/mark15';
-import { handleMarksChecked } from './handlers';
+import { Box, Flex, useMediaQuery } from '@chakra-ui/react'
+import { colors } from '../../styles/themeVars/themeVars'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { LockIcon, CardText, CheckList } from '../'
+import { CheckListType } from '../../data/staticData/mark15'
+import { handleMarksChecked } from './handlers'
 
 interface CardPropType extends CheckListType {
-  collapsible?: boolean;
-  status?: string;
-  id: string;
-  title?: string;
-  subTitle?: string | JSX.Element;
-  link?: string;
-  index?: number;
-  lockIcon?: boolean;
-  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>;
+  collapsible?: boolean
+  status?: string
+  id: string
+  title?: string
+  subTitle?: string | JSX.Element
+  link?: string
+  index?: number
+  lockIcon?: boolean
+  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>
 }
 
 export function Card({
@@ -31,9 +31,9 @@ export function Card({
   setAllMarksChecked,
   lockIcon,
 }: CardPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [checkCount, setCheckCount] = useState([]);
+  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)')
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const [checkCount, setCheckCount] = useState([])
 
   useEffect(() => {
     if (checks) {
@@ -42,9 +42,9 @@ export function Card({
         checks.length,
         checkCount.length,
         setAllMarksChecked
-      );
+      )
     }
-  }, [checks, id, setAllMarksChecked, checkCount]);
+  }, [checks, id, setAllMarksChecked, checkCount])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
@@ -112,5 +112,5 @@ export function Card({
         </Flex>
       )}
     </Box>
-  );
+  )
 }

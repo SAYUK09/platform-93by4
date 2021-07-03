@@ -1,15 +1,15 @@
-import { Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react';
-import Image from 'next/image';
-import { ChecksType } from '../../data/staticData/mark15';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react'
+import Image from 'next/image'
+import { ChecksType } from '../../data/staticData/mark15'
+import { colors } from '../../styles/themeVars/themeVars'
 
 interface CardTextPropType {
-  collapsible?: boolean;
-  status?: string;
-  title: string;
-  subTitle: string | JSX.Element;
-  checklist?: ChecksType[];
-  checkedCount?: number;
+  collapsible?: boolean
+  status?: string
+  title: string
+  subTitle: string | JSX.Element
+  checklist?: ChecksType[]
+  checkedCount?: number
 }
 
 export function CardText({
@@ -20,7 +20,7 @@ export function CardText({
   checklist,
   checkedCount,
 }: CardTextPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
+  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)')
 
   return (
     <>
@@ -78,5 +78,5 @@ export function CardText({
         </Flex>
       )}
     </>
-  );
+  )
 }
