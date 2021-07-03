@@ -10,7 +10,8 @@
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "format": "prettier --write src/**/*.ts{,x}"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
