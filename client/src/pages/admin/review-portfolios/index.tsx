@@ -13,6 +13,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from '@chakra-ui/react'
+import { useBreakpointValue } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { Navbar } from '../../../components'
 import { useState } from 'react'
@@ -32,6 +33,11 @@ export const data: Data = {
 
 export default function ReviewPortfolios(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true)
+  const size = useBreakpointValue({
+    base: '100%',
+    md: '60',
+    sm: '90%',
+  })
 
   function addReviewComment(e: { target: { value: string | number } }): void {
     if (e.target.value) {
@@ -137,6 +143,7 @@ export default function ReviewPortfolios(): JSX.Element {
                   direction={{ base: 'column-reverse', md: 'row' }}
                 >
                   <Button
+                    w={size}
                     my="2"
                     isDisabled={disableButton}
                     variant="outline"
@@ -147,7 +154,7 @@ export default function ReviewPortfolios(): JSX.Element {
                     Needs Revision
                   </Button>
 
-                  <Button my="2" variant="solid" bg="brand.300">
+                  <Button w={size} my="2" variant="solid" bg="brand.300">
                     Ready For Mark15
                   </Button>
                 </Flex>
