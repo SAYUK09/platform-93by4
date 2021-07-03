@@ -1,4 +1,4 @@
-import { CorsOptions } from 'cors'
+import { CorsOptions } from 'cors';
 
 export const corsOptions: CorsOptions = {
   /**
@@ -9,4 +9,4 @@ export const corsOptions: CorsOptions = {
   optionsSuccessStatus: 200,
   credentials: true,
   exposedHeaders: ['set-cookie'],
-}
+};

@@ -93,8 +93,6 @@ export function CheckList() {
           Next
         </Button>
       </Flex>
-
-      {/* CheckListData.length === allMarksChecked.length */}
     </Layout>
   );
 }

@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express'
-import { BaseSchema } from 'yup'
-import { MixedSchema } from 'yup/lib/mixed'
+import { NextFunction, Request, Response } from 'express';
+import { BaseSchema } from 'yup';
+import { MixedSchema } from 'yup/lib/mixed';
 
 /**
  * This middleware checks the req.body against an yup schema provided in it
@@ -20,15 +20,15 @@ export const validate =
     res: Response,
     next: NextFunction
   ): Promise<void | Response> => {
-    const body = req.body
+    const body = req.body;
     try {
       await schema.validate(body, {
         abortEarly: false,
-      })
-      return next()
+      });
+      return next();
     } catch (error) {
       return res.status(400).json({
         error,
-      })
+      });
     }
-  }
+  };
