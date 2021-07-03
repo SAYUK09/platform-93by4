@@ -78,7 +78,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getUserInfo()
   }, [])
 
-  function setAuthInfo(data: IAuthState) {}
+  function setAuthInfo(data: IAuthState) {
+    setAuthState({
+      isAuthenticated: data.isAuthenticated,
+      user: data.user,
+    })
+  }
 
   async function logoutUser() {
     await logout()
