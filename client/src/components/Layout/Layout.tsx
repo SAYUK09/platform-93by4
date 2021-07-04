@@ -9,7 +9,6 @@ export function Layout({ children }: { children: ReactNode }) {
     <Flex
       background={theme.colors.black['900']}
       height={`100vh`}
-      maxWidth={`100vw`}
       margin={'auto'}
       flexDirection={'column'}
       alignItems={'center'}
