@@ -50,7 +50,7 @@ export default function ReviewPortfolios(): JSX.Element {
       minH="100%"
     >
       <Head>
-        <title>Review Portfolio</title>
+        <title>Review Portfolio | neoG.Camp</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
