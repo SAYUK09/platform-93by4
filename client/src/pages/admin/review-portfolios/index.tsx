@@ -7,17 +7,11 @@ import {
   Textarea,
   Button,
 } from '@chakra-ui/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from '@chakra-ui/react'
 import { useBreakpointValue } from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
 import { Navbar } from '../../../components'
 import { useState } from 'react'
 import Head from 'next/head'
+import Breadcrumbs from '../../../utility'
 
 export type Data = {
   applicationNo: string | number
@@ -70,20 +64,15 @@ export default function ReviewPortfolios(): JSX.Element {
         >
           <Container maxW="container.xl" width="90%">
             <Box my="4" color="black.400" justifyContent="flex-start">
-              <Breadcrumb
-                spacing="8px"
-                separator={<ChevronRightIcon color="gray.500" />}
-              >
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/">Dashboard</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/admin/review-portfolios">
-                    Review Portfolio
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-              </Breadcrumb>
+              <Breadcrumbs
+                breadcrumbProp={[
+                  { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+                  {
+                    breadcrumbName: 'Review Portfolio',
+                    breadcrumbLink: '/admin/review-portfolios',
+                  },
+                ]}
+              />
             </Box>
 
             <Box>
