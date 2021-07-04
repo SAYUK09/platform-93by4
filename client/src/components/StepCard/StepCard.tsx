@@ -13,7 +13,6 @@ type StepcardProps = {
 }
 
 export function StepCard({ bgColor, step, status, index }: StepcardProps) {
-  console.log('Linkkkkkkk', step.link)
   return (
     <Flex
       flexDir={['column', 'column', 'row']}

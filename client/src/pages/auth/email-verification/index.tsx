@@ -30,7 +30,7 @@ export default function EmailSent() {
             title: 'Your email address has already been verified.',
             status: 'info',
           })
-          router.push('/dashboard')
+          router.push('/')
         }
         if (res.status === 201) {
           toast({

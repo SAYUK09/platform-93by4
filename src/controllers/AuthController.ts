@@ -27,7 +27,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
   const isAlreadyRegistered = await User.findOne({
     email,
   })
-
+  console.log("signHandle",req.body)
   if (isAlreadyRegistered) {
     return res.status(409).json({
       msg: 'An account with that email already exists. Please log in instead.',
@@ -83,6 +83,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
       })
     }
   } catch (error) {
+    console.log("sign-up",error.message,error)
     res.status(500).json({
       msg: 'Something went wrong while registering you.',
       code: 'INTERNAL_ERROR',
@@ -203,9 +204,10 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
       token,
     })
   } catch (error) {
+    console.log(error.message, error);
     return res.status(500).json({
       msg: 'Something went wrong while signing you in. Please contact support@neogcamp.com',
-      code: 'INTERNAL_ERROR',
+      code: 'INTERNAL_ERROR'
     })
   }
 }
