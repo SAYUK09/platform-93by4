@@ -16,7 +16,7 @@ export function Navbar() {
     >
       <Flex
         background={colors.darkGrey}
-        width={'100vw'}
+        width={'100%'}
         height={'100%'}
         alignItems={'center'}
         maxWidth={'1100px'}
