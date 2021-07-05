@@ -296,6 +296,7 @@ export default function SignUp() {
                                 <Link
                                   href="https://handbook.neog.camp/qualifier/tnc"
                                   target="_blank noreferrer noopener"
+                                  color={theme.colors.brand['500']}
                                 >
                                   Terms
                                 </Link>
