@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Box,
 } from '@chakra-ui/react'
 import { BsChevronRight } from 'react-icons/bs'
 

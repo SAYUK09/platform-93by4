@@ -11,7 +11,7 @@ import { useBreakpointValue } from '@chakra-ui/react'
 import { Navbar } from '../../../components'
 import { useState } from 'react'
 import Head from 'next/head'
-import Breadcrumbs from '../../../utility'
+import Breadcrumbs from '../../../components/BreadCrumbs/BreadCrumbs'
 
 export type Data = {
   applicationNo: string | number
