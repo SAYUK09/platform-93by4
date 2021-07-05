@@ -10,7 +10,7 @@ export function Navbar() {
   return (
     <Flex
       background={theme.colors.black['700']}
-      width={'100vw'}
+      width={'100%'}
       maxHeight={'60px'}
       minHeight={'60px'}
       alignItems={'center'}
@@ -21,8 +21,8 @@ export function Navbar() {
       zIndex={2}
     >
       <Flex
+        width={'100%'}
         background={theme.colors.black['700']}
-        width={'100vw'}
         height={'100%'}
         alignItems={'center'}
         maxWidth={'1100px'}
