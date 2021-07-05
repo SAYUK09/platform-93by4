@@ -103,7 +103,7 @@ export default function ForgotPassword() {
               width="100%"
               type="submit"
               loadingText="Submitting"
-              colorScheme="blue"
+              colorscheme="blue"
             >
               Send Reset Link
             </Button>

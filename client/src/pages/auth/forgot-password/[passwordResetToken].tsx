@@ -142,7 +142,7 @@ export default function PasswordResetForm() {
               width="100%"
               type="submit"
               loadingText="Submitting"
-              colorScheme="blue"
+              colorscheme="blue"
             >
               Submit
             </Button>

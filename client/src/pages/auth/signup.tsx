@@ -22,6 +22,7 @@ import * as yup from 'yup'
 import { register } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
 import { useState } from 'react'
+import { theme } from '../../themes'
 
 export interface SignUpValues {
   firstName: string
@@ -30,6 +31,7 @@ export interface SignUpValues {
   password: string
   acceptTerms: boolean
 }
+
 // todo -> move this to utils maybe
 const SignUpSchema = yup.object().shape({
   firstName: yup
@@ -114,7 +116,9 @@ export default function SignUp() {
           justify={'center'}
         >
           <Stack spacing={6} w={'full'} maxW={'lg'}>
-            <Heading fontSize={'4xl'}>Create your account</Heading>
+            <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
+              Create your account
+            </Heading>
 
             <Formik
               initialValues={{
@@ -130,13 +134,18 @@ export default function SignUp() {
               <Form>
                 <Stack spacing={4}>
                   <Field name="firstName">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={
                           form.errors.firstName && form.touched.firstName
                         }
                       >
-                        <FormLabel htmlFor="email">First Name</FormLabel>
+                        <FormLabel
+                          htmlFor="email"
+                          color={theme.colors.black['50']}
+                        >
+                          First Name
+                        </FormLabel>
                         <Input
                           {...field}
                           id="firstName"
@@ -151,13 +160,18 @@ export default function SignUp() {
                   </Field>
 
                   <Field name="lastName">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={
                           form.errors.lastName && form.touched.lastName
                         }
                       >
-                        <FormLabel htmlFor="email">Last Name</FormLabel>
+                        <FormLabel
+                          htmlFor="email"
+                          color={theme.colors.black['50']}
+                        >
+                          Last Name
+                        </FormLabel>
                         <Input
                           {...field}
                           id="lastName"
@@ -172,11 +186,16 @@ export default function SignUp() {
                   </Field>
 
                   <Field name="email">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={form.errors.email && form.touched.email}
                       >
-                        <FormLabel htmlFor="email">Email Address</FormLabel>
+                        <FormLabel
+                          htmlFor="email"
+                          color={theme.colors.black['50']}
+                        >
+                          Email Address
+                        </FormLabel>
                         <Input
                           {...field}
                           id="email"
@@ -189,13 +208,18 @@ export default function SignUp() {
                   </Field>
 
                   <Field name="password">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={
                           form.errors.password && form.touched.password
                         }
                       >
-                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <FormLabel
+                          htmlFor="password"
+                          color={theme.colors.black['50']}
+                        >
+                          Password
+                        </FormLabel>
                         <Input
                           {...field}
                           id="password"
@@ -215,31 +239,42 @@ export default function SignUp() {
                       align={'start'}
                       justify={'space-between'}
                     >
-                      <Text fontSize={'xs'} fontStyle="italic">
+                      <Text
+                        fontSize={'xs'}
+                        fontStyle="italic"
+                        color={theme.colors.black['100']}
+                      >
                         Use 8 or more characters with a mix of numbers.
                       </Text>
                     </Stack>
 
                     <Stack direction={'row'} align={'center'}>
                       <Field name="acceptTerms">
-                        {({ form, field }) => (
+                        {({ field, form }: { field: any; form: any }) => (
                           <FormControl
                             isInvalid={
                               form.errors.acceptTerms &&
                               form.touched.acceptTerms
                             }
                           >
-                            <Flex align="center" mt={-4}>
+                            <Flex mt={-4}>
                               <Checkbox
                                 {...field}
                                 type="checkbox"
                                 mr={2}
                                 id="acceptTerms"
                               />
-                              <FormLabel htmlFor="acceptTerms" pt={4}>
+                              <FormLabel
+                                htmlFor="acceptTerms"
+                                pt={4}
+                                color={theme.colors.black['100']}
+                              >
                                 By creating an account you agree to the &nbsp;
                                 <a
-                                  style={{ textDecoration: 'underline' }}
+                                  style={{
+                                    textDecoration: 'underline',
+                                    color: theme.colors.brand['500'],
+                                  }}
                                   href="https://handbook.neog.camp/qualifier/tnc"
                                   target="_blank noreferrer noopener"
                                 >
@@ -247,7 +282,10 @@ export default function SignUp() {
                                 </a>
                                 &nbsp; and{' '}
                                 <a
-                                  style={{ textDecoration: 'underline' }}
+                                  style={{
+                                    textDecoration: 'underline',
+                                    color: theme.colors.brand['500'],
+                                  }}
                                   href="https://handbook.neog.camp/qualifier/privacy"
                                   target="_blank noreferrer noopener"
                                 >
@@ -269,12 +307,14 @@ export default function SignUp() {
                         href="/auth/login"
                         style={{ fontWeight: 600 }}
                       >
-                        Log in instead
+                        <Text color={theme.colors.brand['500']}>
+                          Log in instead
+                        </Text>
                       </Link>
 
                       <Button
                         type="submit"
-                        colorScheme={'blue'}
+                        colorscheme={'blue'}
                         variant={'solid'}
                       >
                         Create Account

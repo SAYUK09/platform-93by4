@@ -10,6 +10,7 @@ import {
   Link,
   FormErrorMessage,
   useToast,
+  Text,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React, { useState } from 'react'
@@ -19,6 +20,7 @@ import { Navbar, AuthLayout } from '../../components'
 import { login } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
+import { theme } from '../../themes'
 
 export interface LoginValues {
   email: string
@@ -60,7 +62,7 @@ export default function Login() {
             isClosable: true,
             status: 'success',
           })
-          router.push('/dashboard')
+          router.push('/')
         }
       })
       .catch((error) => {
@@ -99,7 +101,9 @@ export default function Login() {
           justify={'center'}
         >
           <Stack spacing={8} w={'full'} maxW={'lg'}>
-            <Heading fontSize={'4xl'}>Log In</Heading>
+            <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
+              Log In
+            </Heading>
             <Formik
               initialValues={{
                 email: '',
@@ -112,11 +116,16 @@ export default function Login() {
                 <Stack spacing={8}>
                   <Field name="email">
                     {/* These have no typedefinitions from formik itself. */}
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={form.errors.email && form.touched.email}
                       >
-                        <FormLabel htmlFor="email">Email Address</FormLabel>
+                        <FormLabel
+                          htmlFor="email"
+                          color={theme.colors.black['50']}
+                        >
+                          Email Address
+                        </FormLabel>
                         <Input
                           {...field}
                           id="email"
@@ -129,13 +138,18 @@ export default function Login() {
                   </Field>
 
                   <Field name="password">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={
                           form.errors.password && form.touched.password
                         }
                       >
-                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <FormLabel
+                          htmlFor="password"
+                          color={theme.colors.black['50']}
+                        >
+                          Password
+                        </FormLabel>
                         <Input
                           {...field}
                           id="password"
@@ -160,7 +174,9 @@ export default function Login() {
                         fontStyle="italic"
                         fontSize="sm"
                       >
-                        Forgot password?
+                        <Text color={theme.colors.brand['500']}>
+                          Forgot Password?
+                        </Text>
                       </Link>
                     </Stack>
                     <Flex justify="space-between" align="center">
@@ -169,11 +185,13 @@ export default function Login() {
                         href="/auth/signup"
                         style={{ fontWeight: 600 }}
                       >
-                        Create Account
+                        <Text as="u" color={theme.colors.brand['500']}>
+                          Create Account
+                        </Text>
                       </Link>
                       <Button
                         type="submit"
-                        colorScheme={'blue'}
+                        colorscheme={'blue'}
                         variant={'solid'}
                         isLoading={isLoading}
                         loadingText="Signing you in"
