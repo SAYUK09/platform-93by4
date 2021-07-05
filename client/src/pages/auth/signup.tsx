@@ -51,8 +51,8 @@ const SignUpSchema = yup.object().shape({
     .string()
     .required('Password is required.')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, mix of numbers and alphabets.'
     )
     .min(8, 'Password must be atleast 8 characters long.'),
   acceptTerms: yup
@@ -326,6 +326,7 @@ export default function SignUp() {
                       </NextLink>
 
                       <Button
+                        isLoading={isLoading}
                         type="submit"
                         colorscheme={'blue'}
                         variant={'solid'}
