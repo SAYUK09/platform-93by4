@@ -27,7 +27,6 @@ export const signInSchema = yup.object({
 })
 
 export const emailVerificationSchema = yup.object({
-  email: yup.string().email().required(),
   verificationToken: yup.string().required(),
 })
 

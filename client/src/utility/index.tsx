@@ -5,7 +5,7 @@ import {
   BreadcrumbLink,
   Box,
 } from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
+import { BsChevronRight } from 'react-icons/bs'
 
 export type BreadcrumbObj = {
   breadcrumbName: string
@@ -18,7 +18,7 @@ export type BreadcrumbProp = {
 
 const Breadcrumbs = ({ breadcrumbProp }: BreadcrumbProp): JSX.Element => {
   return (
-    <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
+    <Breadcrumb spacing="8px" separator={<BsChevronRight color="gray.500" />}>
       {breadcrumbProp.map((breadcrumb: BreadcrumbObj) => (
         <BreadcrumbItem>
           <BreadcrumbLink href={breadcrumb.breadcrumbLink}>

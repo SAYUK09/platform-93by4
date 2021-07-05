@@ -5,4 +5,5 @@ logs
 dist
 client/node_modules
 client/.next
+client/package-lock
 client/out

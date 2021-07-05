@@ -24,7 +24,7 @@ app.use('/api/auth', authRoutes)
 /**
  * This handles all the errors in application that were not catched by controllers
  * */
-app.use((err: Error, req: Request, res: Response) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (process.env.NODE_ENV === 'development') {
     log.error(err.stack)
   }

@@ -25,8 +25,7 @@ export const data: Data = {
   portfolioLink: 'https://tanay.netlify.app/',
 }
 
-export default function ReviewPortfolios(): JSX.Element {
-  const [disableButton, setDisableButton] = useState<boolean>(true)
+export default function ReviewPortfolios(): JSX.Element {const [disableButton, setDisableButton] = useState<boolean>(true)
   const size = useBreakpointValue({
     base: '100%',
     md: '60',
