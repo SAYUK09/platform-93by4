@@ -24,6 +24,10 @@ export const PasswordResetSchema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required.')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, mix of numbers and alphabets.'
+    )
     .min(8, 'Password must be atleast 8 characters long.'),
   newPassword: yup
     .string()
