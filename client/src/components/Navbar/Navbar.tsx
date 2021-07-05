@@ -1,6 +1,6 @@
 import { Flex, WrapItem, Avatar, Text } from '@chakra-ui/react'
 import { theme } from '../../themes'
-import Logo from '../../assets/neogcamp.svg'
+import Logo from '../../assests/svgs/neogcamp.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '../../context/AuthContext'
