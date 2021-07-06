@@ -10,7 +10,6 @@ import { SubmissionData } from '../../data/strings/submission'
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>
-  const [output, setOutput] = useState<string>('')
   const router = useRouter()
   const toast = useToast()
 
@@ -28,12 +27,20 @@ const SubmissionWindow: React.FC = () => {
 
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
-      const response = await axios.post('http://localhost:3001/', {
-        portfolioUrl: inputRef.current.value,
-      })
-      console.log(response)
+      const response = await axios.post(
+        'http://localhost:5000/api/submit',
+        {
+          status: 'under review',
+          portfolioUrl: inputRef.current.value,
+          submissionNo: 0,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(response.data)
 
-      if (response.status === 202) {
+      if (response.status === 200) {
         toast({
           title: 'Successfully Submitted!!!',
           description: 'Your portfolio is submitted successfully',
@@ -41,21 +48,26 @@ const SubmissionWindow: React.FC = () => {
           duration: 2000,
           isClosable: true,
         })
+        const submissionData = localStorage.setItem(
+          'neogSubmission',
+          JSON.stringify({
+            submissionNo: response.data.submissionNo,
+            currentStatus: response.data.currentStatus,
+          })
+        )
+
         router.push('./submission/congrats')
-      } else {
-        setOutput('Portfolio URL already exists, try again with your own URL')
-        toast({
-          title: 'Portfolio URL Exists',
-          description: "The link you have submitted already exists, please try again with different link!",
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        })
       }
-      console.log(response.data)
-      return response.data
     } catch (err) {
-      console.error(err)
+      console.log({ err })
+      toast({
+        title: 'Portfolio URL Exists',
+        description:
+          'The link you have submitted already exists, please try again with different link!',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
     }
   }
   return (

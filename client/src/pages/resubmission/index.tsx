@@ -1,5 +1,14 @@
-import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  Input,
+  Button,
+  Box,
+  Heading,
+  Text,
+  useToast,
+} from '@chakra-ui/react'
 import { useRef, useState, useEffect } from 'react'
+import axios from 'axios'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
@@ -9,8 +18,8 @@ import { ResubmissionData } from '../../data/strings/submission'
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
   const inputRef = useRef<any>()
-  const [output, setOutput] = useState<string>('')
   const router = useRouter()
+  const toast = useToast()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -25,8 +34,60 @@ const ReSubmissionWindow: React.FC = () => {
   }
 
   const submitPortfolioUrl = async (): Promise<void> => {
-    console.log('cool')
-    router.push('./resubmission/congrats')
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/resubmit',
+        {
+          submissionNo: 0,
+          status: 'under review',
+          portfolioUrl: inputRef.current.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(response)
+
+      if (response.status === 200) {
+        toast({
+          title: 'Successfully resubmitted!!!',
+          description: 'Your portfolio is resubmitted successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        const submissionData = localStorage.setItem(
+          'neogSubmission',
+          JSON.stringify({
+            submissionNo: response.data.submissionNo,
+            currentStatus: response.data.currentStatus,
+          })
+        )
+        router.push('./resubmission/congrats')
+      }
+      console.log(response.data)
+      return response.data
+    } catch (err) {
+      console.log({ err })
+      if (err.code = '11000') {
+        toast({
+          title: 'Portfolio URL Exists',
+          description:
+            'The link you have resubmitted already exists, please try again with different link!',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: 'Something went wrong',
+          description: 'Check your internet connection',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+    }
   }
   return (
     <>
@@ -113,9 +174,6 @@ const ReSubmissionWindow: React.FC = () => {
                 Resubmit
               </Button>
             </Flex>
-            <Text color={theme.colors.red['500']} alignSelf="center">
-              {output}
-            </Text>
           </Flex>
         </Box>
       </Layout>

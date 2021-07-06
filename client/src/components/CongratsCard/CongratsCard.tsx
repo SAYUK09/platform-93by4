@@ -8,6 +8,9 @@ export function CongratsCard({
   submissionNo,
   currentStatus,
 }: userStatusProps): JSX.Element {
+
+  
+
   return (
     <Box
       borderWidth="1px"
