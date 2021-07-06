@@ -11,6 +11,10 @@ export const theme = extendTheme({
     body: 'Inter, system-ui, sans-serif',
     heading: 'Inter, system-ui, sans-serif',
   },
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
+  },
   colors: {
     brand: {
       50: '#d6ffff',
