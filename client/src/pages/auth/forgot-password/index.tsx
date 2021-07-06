@@ -12,6 +12,7 @@ import {
 import * as yup from 'yup'
 import { Form, Formik, Field, FormikHelpers } from 'formik'
 import { sendForgotPasswordRequest } from '../../../services/axiosService'
+import { useState } from 'react'
 
 const ForgotPasswordSchema = yup.object().shape({
   email: yup
@@ -25,10 +26,20 @@ interface ForgotPasswordValues {
 }
 
 export default function ForgotPassword() {
+  const [status, setStatus] = useState<'sent' | 'error' | 'default'>('default')
+
   async function handleSubmit(data: ForgotPasswordValues) {
     await sendForgotPasswordRequest(data)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error))
+      .then((res) => {
+        if (res.status === 200) {
+          setStatus('sent')
+        }
+        console.log(res)
+      })
+      .catch((error) => {
+        setStatus('error')
+        console.log(error)
+      })
   }
 
   return (
@@ -46,8 +57,13 @@ export default function ForgotPassword() {
         <Box>
           <Heading>Reset Password.</Heading>
           <Text marginTop="1rem">
-            Enter the email you used for this account. We will mail you a link
-            to reset your password.
+            {status === 'default' &&
+              `Enter the email you used for this account. We will mail you a link
+            to reset your password.`}
+            {status === 'error' &&
+              `There was an error sending you an email for password reset. Please try again after some time.`}
+            {status === 'sent' &&
+              `An email containing link to reset password has been sent to you. Please check your inbox.`}
           </Text>
         </Box>
 
@@ -87,7 +103,7 @@ export default function ForgotPassword() {
               width="100%"
               type="submit"
               loadingText="Submitting"
-              colorScheme="blue"
+              colorscheme="blue"
             >
               Send Reset Link
             </Button>

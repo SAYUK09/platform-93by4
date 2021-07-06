@@ -1,21 +1,19 @@
-import { Flex, Input, Button, Box, Heading, useToast } from '@chakra-ui/react'
-import { useRef, useState, useEffect, MutableRefObject } from 'react'
-import axios from 'axios'
+import { Flex, Input, Button, Box, Heading, Text } from '@chakra-ui/react'
+import { useRef, useState, useEffect } from 'react'
 import { Layout } from '../../components'
 import { useRouter } from 'next/router'
-import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
-import { SubmissionData } from '../../data/strings/submission'
+import { isUrlValid } from '../../utils/utils'
+import { ResubmissionData } from '../../data/strings/submission'
 
-const SubmissionWindow: React.FC = () => {
+const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
-  const inputRef = useRef() as MutableRefObject<HTMLInputElement>
+  const inputRef = useRef<any>()
   const [output, setOutput] = useState<string>('')
   const router = useRouter()
-  const toast = useToast()
 
   useEffect(() => {
-    inputRef.current?.focus()
+    inputRef.current.focus()
   }, [])
 
   const checkPortfolioUrl = (): void => {
@@ -27,55 +25,37 @@ const SubmissionWindow: React.FC = () => {
   }
 
   const submitPortfolioUrl = async (): Promise<void> => {
-    try {
-      const response = await axios.post('http://localhost:3001/', {
-        portfolioUrl: inputRef.current.value,
-      })
-      console.log(response)
-
-      if (response.status === 202) {
-        toast({
-          title: 'Successfully Submitted!!!',
-          description: 'Your portfolio is submitted successfully',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        })
-        router.push('./submission/congrats')
-      } else {
-        setOutput('Portfolio URL already exists, try again with your own URL')
-        toast({
-          title: 'Portfolio URL Exists',
-          description: "The link you have submitted already exists, please try again with different link!",
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        })
-      }
-      console.log(response.data)
-      return response.data
-    } catch (err) {
-      console.error(err)
-    }
+    console.log('cool')
+    router.push('./resubmission/congrats')
   }
   return (
     <>
       <Layout>
-        <Heading
-          as="h1"
-          size="xl"
-          color={theme.colors.brand['500']}
-          fontFamily="Inter"
-          textAlign="center"
-        >
-          {SubmissionData.heading}
-        </Heading>
+        <Flex flexDirection="column" width="auto">
+          <Heading
+            as="h1"
+            size="xl"
+            color={theme.colors.brand['500']}
+            fontFamily="Inter"
+            pb="1rem"
+          >
+            {ResubmissionData.heading}
+          </Heading>
+          <Text
+            color={theme.colors.black['50']}
+            fontSize="16px"
+            noOfLines={5}
+            pb="1rem"
+          >
+            {ResubmissionData.discription}
+          </Text>
+        </Flex>
         <Box
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
-          m="10"
-          p="5"
+          m={['2rem 0', '2rem']}
+          p="2rem"
           background={theme.colors.black['700']}
           border="none"
         >
@@ -84,13 +64,27 @@ const SubmissionWindow: React.FC = () => {
               <Heading
                 as="h2"
                 size="md"
-                p="2"
-                ml="2"
-                color={theme.colors.black['50']}
+                color={theme.colors.brand['500']}
+                fontFamily="Inter"
+                pb="1rem"
               >
-                {SubmissionData.text}
+                {ResubmissionData.title}
               </Heading>
             </Flex>
+            <Heading
+              as="h3"
+              size="sm"
+              color={theme.colors.black['50']}
+              fontFamily="Inter"
+              pb="1rem"
+            >
+              {ResubmissionData.subTitle}
+            </Heading>
+            <Text color={theme.colors.black['50']} fontSize="16px" pb="1rem">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Inventore, deleniti consequatur! Officiis consequuntur quia
+              molestias quibusdam architecto! Recusandae beatae.
+            </Text>
             <Flex
               justifyContent="center"
               alignItems="center"
@@ -116,9 +110,12 @@ const SubmissionWindow: React.FC = () => {
                 mt={['1rem', '0']}
                 ml={['0', '1rem']}
               >
-                Submit
+                Resubmit
               </Button>
             </Flex>
+            <Text color={theme.colors.red['500']} alignSelf="center">
+              {output}
+            </Text>
           </Flex>
         </Box>
       </Layout>
@@ -126,4 +123,4 @@ const SubmissionWindow: React.FC = () => {
   )
 }
 
-export default SubmissionWindow
+export default ReSubmissionWindow

@@ -78,7 +78,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getUserInfo()
   }, [])
 
-  function setAuthInfo(data: IAuthState) {}
+  function setAuthInfo(data: IAuthState) {
+    setAuthState({
+      isAuthenticated: data.isAuthenticated,
+      user: data.user,
+    })
+  }
 
   async function logoutUser() {
     await logout()
@@ -102,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useAuth() {
+export function useAuth(): IAuthContext {
   const context = useContext(AuthContext)
   if (context === undefined) {
     throw new Error('useAuth must be used within an <AuthProvider/>')

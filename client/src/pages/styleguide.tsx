@@ -26,40 +26,50 @@ export default function StyleGuide() {
             </Heading>
 
             <Box py={4}>
-              <Heading as="h3" size="md" color="brand.500">
+              <Heading as="h3" size="md" color="brand.500" my={2}>
                 Buttons
               </Heading>
-              <Button variant="solid" m={4}>
+              <Button variant="solid" mr={4}>
                 Primary Button
               </Button>
-              <Button variant="outline" m={4}>
+              <Button variant="outline" mr={4}>
                 Secondary Button
+              </Button>
+              <Button variant="link" mr={4}>
+                Link Button
               </Button>
             </Box>
           </Box>
           <Box py={4}>
-            <Heading as="h3" size="md" color="brand.500">
+            <Heading as="h3" size="md" color="brand.500" my={2}>
               Input Box
             </Heading>
             <Input
               size="sm"
               placeholder="Email"
               variant="outline"
-              colorScheme="white"
+              colorscheme="white"
               color="white"
+              bg="black.800"
+              border="black.900"
             />
           </Box>
           <Box py={4}>
-            <Heading as="h3" size="md" color="brand.500">
+            <Heading as="h3" size="md" color="brand.500" my={2}>
               Card
             </Heading>
             <Box bg="black.800" boxSize="sm"></Box>
           </Box>
           <Box py={4}>
-            <Heading as="h3" size="md" color="brand.500">
+            <Heading as="h3" size="md" color="brand.500" my={2}>
               Breadcrumb
             </Heading>
-            <Breadcrumb fontWeight="medium" fontSize="sm" color="black.400">
+            <Breadcrumb
+              fontWeight="medium"
+              fontSize="sm"
+              color="black.400"
+              separator={'>'}
+            >
               <BreadcrumbItem>
                 <BreadcrumbLink href="#">Home</BreadcrumbLink>
               </BreadcrumbItem>
@@ -74,13 +84,12 @@ export default function StyleGuide() {
             </Breadcrumb>
           </Box>
           <Box py={4}>
-            <Heading as="h3" size="md" color="brand.500">
+            <Heading as="h3" size="md" color="brand.500" my={2}>
               Checkbox
             </Heading>
-            {/* <Checkbox colorScheme="brand" textColor="white">
+            <Checkbox colorscheme="brand.700" textColor="white">
               This is a checkbox
-            </Checkbox> */}
-            <Checkbox>This is a checkbox</Checkbox>
+            </Checkbox>
           </Box>
         </Container>
       </Box>
