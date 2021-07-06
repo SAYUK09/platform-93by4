@@ -14,7 +14,7 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
         <Flex alignItems={'center'} transform={['scale(1)', 'scale(0.85)']}>
           <Text
             background={
-              !locked ? theme.colors.green['300'] : theme.colors.gray['300']
+              !locked ? theme.colors.brand['500'] : theme.colors.gray['300']
             }
             display={'flex'}
             justifyContent={'center'}
