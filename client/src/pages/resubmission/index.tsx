@@ -20,6 +20,7 @@ const ReSubmissionWindow: React.FC = () => {
   const inputRef = useRef<any>()
   const router = useRouter()
   const toast = useToast()
+  const [checkInput, setCheckInput] = useState<string>('')
 
   useEffect(() => {
     inputRef.current.focus()
@@ -27,8 +28,10 @@ const ReSubmissionWindow: React.FC = () => {
 
   const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
+      setCheckInput('')
       setDisabledButton(false)
     } else {
+      setCheckInput("That's not a URL")
       setDisabledButton(true)
     }
   }
@@ -67,7 +70,7 @@ const ReSubmissionWindow: React.FC = () => {
       console.log(response.data)
       return response.data
     } catch (err) {
-      console.log("err",err.response)
+      console.log('err', err.response)
       if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',
@@ -182,6 +185,9 @@ const ReSubmissionWindow: React.FC = () => {
                 Resubmit
               </Button>
             </Flex>
+            <Text color={theme.colors.red['500']} textAlign="center">
+              {checkInput}
+            </Text>
           </Flex>
         </Box>
       </Layout>

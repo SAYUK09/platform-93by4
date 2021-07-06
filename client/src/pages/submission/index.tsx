@@ -1,4 +1,12 @@
-import { Flex, Input, Button, Box, Heading, useToast } from '@chakra-ui/react'
+import {
+  Flex,
+  Input,
+  Button,
+  Box,
+  Heading,
+  useToast,
+  Text,
+} from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
 import { Layout, Breadcrumbs } from '../../components'
@@ -12,6 +20,7 @@ const SubmissionWindow: React.FC = () => {
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>
   const router = useRouter()
   const toast = useToast()
+  const [checkInput, setCheckInput] = useState<string>('')
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -19,8 +28,10 @@ const SubmissionWindow: React.FC = () => {
 
   const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
+      setCheckInput('')
       setDisabledButton(false)
     } else {
+      setCheckInput("That's not a URL")
       setDisabledButton(true)
     }
   }
@@ -66,8 +77,7 @@ const SubmissionWindow: React.FC = () => {
           isClosable: true,
         })
         router.push('./submission/congrats')
-      }
-      else if (err.response?.status === 409) {
+      } else if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',
           description:
@@ -162,6 +172,9 @@ const SubmissionWindow: React.FC = () => {
                 Submit
               </Button>
             </Flex>
+            <Text color={theme.colors.red['500']} textAlign="center">
+              {checkInput}
+            </Text>
           </Flex>
         </Box>
       </Layout>

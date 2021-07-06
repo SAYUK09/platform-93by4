@@ -1,4 +1,4 @@
-import { SetStateAction,Dispatch  } from 'react'
+import { SetStateAction, Dispatch } from 'react'
 import {
   createContext,
   ReactNode,
@@ -43,7 +43,7 @@ const AuthContext = createContext<IAuthContext>({
   authState: defaultAuthState,
   setState: () => {},
   logoutUser: () => {},
-  setAuthState: () => {} 
+  setAuthState: () => {},
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
