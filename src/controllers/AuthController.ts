@@ -342,7 +342,7 @@ export const resetPasswordHandler: RequestHandler = async (req, res) => {
     })
 
     if (!user) {
-      return res.json({
+      return res.status(404).json({
         msg: 'Password reset token is invalid or expired.',
       })
     } else {
