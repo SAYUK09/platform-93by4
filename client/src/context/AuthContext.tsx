@@ -1,3 +1,4 @@
+import { SetStateAction,Dispatch  } from 'react'
 import {
   createContext,
   ReactNode,
@@ -24,6 +25,7 @@ interface IAuthContext {
   authState: IAuthState | undefined
   setState: (authInfo: IAuthState) => void
   logoutUser: () => void
+  setAuthState: Dispatch<SetStateAction<IAuthState>>
 }
 
 const defaultAuthState: IAuthState = {
@@ -32,7 +34,7 @@ const defaultAuthState: IAuthState = {
     lastName: '',
     email: '',
     userId: '',
-    submissionData:null
+    submissionData: null,
   },
   isAuthenticated: false,
 }
@@ -41,6 +43,7 @@ const AuthContext = createContext<IAuthContext>({
   authState: defaultAuthState,
   setState: () => {},
   logoutUser: () => {},
+  setAuthState: () => {} 
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -49,7 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        let submissionParseData: { submissionNo: string; currentStatus: string } | null = null;
+        let submissionParseData: {
+          submissionNo: string
+          currentStatus: string
+        } | null = null
         const submissionData =
           localStorage && localStorage.getItem('neogSubmission')
         if (submissionData) {
@@ -109,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         authState: authState,
         setState: (authInfo: IAuthState) => setAuthInfo(authInfo),
         logoutUser,
+        setAuthState,
       }}
     >
       {children}

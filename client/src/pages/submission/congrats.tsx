@@ -6,7 +6,6 @@ import { useAuth } from '../../context/AuthContext'
 
 const Congrats: React.FC = () => {
   const { authState } = useAuth()
-  console.log(authState)
   const userStatus = {
     submissionNo: authState?.user?.submissionData?.submissionNo,
     currentStatus: authState?.user?.submissionData?.currentStatus,

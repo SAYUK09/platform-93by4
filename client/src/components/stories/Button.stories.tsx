@@ -6,4 +6,3 @@ export default {
 }
 
 export const SimpleButton = () => <Button colorscheme="blue">Hello</Button>
-

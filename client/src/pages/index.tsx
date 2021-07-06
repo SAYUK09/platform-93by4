@@ -7,7 +7,6 @@ import {
 } from '../data/staticData/admissionStages'
 import { theme } from '../themes'
 
-
 export default function Dashboard() {
   return (
     <Layout>

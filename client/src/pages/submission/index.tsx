@@ -1,7 +1,7 @@
 import { Flex, Input, Button, Box, Heading, useToast } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
-import { Layout } from '../../components'
+import { Layout, Breadcrumbs } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
@@ -38,8 +38,6 @@ const SubmissionWindow: React.FC = () => {
           withCredentials: true,
         }
       )
-      console.log(response.data)
-
       if (response.status === 200) {
         toast({
           title: 'Successfully Submitted!!!',
@@ -55,30 +53,63 @@ const SubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
-
         router.push('./submission/congrats')
       }
     } catch (err) {
       console.log({ err })
-      toast({
-        title: 'Portfolio URL Exists',
-        description:
-          'The link you have submitted already exists, please try again with different link!',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
+      if (err.response?.status === 302) {
+        toast({
+          title: 'Your portfolio is already submitted!!!',
+          description: 'Your portfolio is already submitted successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        router.push('./submission/congrats')
+      }
+      else if (err.response?.status === 409) {
+        toast({
+          title: 'Portfolio URL Exists',
+          description:
+            'The link you have submitted already exists, please try again with different link!',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: 'Something went wrong',
+          description: 'Check your internet connection',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
     }
   }
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    {
+      breadcrumbName: 'Submit Portfolio ',
+      breadcrumbLink: '/submission/questions',
+    },
+    {
+      breadcrumbName: 'mark15 Checklist',
+      breadcrumbLink: '/submission/checklist',
+    },
+    { breadcrumbName: 'Submission Window', breadcrumbLink: '/submission' },
+  ]
+
   return (
     <>
       <Layout>
+        <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
         <Heading
           as="h1"
           size="xl"
           color={theme.colors.brand['500']}
           fontFamily="Inter"
-          textAlign="center"
+          pt="4"
         >
           {SubmissionData.heading}
         </Heading>

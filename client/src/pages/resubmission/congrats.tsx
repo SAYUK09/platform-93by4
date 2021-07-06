@@ -4,11 +4,10 @@ import { fireworks } from '../../utils/fireworks'
 import { useAuth } from '../../context/AuthContext'
 
 const ReCongratsCard: React.FC = () => {
-const {authState} = useAuth();
-console.log(authState)
+  const { authState, setAuthState } = useAuth()
   const userStatus = {
     submissionNo: authState?.user?.submissionData?.submissionNo,
-    currentStatus:authState?.user?.submissionData?.currentStatus ,
+    currentStatus: authState?.user?.submissionData?.currentStatus,
   }
 
   useEffect(() => {

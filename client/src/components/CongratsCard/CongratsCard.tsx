@@ -1,16 +1,13 @@
 import { Box, Button, Heading, Text, Link, Flex } from '@chakra-ui/react'
 
 type userStatusProps = {
-  submissionNo: number
-  currentStatus: string
+  submissionNo?: string
+  currentStatus?: string
 }
 export function CongratsCard({
   submissionNo,
   currentStatus,
 }: userStatusProps): JSX.Element {
-
-  
-
   return (
     <Box
       borderWidth="1px"

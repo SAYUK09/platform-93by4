@@ -2,7 +2,6 @@ import { extendTheme } from '@chakra-ui/react'
 import { Button } from './Button/Button'
 import { Input } from './Input/Input'
 
-
 export const theme = extendTheme({
   components: {
     Button,

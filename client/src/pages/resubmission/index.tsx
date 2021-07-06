@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
-import { Layout } from '../../components'
+import { Layout, Breadcrumbs } from '../../components'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
 import { isUrlValid } from '../../utils/utils'
@@ -46,7 +46,6 @@ const ReSubmissionWindow: React.FC = () => {
           withCredentials: true,
         }
       )
-      console.log(response)
 
       if (response.status === 200) {
         toast({
@@ -68,12 +67,12 @@ const ReSubmissionWindow: React.FC = () => {
       console.log(response.data)
       return response.data
     } catch (err) {
-      console.log({ err })
-      if (err.code = '11000') {
+      console.log("err",err.response)
+      if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',
           description:
-            'The link you have resubmitted already exists, please try again with different link!',
+            'The link you have submitted already exists, please try again with different link!',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -89,10 +88,19 @@ const ReSubmissionWindow: React.FC = () => {
       }
     }
   }
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    {
+      breadcrumbName: 'Submit Portfolio',
+      breadcrumbLink: '/submission/questions',
+    },
+    { breadcrumbName: 'ReSubmission', breadcrumbLink: '/resubmission' },
+  ]
   return (
     <>
       <Layout>
-        <Flex flexDirection="column" width="auto">
+        <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
+        <Flex flexDirection="column" width="auto" pt="2">
           <Heading
             as="h1"
             size="xl"
