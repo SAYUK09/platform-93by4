@@ -8,13 +8,15 @@ import {
   Input,
   Button,
   useToast,
+  InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { sendPasswordResetRequest } from '../../../services/axiosService'
 import * as yup from 'yup'
 import { Formik, Form, Field } from 'formik'
-
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 interface PasswordResetValues {
   password: string
   confirmPassword: string
@@ -29,7 +31,7 @@ export const PasswordResetSchema = yup.object().shape({
       'Must Contain 8 Characters, mix of numbers and alphabets.'
     )
     .min(8, 'Password must be atleast 8 characters long.'),
-  newPassword: yup
+  confirmPassword: yup
     .string()
     .oneOf([yup.ref('password'), null], 'Passwords must match.'),
 })
@@ -40,6 +42,8 @@ export default function PasswordResetForm() {
   const passwordResetToken = router.query.passwordResetToken as string
 
   const [token, setToken] = useState('')
+
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   useEffect(() => {
     if (!passwordResetToken) {
@@ -107,12 +111,27 @@ export default function PasswordResetForm() {
                   isInvalid={form.errors.password && form.touched.password}
                 >
                   <FormLabel htmlFor="password">New Password</FormLabel>
-                  <Input
-                    {...field}
-                    id="password"
-                    placeholder="Your password"
-                    type="password"
-                  />
+                  <InputGroup>
+                    <Input
+                      {...field}
+                      id="password"
+                      placeholder="Your password"
+                      type={showPassword ? 'text' : 'password'}
+                    />
+                    <InputRightElement mr="4">
+                      <Button
+                        h="1.75rem"
+                        size="sm"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <AiOutlineEyeInvisible />
+                        ) : (
+                          <AiOutlineEye />
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
                   <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                 </FormControl>
               )}
