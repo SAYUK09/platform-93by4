@@ -9,4 +9,5 @@ export { CongratsCard } from './CongratsCard/CongratsCard'
 export { AuthLayout } from './Layout/AuthLayout'
 export { StatusCard } from './StatusCard/StatusCard'
 export { StepCard } from './StepCard/StepCard'
-export { ExternalLinkSvg } from "./ExternalLinkSvg/ExternalLinkSvg";
+export { ExternalLinkSvg } from './ExternalLinkSvg/ExternalLinkSvg'
+export { Breadcrumbs } from './BreadCrumbs/BreadCrumbs'

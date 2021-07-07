@@ -41,8 +41,13 @@ const SignUpSchema = yup.object().shape({
     .string()
     .required('First Name is required.')
     .min(2, 'First name must be atleast 2 characters long.')
+    .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
     .trim(),
-  lastName: yup.string().required('Last name is required.'),
+  lastName: yup
+    .string()
+    .required('Last name is required.')
+    .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
+    .trim(),
   email: yup
     .string()
     .email('Email must be a valid email address.')
@@ -324,15 +329,21 @@ export default function SignUp() {
                           Log in instead
                         </Link>
                       </NextLink>
-
-                      <Button
-                        isLoading={isLoading}
-                        type="submit"
-                        colorscheme={'blue'}
-                        variant={'solid'}
-                      >
-                        Create Account
-                      </Button>
+                      <Field>
+                        {({ form }) => {
+                          return (
+                            <Button
+                              isLoading={isLoading}
+                              type="submit"
+                              colorscheme={'blue'}
+                              variant={'solid'}
+                              disabled={!form.isValid}
+                            >
+                              Create Account
+                            </Button>
+                          )
+                        }}
+                      </Field>
                     </Flex>
                   </Stack>
                 </Stack>

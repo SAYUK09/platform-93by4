@@ -8,6 +8,7 @@ export type StatusType = {
   color?: string
 }
 
+
 export const data: StatusType[] = [
   {
     status: 'portfolio_not_submitted',
@@ -68,7 +69,6 @@ export const data: StatusType[] = [
   //   statusDescription: 'Click on step 1 and submit your portfolio for review.',
   // },
 ]
-
 // data for the step cards
 
 export type StepType = {

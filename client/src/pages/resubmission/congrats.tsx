@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { CongratsCard, Layout } from '../../components'
 import { fireworks } from '../../utils/fireworks'
+import { useAuth } from '../../context/AuthContext'
 
 const ReCongratsCard: React.FC = () => {
+  const { authState, setAuthState } = useAuth()
   const userStatus = {
-    submissionNo: 122,
-    currentStatus: 'needs revision',
+    submissionNo: authState?.user?.submissionData?.submissionNo,
+    currentStatus: authState?.user?.submissionData?.currentStatus,
   }
 
   useEffect(() => {

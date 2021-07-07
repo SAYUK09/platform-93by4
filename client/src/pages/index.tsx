@@ -10,7 +10,6 @@ import {
 } from '../data/staticData/admissionStages'
 import { theme } from '../themes'
 
-
 export default function Dashboard() {
   const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
   const status = data.find((e) => e.status == currentStatus)
