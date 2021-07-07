@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Box,
 } from '@chakra-ui/react'
 import { BsChevronRight } from 'react-icons/bs'
 
@@ -19,8 +18,8 @@ export type BreadcrumbProp = {
 const Breadcrumbs = ({ breadcrumbProp }: BreadcrumbProp): JSX.Element => {
   return (
     <Breadcrumb spacing="8px" separator={<BsChevronRight color="gray.500" />}>
-      {breadcrumbProp.map((breadcrumb: BreadcrumbObj) => (
-        <BreadcrumbItem>
+      {breadcrumbProp.map((breadcrumb: BreadcrumbObj, index) => (
+        <BreadcrumbItem key={index}>
           <BreadcrumbLink href={breadcrumb.breadcrumbLink}>
             {breadcrumb.breadcrumbName}
           </BreadcrumbLink>

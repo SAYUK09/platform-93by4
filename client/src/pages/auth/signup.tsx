@@ -12,6 +12,8 @@ import {
   Checkbox,
   FormErrorMessage,
   useToast,
+  InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react'
 
 import { AuthLayout, Navbar } from '../../components'
@@ -23,6 +25,7 @@ import { register } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
 import { useState } from 'react'
 import { theme } from '../../themes'
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 
 export interface SignUpValues {
   firstName: string
@@ -47,6 +50,10 @@ const SignUpSchema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required.')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, mix of numbers and alphabets.'
+    )
     .min(8, 'Password must be atleast 8 characters long.'),
   acceptTerms: yup
     .bool()
@@ -59,6 +66,7 @@ export default function SignUp() {
   const { setState } = useAuth()
   const router = useRouter()
   const toast = useToast()
+  const [showPassword, setShowpassword] = useState<boolean>(false)
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)
@@ -220,12 +228,27 @@ export default function SignUp() {
                         >
                           Password
                         </FormLabel>
-                        <Input
-                          {...field}
-                          id="password"
-                          type="password"
-                          placeholder="Password"
-                        />
+                        <InputGroup>
+                          <Input
+                            {...field}
+                            id="password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="Password"
+                          />
+                          <InputRightElement mr="4">
+                            <Button
+                              h="1.75rem"
+                              size="sm"
+                              onClick={() => setShowpassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <AiOutlineEyeInvisible />
+                              ) : (
+                                <AiOutlineEye />
+                              )}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
                         <FormErrorMessage>
                           {form.errors.password}
                         </FormErrorMessage>
@@ -270,27 +293,21 @@ export default function SignUp() {
                                 color={theme.colors.black['100']}
                               >
                                 By creating an account you agree to the &nbsp;
-                                <a
-                                  style={{
-                                    textDecoration: 'underline',
-                                    color: theme.colors.brand['500'],
-                                  }}
+                                <Link
                                   href="https://handbook.neog.camp/qualifier/tnc"
                                   target="_blank noreferrer noopener"
+                                  color={theme.colors.brand['500']}
                                 >
                                   Terms
-                                </a>
+                                </Link>
                                 &nbsp; and{' '}
-                                <a
-                                  style={{
-                                    textDecoration: 'underline',
-                                    color: theme.colors.brand['500'],
-                                  }}
+                                <Link
+                                  color={theme.colors.brand['500']}
                                   href="https://handbook.neog.camp/qualifier/privacy"
                                   target="_blank noreferrer noopener"
                                 >
                                   Privacy Policy
-                                </a>
+                                </Link>
                               </FormLabel>
                             </Flex>
                             <FormErrorMessage>
@@ -302,17 +319,14 @@ export default function SignUp() {
                     </Stack>
 
                     <Flex justify="space-between" align="center">
-                      <Link
-                        as={NextLink}
-                        href="/auth/login"
-                        style={{ fontWeight: 600 }}
-                      >
-                        <Text color={theme.colors.brand['500']}>
+                      <NextLink passHref href="/auth/login">
+                        <Link color={theme.colors.brand['500']}>
                           Log in instead
-                        </Text>
-                      </Link>
+                        </Link>
+                      </NextLink>
 
                       <Button
+                        isLoading={isLoading}
                         type="submit"
                         colorscheme={'blue'}
                         variant={'solid'}

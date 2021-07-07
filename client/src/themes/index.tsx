@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react'
 import { Button } from './Button/Button'
 import { Input } from './Input/Input'
 
+
 export const theme = extendTheme({
   components: {
     Button,
@@ -10,6 +11,10 @@ export const theme = extendTheme({
   fonts: {
     body: 'Inter, system-ui, sans-serif',
     heading: 'Inter, system-ui, sans-serif',
+  },
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
   },
   colors: {
     brand: {
