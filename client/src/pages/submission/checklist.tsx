@@ -52,8 +52,6 @@ export function CheckList() {
     )
   }
 
-  console.log(pageNumber, pageNumber > 1 ? 'visible' : 'hidden')
-
   return (
     <Layout>
       {CheckListData.slice(

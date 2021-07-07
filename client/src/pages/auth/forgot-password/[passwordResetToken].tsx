@@ -59,7 +59,7 @@ export default function PasswordResetForm() {
   }) {
     await sendPasswordResetRequest(token, data.password)
       .then((res) => {
-        console.log('here', res)
+        // console.log('here', res)
         if (res.status === 200) {
           toast({
             title: 'Password has been reset !',
