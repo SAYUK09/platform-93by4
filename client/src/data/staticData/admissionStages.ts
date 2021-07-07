@@ -7,7 +7,7 @@ export type StatusType = {
   statusDescription: string
 }
 
-export const statusData:StatusType = {
+export const statusData: StatusType = {
   status: 'interview_done_passed',
   level: 1, // control the locks
   statusText: 'Portfolio Not Submitted', // show your header

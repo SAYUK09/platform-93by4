@@ -45,6 +45,15 @@ export default function Login() {
 
   async function handleSubmit(data: LoginValues) {
     setIsLoading(true)
+    let submissionParseData: {
+      submissionNo: string
+      currentStatus: string
+    } | null = null
+    const submissionData =
+      localStorage && localStorage.getItem('neogSubmission')
+    if (submissionData) {
+      submissionParseData = JSON.parse(submissionData)
+    }
     await login(data)
       .then((res) => {
         console.log(res.data)
@@ -56,6 +65,7 @@ export default function Login() {
               firstName: res.data.firstName,
               lastName: res.data.lastName,
               userId: res.data.userId,
+              submissionData: submissionParseData,
             },
           })
           setIsLoading(false)

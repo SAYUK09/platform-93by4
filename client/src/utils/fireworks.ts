@@ -9,8 +9,6 @@ export function fireworks() {
     return Math.random() * (max - min) + min
   }
 
-  console.log("I am called!")
-
   var interval: NodeJS.Timeout = setInterval(function () {
     var timeLeft = animationEnd - Date.now()
 
