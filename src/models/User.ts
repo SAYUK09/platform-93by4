@@ -1,6 +1,7 @@
-import { Schema, model, Model } from 'mongoose'
+import { Schema, model, Model, ObjectId, PopulatedDoc } from 'mongoose'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
+import { IPortfolioUrl } from './Portfolio'
 
 // note : Add user roles as enum
 /**
@@ -20,6 +21,7 @@ export interface IUser {
   getPasswordResetToken: () => Promise<string>
   getEmailVerificationToken: () => Promise<string>
   matchPasswords: (password: string) => Promise<boolean>
+  portfolioUrl: PopulatedDoc<IPortfolioUrl & Document>,
 }
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
@@ -61,6 +63,10 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     },
     passwordResetTokenExpire: {
       type: Date,
+    },
+    portfolioUrl: {
+      type: Schema.Types.ObjectId,
+      ref:"PortfolioUrl"
     },
   },
   {

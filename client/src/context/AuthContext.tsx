@@ -1,3 +1,4 @@
+import { SetStateAction, Dispatch } from 'react'
 import {
   createContext,
   ReactNode,
@@ -12,6 +13,7 @@ export interface User {
   firstName: string
   lastName: string
   email: string
+  submissionData: { submissionNo: string; currentStatus: string } | null
 }
 
 export interface IAuthState {
@@ -23,6 +25,7 @@ interface IAuthContext {
   authState: IAuthState | undefined
   setState: (authInfo: IAuthState) => void
   logoutUser: () => void
+  setAuthState: Dispatch<SetStateAction<IAuthState>>
 }
 
 const defaultAuthState: IAuthState = {
@@ -31,6 +34,7 @@ const defaultAuthState: IAuthState = {
     lastName: '',
     email: '',
     userId: '',
+    submissionData: null,
   },
   isAuthenticated: false,
 }
@@ -39,6 +43,7 @@ const AuthContext = createContext<IAuthContext>({
   authState: defaultAuthState,
   setState: () => {},
   logoutUser: () => {},
+  setAuthState: () => {},
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -47,6 +52,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
+        let submissionParseData: {
+          submissionNo: string
+          currentStatus: string
+        } | null = null
+        const submissionData =
+          localStorage && localStorage.getItem('neogSubmission')
+        if (submissionData) {
+          submissionParseData = JSON.parse(submissionData)
+        }
         await getUser()
           .then((user) => {
             setAuthState({
@@ -55,6 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 userId: user.userId,
+                submissionData: submissionParseData,
               },
               isAuthenticated: true,
             })
@@ -100,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         authState: authState,
         setState: (authInfo: IAuthState) => setAuthInfo(authInfo),
         logoutUser,
+        setAuthState,
       }}
     >
       {children}

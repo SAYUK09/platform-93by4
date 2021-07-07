@@ -63,10 +63,6 @@ export function Navbar() {
       minHeight={'60px'}
       alignItems={'center'}
       justifyContent={'center'}
-      position={'sticky'}
-      top={'0'}
-      left={'0'}
-      zIndex={2}
     >
       <Flex
         width={'100%'}
