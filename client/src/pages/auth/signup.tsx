@@ -324,15 +324,21 @@ export default function SignUp() {
                           Log in instead
                         </Link>
                       </NextLink>
-
-                      <Button
-                        isLoading={isLoading}
-                        type="submit"
-                        colorscheme={'blue'}
-                        variant={'solid'}
-                      >
-                        Create Account
-                      </Button>
+                      <Field>
+                        {({ form }) => {
+                          return (
+                            <Button
+                              isLoading={isLoading}
+                              type="submit"
+                              colorscheme={'blue'}
+                              variant={'solid'}
+                              disabled={!form.isValid}
+                            >
+                              Create Account
+                            </Button>
+                          )
+                        }}
+                      </Field>
                     </Flex>
                   </Stack>
                 </Stack>
