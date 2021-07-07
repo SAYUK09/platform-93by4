@@ -1,15 +1,17 @@
-import { CheckboxGroup, Checkbox, Text } from '@chakra-ui/react'
+import { CheckboxGroup, Checkbox, Text, isChakraTheme } from '@chakra-ui/react'
 import { ChecksType } from '../../data/staticData/mark15'
 import { SetStateAction, Dispatch } from 'react'
 import { theme } from '../../themes'
 
 interface CheckListProps {
   checklist?: ChecksType[]
+  checkCount?: string[]
   setCheckCount: Dispatch<SetStateAction<string[]>>
 }
 
 export function CheckList({
   checklist,
+  checkCount,
   setCheckCount,
 }: CheckListProps): JSX.Element {
   const handleCheckBoxChange = (id: string, text: string) => {
@@ -27,6 +29,7 @@ export function CheckList({
       <CheckboxGroup>
         {checklist &&
           checklist.map(({ id, text }) => {
+            const isChecked = Boolean(checkCount && checkCount.includes(id))
             return (
               <Checkbox
                 key={id}
@@ -36,8 +39,11 @@ export function CheckList({
                 display={'flex'}
                 alignItems={'flex-start'}
                 onChange={() => handleCheckBoxChange(id, text)}
+                isChecked={isChecked}
               >
-                <Text>{text}</Text>
+                <Text>
+                  {isChecked.toString()} {text}
+                </Text>
               </Checkbox>
             )
           })}
