@@ -72,6 +72,9 @@ const SubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        // for removing localStorage mark15 data.
+
+        localStorage.removeItem("mark15");
         router.push('./submission/congrats')
       }
     } catch (err) {
