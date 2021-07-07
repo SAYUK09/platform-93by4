@@ -9,20 +9,16 @@ export function Navbar() {
   const { authState } = useAuth()
   return (
     <Flex
-      background={theme.colors.black['700']}
+      background={theme.colors.black['800']}
       width={'100%'}
       maxHeight={'60px'}
       minHeight={'60px'}
       alignItems={'center'}
       justifyContent={'center'}
-      position={'sticky'}
-      top={'0'}
-      left={'0'}
-      zIndex={2}
     >
       <Flex
         width={'100%'}
-        background={theme.colors.black['700']}
+        background={theme.colors.black['800']}
         height={'100%'}
         alignItems={'center'}
         maxWidth={'1100px'}

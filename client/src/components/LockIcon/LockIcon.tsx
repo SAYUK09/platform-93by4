@@ -14,7 +14,7 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
         <Flex alignItems={'center'} transform={['scale(1)', 'scale(0.85)']}>
           <Text
             background={
-              !locked ? theme.colors.green['300'] : theme.colors.gray['300']
+              !locked ? theme.colors.brand['500'] : theme.colors.gray['300']
             }
             display={'flex'}
             justifyContent={'center'}
@@ -23,23 +23,13 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
             width={'29px'}
             borderRadius={'4px'}
             fontWeight={'600'}
-            margin={['1.2rem 0', '0 1.2rem']}
-            marginLeft={'0'}
+            marginRight={'1rem'}
             position={'relative'}
             fontSize={'1.1rem'}
+            color={theme.colors.black['800']}
           >
-            {locked && (
-              <Text
-                position={'absolute'}
-                top={'-1.8rem'}
-                left={'3px'}
-                transform={'rotate(180deg)'}
-                fontSize={'2rem'}
-                color={theme.colors.gray['300']}
-              >
-                U
-              </Text>
-            )}
+            {/* 
+            color of text lock */}
 
             {index + 1}
           </Text>
