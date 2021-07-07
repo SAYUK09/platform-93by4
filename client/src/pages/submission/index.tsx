@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
+import { useAuth } from '../../context/AuthContext'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -21,9 +22,16 @@ const SubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
+  const { authState } = useAuth()
 
   useEffect(() => {
     inputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (authState?.user?.submissionData?.currentStatus === 'under review') {
+      router.push('/submission/congrats')
+    }
   }, [])
 
   const checkPortfolioUrl = (): void => {
