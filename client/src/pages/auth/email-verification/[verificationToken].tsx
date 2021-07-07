@@ -19,7 +19,7 @@ export default function EmailVerificationToken() {
       return
     }
     async function submitToken() {
-      console.log(verificationToken)
+      // console.log(verificationToken)
       await sendVerificationToken({
         verificationToken: verificationToken as string | undefined,
       })
