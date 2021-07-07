@@ -4,7 +4,7 @@ import { theme } from '../../themes'
 interface LockIconPropType {
   collapsible?: boolean
   locked?: boolean
-  index: number
+  index?: number
 }
 
 export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
@@ -41,7 +41,7 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
               </Text>
             )}
 
-            {index + 1}
+            {index && index + 1}
           </Text>
         </Flex>
       )}

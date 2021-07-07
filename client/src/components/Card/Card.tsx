@@ -57,9 +57,7 @@ export function Card({
           collapsible && setOpenDrawer((openDrawer) => !openDrawer)
         }
       >
-        {lockIcon && (
-          <LockIcon index={index} collapsible={collapsible} status={status} />
-        )}
+        {lockIcon && <LockIcon index={index} collapsible={collapsible} />}
         <CardText
           collapsible={collapsible}
           title={title}
