@@ -74,7 +74,7 @@ const SubmissionWindow: React.FC = () => {
         )
         // for removing localStorage mark15 data.
 
-        localStorage.removeItem("mark15");
+        localStorage.removeItem('mark15')
         router.push('./submission/congrats')
       }
     } catch (err) {
@@ -156,7 +156,7 @@ const SubmissionWindow: React.FC = () => {
               </Heading>
             </Flex>
             <Flex
-              justifyContent="center"
+              justifyContent={['stretch', 'center']}
               alignItems="center"
               p="5"
               flexDirection={['column', 'row']}
@@ -179,6 +179,7 @@ const SubmissionWindow: React.FC = () => {
                 color={theme.colors.black['900']}
                 mt={['1rem', '0']}
                 ml={['0', '1rem']}
+                width={['100%', 'auto']}
               >
                 Submit
               </Button>
