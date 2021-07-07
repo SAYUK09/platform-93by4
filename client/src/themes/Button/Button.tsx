@@ -5,6 +5,7 @@ export const Button = {
   },
   sizes: {},
   variants: {
+
     solid: {
       bg: 'brand.500',
       color: 'black.800',

@@ -7,13 +7,11 @@ import {
   FormErrorMessage,
   Input,
   Button,
+  useToast,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import {
-  sendForgotPasswordRequest,
-  sendPasswordResetRequest,
-} from '../../../services/axiosService'
+import { useEffect, useState } from 'react'
+import { sendPasswordResetRequest } from '../../../services/axiosService'
 import * as yup from 'yup'
 import { Formik, Form, Field } from 'formik'
 
@@ -26,6 +24,10 @@ export const PasswordResetSchema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required.')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Must Contain 8 Characters, mix of numbers and alphabets.'
+    )
     .min(8, 'Password must be atleast 8 characters long.'),
   newPassword: yup
     .string()
@@ -33,34 +35,45 @@ export const PasswordResetSchema = yup.object().shape({
 })
 
 export default function PasswordResetForm() {
+  const toast = useToast()
   const router = useRouter()
-  const { passwordResetToken } = router.query
+  const passwordResetToken = router.query.passwordResetToken as string
+
+  const [token, setToken] = useState('')
 
   useEffect(() => {
     if (!passwordResetToken) {
       return
+    } else {
+      setToken(passwordResetToken)
     }
-    async function submitToken() {
-      console.log(passwordResetToken)
-      await sendForgotPasswordRequest({
-        passwordResetToken: passwordResetToken as string | undefined,
-      })
-        .then((res) => {
-          // todo -> render different UI according to response.
-          console.log(res)
-        })
-        .catch((error) => console.log({ error }))
-    }
-    submitToken()
   }, [passwordResetToken])
 
   async function handleSubmit(data: {
-    passwordResetToken: string
+    passwordResetToken?: string
     password: string
   }) {
-    await sendPasswordResetRequest(data.passwordResetToken, data.password)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error))
+    await sendPasswordResetRequest(token, data.password)
+      .then((res) => {
+        console.log('here', res)
+        if (res.status === 200) {
+          toast({
+            title: 'Password has been reset !',
+            description: 'Please proceed to login.',
+            status: 'success',
+          })
+          router.push('/auth/login')
+        }
+      })
+      .catch((error) => {
+        toast({
+          title: 'Password reset link has been expired.',
+          description:
+            'Please issue a new link by clicking forgot password button.',
+          status: 'error',
+        })
+        console.log({ error })
+      })
   }
 
   return (
@@ -89,7 +102,7 @@ export default function PasswordResetForm() {
         >
           <Form>
             <Field name="password">
-              {({ field, form }) => (
+              {({ field, form }: any) => (
                 <FormControl
                   isInvalid={form.errors.password && form.touched.password}
                 >
@@ -106,7 +119,7 @@ export default function PasswordResetForm() {
             </Field>
 
             <Field name="confirmPassword">
-              {({ field, form }) => (
+              {({ field, form }: any) => (
                 <FormControl
                   isInvalid={
                     form.errors.confirmPassword && form.touched.confirmPassword

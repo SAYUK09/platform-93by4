@@ -10,7 +10,8 @@ import {
   Link,
   FormErrorMessage,
   useToast,
-  Text,
+  InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React, { useState } from 'react'
@@ -21,7 +22,7 @@ import { login } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
-
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 export interface LoginValues {
   email: string
   password: string
@@ -40,6 +41,7 @@ export default function Login() {
   const router = useRouter()
   const toast = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [showPassword, setShowpassword] = useState<boolean>(false)
 
   async function handleSubmit(data: LoginValues) {
     setIsLoading(true)
@@ -132,6 +134,7 @@ export default function Login() {
                           placeholder="you@example.com"
                           type="email"
                         />
+
                         <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                       </FormControl>
                     )}
@@ -150,12 +153,27 @@ export default function Login() {
                         >
                           Password
                         </FormLabel>
-                        <Input
-                          {...field}
-                          id="password"
-                          placeholder="Your password"
-                          type="password"
-                        />
+                        <InputGroup>
+                          <Input
+                            {...field}
+                            id="password"
+                            placeholder="Your password"
+                            type={showPassword ? 'text' : 'password'}
+                          />
+                          <InputRightElement mr="4">
+                            <Button
+                              h="1.75rem"
+                              size="sm"
+                              onClick={() => setShowpassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <AiOutlineEyeInvisible />
+                              ) : (
+                                <AiOutlineEye />
+                              )}
+                            </Button>
+                          </InputRightElement>
+                        </InputGroup>
                         <FormErrorMessage>
                           {form.errors.password}
                         </FormErrorMessage>
@@ -169,26 +187,22 @@ export default function Login() {
                       align={'start'}
                       justify={'space-between'}
                     >
-                      <Link
-                        href="/auth/forgot-password/"
-                        fontStyle="italic"
-                        fontSize="sm"
-                      >
-                        <Text color={theme.colors.brand['500']}>
-                          Forgot Password?
-                        </Text>
-                      </Link>
+                      <NextLink href="/auth/forgot-password/" passHref>
+                        <Link
+                          color={theme.colors.brand['500']}
+                          fontStyle="italic"
+                          fontSize="sm"
+                        >
+                          Forgot Password ?
+                        </Link>
+                      </NextLink>
                     </Stack>
                     <Flex justify="space-between" align="center">
-                      <Link
-                        as={NextLink}
-                        href="/auth/signup"
-                        style={{ fontWeight: 600 }}
-                      >
-                        <Text as="u" color={theme.colors.brand['500']}>
-                          Create Account
-                        </Text>
-                      </Link>
+                      <NextLink href="/auth/signup" passHref>
+                        <Link color={theme.colors.brand['500']}>
+                          Create an account
+                        </Link>
+                      </NextLink>
                       <Button
                         type="submit"
                         colorscheme={'blue'}

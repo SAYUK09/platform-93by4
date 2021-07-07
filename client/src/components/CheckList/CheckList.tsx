@@ -13,7 +13,6 @@ export function CheckList({
   setCheckCount,
 }: CheckListProps): JSX.Element {
   const handleCheckBoxChange = (id: string, text: string) => {
-    console.log('checked', text)
     setCheckCount &&
       setCheckCount((checkCount) => {
         if (checkCount.includes(id)) {
@@ -31,7 +30,7 @@ export function CheckList({
             return (
               <Checkbox
                 key={id}
-                colorscheme="teal"
+                colorScheme="teal"
                 color={theme.colors.black['100']}
                 marginBottom={'0.5rem'}
                 display={'flex'}
