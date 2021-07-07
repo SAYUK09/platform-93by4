@@ -41,8 +41,13 @@ const SignUpSchema = yup.object().shape({
     .string()
     .required('First Name is required.')
     .min(2, 'First name must be atleast 2 characters long.')
+    .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
     .trim(),
-  lastName: yup.string().required('Last name is required.'),
+  lastName: yup
+    .string()
+    .required('Last name is required.')
+    .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
+    .trim(),
   email: yup
     .string()
     .email('Email must be a valid email address.')
