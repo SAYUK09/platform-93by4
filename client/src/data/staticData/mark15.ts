@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid'
-
 export interface ChecksType {
   id: string
   text: string
@@ -11,121 +9,121 @@ export interface CheckListType {
   checks?: ChecksType[]
 }
 
-export const CardOnEachPage = 4
+export const CardOnEachPage = 5
 
 export const CheckListData: CheckListType[] = [
   {
-    id: uuid(),
+    id: '1',
     title: 'mark1',
     checks: [
       {
-        id: uuid(),
+        id: '1a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '1b',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '1c',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
   },
   {
-    id: uuid(),
+    id: '2',
     title: 'mark2',
     checks: [
       {
-        id: uuid(),
+        id: '2a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '2b',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '2c',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '2',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
   },
   {
-    id: uuid(),
+    id: '3',
     title: 'mark3',
     checks: [
       {
-        id: uuid(),
+        id: '3a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '3b',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '3c',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
   },
   {
-    id: uuid(),
+    id: '4',
     title: 'mark4',
     checks: [
       {
-        id: uuid(),
+        id: '4a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '4b',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '4c',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
   },
   {
-    id: uuid(),
+    id: '5',
     title: 'mark5',
     checks: [
       {
-        id: uuid(),
+        id: '5a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '5b',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '5c',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '5d',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
   },
   {
-    id: uuid(),
+    id: '6',
     title: 'mark6',
     checks: [
       {
-        id: uuid(),
+        id: '6a',
         text: 'Have make all p0 features.',
       },
       {
-        id: uuid(),
+        id: '6b',
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: uuid(),
+        id: '6c',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],
