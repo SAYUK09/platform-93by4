@@ -14,9 +14,11 @@ export interface User {
   email: string
 }
 
+// todo -> maybe add a global loading state here ??
 export interface IAuthState {
   user: User | null
   isAuthenticated: boolean
+  isLoading: boolean
 }
 
 interface IAuthContext {
@@ -33,6 +35,7 @@ const defaultAuthState: IAuthState = {
     userId: '',
   },
   isAuthenticated: false,
+  isLoading: true,
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -57,6 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 userId: user.userId,
               },
               isAuthenticated: true,
+              isLoading: false,
             })
             console.log(user)
           })
@@ -64,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setAuthState({
               user: null,
               isAuthenticated: false,
+              isLoading: false,
             })
             console.log({ err })
           })
@@ -72,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthState({
           user: null,
           isAuthenticated: false,
+          isLoading: false,
         })
       }
     }
@@ -82,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthState({
       isAuthenticated: data.isAuthenticated,
       user: data.user,
+      isLoading: data.isLoading,
     })
   }
 

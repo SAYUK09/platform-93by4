@@ -90,6 +90,7 @@ export default function SignUp() {
               lastName,
               userId,
             },
+            isLoading: false,
           })
           console.log({ authState, data: res.data })
           setIsLoading(false)
@@ -101,6 +102,7 @@ export default function SignUp() {
         setState({
           isAuthenticated: false,
           user: null,
+          isLoading: false,
         })
         toast({
           title: 'Email already exists.',

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
+import withAuth from '../../context/WithAuth'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -46,7 +47,8 @@ const SubmissionWindow: React.FC = () => {
         setOutput('Portfolio URL already exists, try again with your own URL')
         toast({
           title: 'Portfolio URL Exists',
-          description: "The link you have submitted already exists, please try again with different link!",
+          description:
+            'The link you have submitted already exists, please try again with different link!',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -126,4 +128,4 @@ const SubmissionWindow: React.FC = () => {
   )
 }
 
-export default SubmissionWindow
+export default withAuth(SubmissionWindow)

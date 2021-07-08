@@ -1,5 +1,7 @@
 import { Text, Flex } from '@chakra-ui/react'
+
 import { Layout, StatusCard, StepCard } from '../components'
+import withAuth from '../context/WithAuth'
 import {
   statusData,
   steps,
@@ -7,8 +9,7 @@ import {
 } from '../data/staticData/admissionStages'
 import { theme } from '../themes'
 
-
-export default function Dashboard() {
+function Dashboard() {
   return (
     <Layout>
       <Flex as="section" flexDir="column">
@@ -39,3 +40,5 @@ export default function Dashboard() {
     </Layout>
   )
 }
+
+export default withAuth(Dashboard)

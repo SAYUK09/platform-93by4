@@ -59,6 +59,7 @@ export default function Login() {
               lastName: res.data.lastName,
               userId: res.data.userId,
             },
+            isLoading: false,
           })
           setIsLoading(false)
           toast({
@@ -75,6 +76,7 @@ export default function Login() {
         setState({
           isAuthenticated: false,
           user: null,
+          isLoading: false,
         })
         toast({
           title: 'Failed to log you in.',
