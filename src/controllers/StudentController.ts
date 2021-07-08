@@ -17,11 +17,11 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
   const currentSubmission = await PortfolioUrl.find()
     .sort({ submissionNo: -1 })
     .limit(1)
-    let currentSubmissionCount;
+  let currentSubmissionCount
   try {
-    if(currentSubmission.length < 1){
+    if (currentSubmission.length < 1) {
       currentSubmissionCount = 0
-    }else{
+    } else {
       currentSubmissionCount = currentSubmission[0].submissionNo
     }
     if (foundUser && foundUser.portfolioUrl) {
@@ -115,3 +115,4 @@ export const reSubmitHandler: RequestHandler = async (
     return res.status(500).json({ message: 'Fail to submit portfolio Url' })
   }
 }
+
