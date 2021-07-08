@@ -6,8 +6,9 @@ import {
   AlertDescription,
   Progress,
   Button,
-  toast,
+  VStack,
   useToast,
+  Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../../context/AuthContext'
@@ -22,6 +23,7 @@ export default function EmailSent() {
   const router = useRouter()
 
   async function handleResend() {
+    console.log(authState)
     await resendLink(authState?.user?.email)
       .then((res) => {
         console.log(res)
@@ -73,11 +75,20 @@ export default function EmailSent() {
         <AlertTitle mt={4} mb={1} fontSize="lg">
           Verification Email Sent!
         </AlertTitle>
-        <AlertDescription maxWidth="sm">
-          In order to continue using application, we need to verify your email.
-          A verification link has been sent to you. Please click it verify your
-          account. Haven't recieved email yet ?
-          <Button onClick={handleResend}>Click here to resend.</Button>
+        <AlertDescription
+          maxWidth="sm"
+          d={'flex'}
+          justifyContent={'center'}
+          flexDirection={'column'}
+        >
+          <VStack spacing={6}>
+            <Text>
+              In order to continue using application, we need to verify your
+              email. A verification link has been sent to you. Please click it
+              verify your account. Haven't recieved email yet ?
+            </Text>
+            <Button onClick={handleResend}>Click here to resend.</Button>
+          </VStack>
         </AlertDescription>
       </Alert>
     </Box>
