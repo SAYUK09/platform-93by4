@@ -1,11 +1,13 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import { Layout } from '../components'
-import illustration from '../../public/svgs/landingPage.svg'
 import Image from 'next/image'
+import Router, { useRouter } from 'next/router'
 import { FiExternalLink } from 'react-icons/Fi'
+import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
+import illustration from '../../public/svgs/landingPage.svg'
 
 export default function Home() {
+  const router = useRouter()
   return (
     <Layout>
       <Stack
@@ -39,6 +41,7 @@ export default function Home() {
               height="14"
               px="8"
               color="black.900"
+              onClick={() => router.push('/auth/signup')}
             >
               Signup
             </Button>
@@ -52,6 +55,7 @@ export default function Home() {
               shadow="base"
               border="2px"
               borderColor="brand.500"
+              onClick={() => router.push('/auth/login')}
             >
               Login
             </Button>
@@ -62,6 +66,7 @@ export default function Home() {
             rightIcon={<FiExternalLink fontSize="xl" />}
             size="md"
             mt={{ base: '12', md: '8' }}
+            onClick={() => router.push('https://neog.camp/level-one')}
           >
             Know more about the camp
           </Button>
