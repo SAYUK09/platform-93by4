@@ -3,7 +3,7 @@ import { Flex, Heading, Spacer, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import DashboardImage from '../../images/dashboard-girl.svg'
 import { theme } from '../../themes'
-export function StatusCard({ status, bgColor, step }: any) {
+export function StatusCard({ status, bgColor, step, submissionNo }: any) {
   return (
     <Flex
       bgColor={bgColor}
@@ -34,6 +34,7 @@ export function StatusCard({ status, bgColor, step }: any) {
               color={status?.color == 'red' ? '#F13C3C' : theme.colors.white}
             >
               {' ' + status.statusText}
+              <br />
             </Heading>
           </Heading>
         </a>
@@ -45,7 +46,10 @@ export function StatusCard({ status, bgColor, step }: any) {
           py={2}
           pt={4}
         >
-          {status.statusDescription}
+          {status.statusDescription} <br />
+          {submissionNo !== null &&
+            status.status == 'under review' &&
+            'Submission Number : #' + submissionNo}
         </Text>
       </Flex>
       <Spacer />

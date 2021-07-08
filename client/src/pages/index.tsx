@@ -13,21 +13,31 @@ import { theme } from '../themes'
 import { getDashboard } from '../services/axiosService'
 
 export default function Dashboard() {
+  const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
+  const [submissionNo, setSubmissionNo] = useState(null)
   useEffect(() => {
     async function fetch() {
       await getDashboard().then((user) => {
         console.log(user)
+        const portfolio = user.foundPortfolio.portfolioUrl
+        portfolio !== undefined &&
+          (setCurrentStatus(portfolio.status),
+          setSubmissionNo(portfolio.submissionNo))
       })
     }
     fetch()
   }, [])
-  const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
+
   const status = data.find((e) => e.status == currentStatus)
   console.log(status)
   return (
     <Layout>
       <Flex as="section" flexDir="column">
-        <StatusCard status={status} bgColor={theme.colors.black['800']} />
+        <StatusCard
+          status={status}
+          bgColor={theme.colors.black['800']}
+          submissionNo={submissionNo}
+        />
         <Text
           my={8}
           color={theme.colors.gray['100']}
