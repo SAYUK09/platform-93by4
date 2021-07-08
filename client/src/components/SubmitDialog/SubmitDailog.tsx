@@ -57,7 +57,11 @@ export function Alert({
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button
+                ref={cancelRef}
+                background={theme.colors.red['400']}
+                onClick={onClose}
+              >
                 Cancel
               </Button>
               <Button onClick={SubmitHandler} ml={3}>
