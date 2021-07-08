@@ -42,24 +42,45 @@ export function Card({
         checkCount.length,
         setAllMarksChecked
       )
+
+      if (localStorage && checkCount.length) {
+        const localCheckData = localStorage.getItem('mark15')
+        let localParsedCheckData = {}
+        if (localCheckData) {
+          localParsedCheckData = JSON.parse(localCheckData)
+        }
+        localStorage.setItem(
+          'mark15',
+          JSON.stringify({ ...localParsedCheckData, [id]: checkCount })
+        )
+      }
     }
   }, [checks, id, setAllMarksChecked, checkCount])
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData: any = localStorage.getItem('mark15')
+      let localParsedCheckData: any = {}
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      localParsedCheckData[id] && setCheckCount(localParsedCheckData[id])
+    }
+  }, [])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
       <Flex
         width={'100%'}
         background={theme.colors.black['800']}
-        padding={'1.5rem'}
+        padding={['0.8rem', '1.5rem']}
         alignItems={'center'}
         flexDirection={[!collapsible ? 'column' : 'row', 'row']}
         onClick={() =>
           collapsible && setOpenDrawer((openDrawer) => !openDrawer)
         }
       >
-        {lockIcon && (
-          <LockIcon index={index} collapsible={collapsible} status={status} />
-        )}
+        {lockIcon && <LockIcon index={index} collapsible={collapsible} />}
         <CardText
           collapsible={collapsible}
           title={title}
@@ -77,8 +98,8 @@ export function Card({
                     ? '/svgs/rightArrow.svg'
                     : '/svgs/link.svg'
                 }
-                height={'30'}
-                width={'30'}
+                height="30"
+                width="30"
                 alt={'link-svg'}
               />
             </Link>
@@ -107,7 +128,11 @@ export function Card({
           overflow={'overhidden'}
           opacity={openDrawer ? '1' : '0.7'}
         >
-          <CheckList checklist={checks} setCheckCount={setCheckCount} />
+          <CheckList
+            checklist={checks}
+            checkCount={checkCount}
+            setCheckCount={setCheckCount}
+          />
         </Flex>
       )}
     </Box>

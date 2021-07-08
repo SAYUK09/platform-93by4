@@ -6,6 +6,7 @@ import { corsOptions } from './config/corsOptions'
 import log from './utils/logger'
 import { makeConnection } from './db/mongodb'
 import authRoutes from './routes/AuthRoutes'
+import studentRoutes from './routes/StudentRoutes'
 dotenv.config()
 
 makeConnection()
@@ -20,6 +21,7 @@ app.use(cookieParser())
  * Route Configuration
  * */
 app.use('/api/auth', authRoutes)
+app.use('/api', studentRoutes)
 
 /**
  * This handles all the errors in application that were not catched by controllers

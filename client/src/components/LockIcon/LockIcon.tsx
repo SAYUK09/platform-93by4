@@ -4,7 +4,7 @@ import { theme } from '../../themes'
 interface LockIconPropType {
   collapsible?: boolean
   locked?: boolean
-  index: number
+  index?: number
 }
 
 export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
@@ -23,25 +23,15 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
             width={'29px'}
             borderRadius={'4px'}
             fontWeight={'600'}
-            margin={['1.2rem 0', '0 1.2rem']}
-            marginLeft={'0'}
+            marginRight={'1rem'}
             position={'relative'}
             fontSize={'1.1rem'}
+            color={theme.colors.black['800']}
           >
-            {locked && (
-              <Text
-                position={'absolute'}
-                top={'-1.8rem'}
-                left={'3px'}
-                transform={'rotate(180deg)'}
-                fontSize={'2rem'}
-                color={theme.colors.gray['300']}
-              >
-                U
-              </Text>
-            )}
+            {/* 
+            color of text lock */}
 
-            {index + 1}
+            {index && index + 1}
           </Text>
         </Flex>
       )}
