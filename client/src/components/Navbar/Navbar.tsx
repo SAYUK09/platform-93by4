@@ -1,4 +1,10 @@
-import { Flex, WrapItem, Avatar, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  WrapItem,
+  Avatar,
+  Text,
+  Link as ChakraLink,
+} from '@chakra-ui/react'
 import { theme } from '../../themes'
 import Logo from '../../assests/svgs/neogcamp.svg'
 import Image from 'next/image'
@@ -29,8 +35,10 @@ export function Navbar() {
         padding={'0 1rem'}
         justifyContent={'space-between'}
       >
-        <Link href="/">
-          <Image src={Logo} alt="neog logo" />
+        <Link href="/" passHref>
+          <ChakraLink>
+            <Image src={Logo} alt="neog logo" />
+          </ChakraLink>
         </Link>
         <Flex alignItems="center">
           <Avatar
