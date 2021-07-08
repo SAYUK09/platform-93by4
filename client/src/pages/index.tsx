@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Text, Flex, Button } from '@chakra-ui/react'
 import { Layout, StatusCard, StepCard } from '../components'
 import {
@@ -9,8 +10,17 @@ import {
   submissionSting,
 } from '../data/staticData/admissionStages'
 import { theme } from '../themes'
+import { getDashboard } from '../services/axiosService'
 
 export default function Dashboard() {
+  useEffect(() => {
+    async function fetch() {
+      await getDashboard().then((user) => {
+        console.log(user)
+      })
+    }
+    fetch()
+  }, [])
   const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
   const status = data.find((e) => e.status == currentStatus)
   console.log(status)
@@ -24,18 +34,6 @@ export default function Dashboard() {
           fontWeight="bold"
           fontSize={['md', 'md', 'xl']}
         >
-          <Button
-            onClick={() => setCurrentStatus('portfolio_under_review')}
-          ></Button>
-          <Button
-            onClick={() =>
-              setCurrentStatus('portfolio_passed_interview_to_be_scheduled')
-            }
-          ></Button>
-          <Button
-            onClick={() => setCurrentStatus('portfolio_needs_revision')}
-          ></Button>
-
           {submissionSting}
         </Text>
 

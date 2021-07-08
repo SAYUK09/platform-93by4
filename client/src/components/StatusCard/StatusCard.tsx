@@ -31,9 +31,7 @@ export function StatusCard({ status, bgColor, step }: any) {
             <Heading
               fontSize={['xl', '2xl', '3xl']}
               as="span"
-              color={
-                status?.color == 'red' ? '#F13C3C' : theme.colors.brand['500']
-              }
+              color={status?.color == 'red' ? '#F13C3C' : theme.colors.white}
             >
               {' ' + status.statusText}
             </Heading>

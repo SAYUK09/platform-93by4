@@ -62,6 +62,10 @@ export const getUser = async () => {
   const response = await apiClient.get<User>('/auth/user-info')
   return response.data
 }
+export const getDashboard = async () => {
+  const response = await apiClient.get('/dashbord-info')
+  return response.data
+}
 
 export const logout = async () => {
   const response = await apiClient.post('/auth/logout')
