@@ -103,7 +103,7 @@ export default function SignUp() {
           user: null,
         })
         toast({
-          title: 'Failed to register account.',
+          title: 'Email already exists.',
           description: error.response.data.msg,
           isClosable: true,
           status: 'error',
