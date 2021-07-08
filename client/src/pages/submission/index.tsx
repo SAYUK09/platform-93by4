@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
-import { Layout, Breadcrumbs } from '../../components'
+import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
@@ -73,7 +73,6 @@ const SubmissionWindow: React.FC = () => {
           })
         )
         // for removing localStorage mark15 data.
-
         localStorage.removeItem('mark15')
         router.push('./submission/congrats')
       }
@@ -172,17 +171,7 @@ const SubmissionWindow: React.FC = () => {
                 color={theme.colors.black['50']}
                 maxWidth="300px"
               />
-              <Button
-                background={theme.colors.brand['500']}
-                isDisabled={disableButton}
-                onClick={submitPortfolioUrl}
-                color={theme.colors.black['900']}
-                mt={['1rem', '0']}
-                ml={['0', '1rem']}
-                width={['100%', 'auto']}
-              >
-                Submit
-              </Button>
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
             <Text color={theme.colors.red['500']} textAlign="center">
               {checkInput}
