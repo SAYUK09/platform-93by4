@@ -38,6 +38,7 @@ export function Navbar() {
           duration: 4000,
           isClosable: true,
         })
+        // TODO: Clear the token history from local Storage
         setLoginStatus('Login')
         router.push('/')
         Router.reload()
