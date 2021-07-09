@@ -131,10 +131,6 @@ export const dashboardInfoHandler = async (req: AuthRequest, res: any) => {
 
     res.status(200).json({
       foundPortfolio: foundPortfolio,
-      // email: foundUser?.email,
-      // firstName: foundUser?.firstName,
-      // lastName: foundUser?.lastName,
-      // userId: foundUser?._id,
     })
   } catch (error) {
     res.status(500).json({

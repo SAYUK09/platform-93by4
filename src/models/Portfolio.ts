@@ -1,4 +1,4 @@
-import { IUser } from './User';
+import { IUser } from './User'
 import { Schema, model, Model, ObjectId } from 'mongoose'
 
 export interface IPortfolioUrl {
@@ -6,7 +6,7 @@ export interface IPortfolioUrl {
   submissionNo: number
   status: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user:any
+  user: any
 }
 
 const PortfolioSchema = new Schema<
@@ -26,4 +26,7 @@ const PortfolioSchema = new Schema<
   },
 })
 
-export const PortfolioUrl = model<IPortfolioUrl>('PortfolioUrl', PortfolioSchema)
+export const PortfolioUrl = model<IPortfolioUrl>(
+  'PortfolioUrl',
+  PortfolioSchema
+)

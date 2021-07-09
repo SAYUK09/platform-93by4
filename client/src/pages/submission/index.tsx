@@ -9,11 +9,12 @@ import {
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
-import { Layout, Breadcrumbs } from '../../components'
+import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
+import { useAuth } from '../../context/AuthContext'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -21,9 +22,16 @@ const SubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
+  const { authState } = useAuth()
 
   useEffect(() => {
     inputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (authState?.user?.submissionData?.currentStatus === 'under review') {
+      router.push('/submission/congrats')
+    }
   }, [])
 
   const checkPortfolioUrl = (): void => {
@@ -64,6 +72,8 @@ const SubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        // for removing localStorage mark15 data.
+        localStorage.removeItem('mark15')
         router.push('./submission/congrats')
       }
     } catch (err) {
@@ -145,7 +155,7 @@ const SubmissionWindow: React.FC = () => {
               </Heading>
             </Flex>
             <Flex
-              justifyContent="center"
+              justifyContent={['stretch', 'center']}
               alignItems="center"
               p="5"
               flexDirection={['column', 'row']}
@@ -161,16 +171,7 @@ const SubmissionWindow: React.FC = () => {
                 color={theme.colors.black['50']}
                 maxWidth="300px"
               />
-              <Button
-                background={theme.colors.brand['500']}
-                isDisabled={disableButton}
-                onClick={submitPortfolioUrl}
-                color={theme.colors.black['900']}
-                mt={['1rem', '0']}
-                ml={['0', '1rem']}
-              >
-                Submit
-              </Button>
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
             <Text color={theme.colors.red['500']} textAlign="center">
               {checkInput}

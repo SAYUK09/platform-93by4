@@ -1,48 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Text, Flex, Button } from '@chakra-ui/react'
-import { Layout, StatusCard, StepCard } from '../components'
+import { Layout, StatusCard, StepCard } from '../../components'
 import {
   data,
   StatusType,
   steps,
   StepType,
   submissionSting,
-} from '../data/staticData/admissionStages'
-import { theme } from '../themes'
-import { getDashboard } from '../services/axiosService'
+} from '../../data/staticData/admissionStages'
+import { theme } from '../../themes'
 
 export default function Dashboard() {
   const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
-  const [submissionNo, setSubmissionNo] = useState(null)
-  useEffect(() => {
-    async function fetch() {
-      await getDashboard().then((user) => {
-        console.log(user)
-        const portfolio = user.foundPortfolio.portfolioUrl
-        portfolio !== undefined &&
-          (setCurrentStatus(portfolio.status),
-          setSubmissionNo(portfolio.submissionNo))
-      })
-    }
-    fetch()
-  }, [])
-
   const status = data.find((e) => e.status == currentStatus)
   console.log(status)
   return (
     <Layout>
       <Flex as="section" flexDir="column">
-        <StatusCard
-          status={status}
-          bgColor={theme.colors.black['800']}
-          submissionNo={submissionNo}
-        />
+        <StatusCard status={status} bgColor={theme.colors.black['800']} />
         <Text
           my={8}
           color={theme.colors.gray['100']}
           fontWeight="bold"
           fontSize={['md', 'md', 'xl']}
         >
+          <Button
+            onClick={() => setCurrentStatus('portfolio_under_review')}
+          ></Button>
+          <Button
+            onClick={() =>
+              setCurrentStatus('portfolio_passed_interview_to_be_scheduled')
+            }
+          ></Button>
+          <Button
+            onClick={() => setCurrentStatus('portfolio_needs_revision')}
+          ></Button>
+
           {submissionSting}
         </Text>
 

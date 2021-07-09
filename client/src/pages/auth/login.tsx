@@ -74,7 +74,7 @@ export default function Login() {
             isClosable: true,
             status: 'success',
           })
-          router.push('/')
+          router.push('/dashboard')
         }
       })
       .catch((error) => {
