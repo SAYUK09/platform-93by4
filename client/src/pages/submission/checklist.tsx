@@ -3,8 +3,9 @@ import { CheckListData, CardOnEachPage } from '../../data/staticData/mark15'
 import { useState } from 'react'
 import { Button, Link, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import withAuth from '../../context/WithAuth'
 
-export function CheckList() {
+function CheckList() {
   const [allMarksChecked, setAllMarksChecked] = useState<string[]>([])
   const router = useRouter()
   let pageNo = router.query?.pageNo as string
@@ -95,4 +96,4 @@ export function CheckList() {
   )
 }
 
-export default CheckList
+export default withAuth(CheckList)

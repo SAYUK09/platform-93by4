@@ -90,5 +90,3 @@ export default function Home() {
     </Layout>
   )
 }
-
-export default withAuth(Dashboard)

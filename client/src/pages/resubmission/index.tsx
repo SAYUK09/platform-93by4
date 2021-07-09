@@ -7,7 +7,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
@@ -15,6 +15,7 @@ import { theme } from '../../themes'
 import { isUrlValid } from '../../utils/utils'
 import { ResubmissionData } from '../../data/strings/submission'
 import { useAuth } from '../../context/AuthContext'
+import withAuth from '../../context/WithAuth'
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -194,4 +195,4 @@ const ReSubmissionWindow: React.FC = () => {
   )
 }
 
-export default ReSubmissionWindow
+export default withAuth(ReSubmissionWindow)
