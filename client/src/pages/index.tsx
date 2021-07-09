@@ -1,13 +1,12 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import Router, { useRouter } from 'next/router'
 import { FiExternalLink } from 'react-icons/Fi'
 import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
 import illustration from '../../public/svgs/landingPage.svg'
+import NextLink from 'next/link'
 
 export default function Home() {
-  const router = useRouter()
   return (
     <Layout>
       <Stack
@@ -34,42 +33,49 @@ export default function Home() {
             spacing="4"
             mt={{ base: '12', md: '8' }}
           >
-            <Button
-              size="lg"
-              minW="210px"
-              colorScheme="brand.500"
-              height="14"
-              px="8"
-              color="black.900"
-              onClick={() => router.push('/auth/signup')}
-            >
-              Signup
-            </Button>
-            <Button
-              size="lg"
-              bg="black.900"
-              color="brand.500"
-              _hover={{ bg: 'black.800' }}
-              height="14"
-              px="8"
-              shadow="base"
-              border="2px"
-              borderColor="brand.500"
-              onClick={() => router.push('/auth/login')}
-            >
-              Login
-            </Button>
+            <NextLink href="/auth/signup">
+              <Button
+                size="lg"
+                minW="210px"
+                colorScheme="brand.500"
+                height="14"
+                px="8"
+                color="black.900"
+              >
+                Signup
+              </Button>
+            </NextLink>
+            <NextLink href="/auth/login">
+              <Button
+                size="lg"
+                bg="black.900"
+                color="brand.500"
+                _hover={{ bg: 'black.800' }}
+                height="14"
+                px="8"
+                shadow="base"
+                border="2px"
+                borderColor="brand.500"
+              >
+                Login
+              </Button>
+            </NextLink>
           </Stack>
-          <Button
-            variant="link"
-            color="gray.400"
-            rightIcon={<FiExternalLink fontSize="xl" />}
-            size="md"
-            mt={{ base: '12', md: '8' }}
-            onClick={() => router.push('https://neog.camp/level-one')}
+          <a
+            href="https://neog.camp/level-one"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Know more about the camp
-          </Button>
+            <Button
+              variant="link"
+              color="gray.400"
+              rightIcon={<FiExternalLink fontSize="xl" />}
+              size="md"
+              mt={{ base: '12', md: '8' }}
+            >
+              Know more about the camp
+            </Button>
+          </a>
           <Footer />
         </Box>
         <Box
@@ -84,4 +90,3 @@ export default function Home() {
     </Layout>
   )
 }
-

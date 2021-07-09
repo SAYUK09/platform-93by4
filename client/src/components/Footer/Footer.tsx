@@ -18,12 +18,14 @@ export function Footer() {
         <ButtonGroup variant="ghost" color="gray.600" mt={4}>
           {footerLinks.map(({ id, label, href, icon }) => {
             return (
+
               <IconButton
                 as="a"
                 href={href}
                 aria-label={label}
                 icon={icon}
                 key={id}
+                target="_blank"
               />
             )
           })}
