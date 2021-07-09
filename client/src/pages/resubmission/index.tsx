@@ -9,11 +9,12 @@ import {
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
-import { Layout, Breadcrumbs } from '../../components'
+import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
 import { isUrlValid } from '../../utils/utils'
 import { ResubmissionData } from '../../data/strings/submission'
+import { useAuth } from '../../context/AuthContext'
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -21,10 +22,17 @@ const ReSubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
+  const { authState } = useAuth()
 
   useEffect(() => {
     inputRef.current.focus()
   }, [])
+
+  // useEffect(() => {
+  //   if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+  //     router.push('/')
+  //   }
+  // }, [])
 
   const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
@@ -174,16 +182,7 @@ const ReSubmissionWindow: React.FC = () => {
                 color={theme.colors.black['50']}
                 maxWidth="300px"
               />
-              <Button
-                background={theme.colors.brand['500']}
-                isDisabled={disableButton}
-                onClick={submitPortfolioUrl}
-                color={theme.colors.black['900']}
-                mt={['1rem', '0']}
-                ml={['0', '1rem']}
-              >
-                Resubmit
-              </Button>
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
             <Text color={theme.colors.red['500']} textAlign="center">
               {checkInput}

@@ -47,7 +47,7 @@ export const CheckListData: CheckListType[] = [
         text: 'Deployed on GitHub using Github Desktop/CLI.',
       },
       {
-        id: '2',
+        id: '2d',
         text: 'Hosted on netlify/vercel using github/CLI.',
       },
     ],

@@ -21,7 +21,7 @@ app.use(cookieParser())
  * Route Configuration
  * */
 app.use('/api/auth', authRoutes)
-app.use('/api',studentRoutes)
+app.use('/api', studentRoutes)
 
 /**
  * This handles all the errors in application that were not catched by controllers
