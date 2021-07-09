@@ -90,6 +90,7 @@ export default function SignUp() {
               firstName,
               lastName,
               userId,
+              submissionData: null,
             },
             isLoading: false,
           })
