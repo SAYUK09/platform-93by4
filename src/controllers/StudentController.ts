@@ -115,4 +115,27 @@ export const reSubmitHandler: RequestHandler = async (
     return res.status(500).json({ message: 'Fail to submit portfolio Url' })
   }
 }
+export const dashboardInfoHandler = async (req: AuthRequest, res: any) => {
+  const user = req.user
 
+  if (!user) {
+    return res.status(404).json({
+      msg: 'Data for the user was not found on the server.',
+    })
+  }
+
+  try {
+    const foundPortfolio = (await User.findOne({
+      email: user?.email,
+    }).populate('portfolioUrl')) as any
+
+    res.status(200).json({
+      foundPortfolio: foundPortfolio,
+    })
+  } catch (error) {
+    res.status(500).json({
+      msg: 'There was some error while fetching user information.',
+      code: 'INTERNAL_ERROR',
+    })
+  }
+}
