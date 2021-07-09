@@ -19,13 +19,13 @@ export default function EmailVerificationToken() {
       return
     }
     async function submitToken() {
-      console.log(verificationToken)
+      // console.log(verificationToken)
       await sendVerificationToken({
         verificationToken: verificationToken as string | undefined,
       })
         .then((res) => {
           if (res.status === 200) {
-            router.push('/')
+            router.push('/dashboard')
           }
         })
         .catch((error) => console.log({ error }))
