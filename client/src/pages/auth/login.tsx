@@ -33,7 +33,8 @@ const SignInSchema = yup.object().shape({
   email: yup
     .string()
     .email('Must be a valid email address.')
-    .required('Email is required.'),
+    .required('Email is required.')
+    .lowercase(),
   password: yup.string().required('Password is required.'),
 })
 

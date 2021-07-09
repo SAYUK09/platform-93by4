@@ -52,7 +52,8 @@ const SignUpSchema = yup.object().shape({
   email: yup
     .string()
     .email('Email must be a valid email address.')
-    .required('Email address is required.'),
+    .required('Email address is required.')
+    .lowercase(),
   password: yup
     .string()
     .required('Password is required.')
@@ -343,7 +344,7 @@ export default function SignUp() {
                         </Link>
                       </NextLink>
                       <Field>
-                        {({ form }) => {
+                        {({ form }: { form: any }) => {
                           return (
                             <Button
                               isLoading={isLoading}
