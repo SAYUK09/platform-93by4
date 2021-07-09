@@ -16,11 +16,7 @@ const withAuth = (WrappedComponent: NextComponentType) => {
       const toast = useToast()
       if (!isLoading && !isAuthenticated) {
         Router.push({
-          pathname: '/auth/login',
-        })
-        toast({
-          title: 'You need to be logged in to do that.',
-          isClosable: true,
+          pathname: '/',
         })
         return (
           <Center minH="100vh">
