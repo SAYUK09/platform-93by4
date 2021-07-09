@@ -1,4 +1,4 @@
-import { Progress, useToast } from '@chakra-ui/react'
+import { Progress, useToast, Center, Spinner } from '@chakra-ui/react'
 import { NextComponentType } from 'next'
 import { useRouter } from 'next/router'
 
@@ -22,11 +22,20 @@ const withAuth = (WrappedComponent: NextComponentType) => {
           title: 'You need to be logged in to do that.',
           isClosable: true,
         })
+        return (
+          <Center minH="100vh">
+            <Spinner />
+          </Center>
+        )
       }
 
       console.log({ isAuthenticated, isLoading })
       if (isLoading) {
-        return <Progress isIndeterminate colorScheme="blue" />
+        return (
+          <Center minH="100vh">
+            <Spinner />
+          </Center>
+        )
       }
       return <WrappedComponent {...props} />
     }
