@@ -9,51 +9,28 @@ import {
   FaTelegram,
 } from 'react-icons/fa'
 
+import { footerLinks } from './socialLinks'
+
 export function Footer() {
   return (
     <>
       <Box>
         <ButtonGroup variant="ghost" color="gray.600" mt={4}>
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="LinkedIn"
-            icon={<FaLinkedin fontSize="20px" />}
-          />
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="GitHub"
-            icon={<FaGithub fontSize="20px" />}
-          />
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="Twitter"
-            icon={<FaTwitter fontSize="20px" />}
-          />
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="Youtube"
-            icon={<FaYoutube fontSize="20px" />}
-          />
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="Telegram"
-            icon={<FaTelegram fontSize="20px" />}
-          />
-          <IconButton
-            as="a"
-            href="#"
-            aria-label="Discord"
-            icon={<FaDiscord fontSize="20px" />}
-          />
+          {footerLinks.map(({ id, label, href, icon }) => {
+            return (
+              <IconButton
+                as="a"
+                href={href}
+                aria-label={label}
+                icon={icon}
+                key={id}
+              />
+            )
+          })}
         </ButtonGroup>
       </Box>
       <Text fontSize="sm" mt={{ base: '12', md: '8' }}>
-        &copy; {new Date().getFullYear()} © neoG.camp. All rights reserved
+        &copy; {new Date().getFullYear()} neoG.camp. All rights reserved
       </Text>
     </>
   )

@@ -1,65 +1,87 @@
-import { useState, useEffect } from 'react'
-import { Text, Flex, Button } from '@chakra-ui/react'
-import { Layout, StatusCard, StepCard } from '../components'
-import {
-  data,
-  StatusType,
-  steps,
-  StepType,
-  submissionSting,
-} from '../data/staticData/admissionStages'
-import { theme } from '../themes'
-import { getDashboard } from '../services/axiosService'
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import Router, { useRouter } from 'next/router'
+import { FiExternalLink } from 'react-icons/Fi'
+import { Layout } from '../components'
+import { Footer } from '../components/Footer/Footer'
+import illustration from '../../public/svgs/landingPage.svg'
 
-export default function Dashboard() {
-  const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
-  const [submissionNo, setSubmissionNo] = useState(null)
-  useEffect(() => {
-    async function fetch() {
-      await getDashboard().then((user) => {
-        console.log(user)
-        const portfolio = user.foundPortfolio.portfolioUrl
-        portfolio !== undefined &&
-          (setCurrentStatus(portfolio.status),
-          setSubmissionNo(portfolio.submissionNo))
-      })
-    }
-    fetch()
-  }, [])
-
-  const status = data.find((e) => e.status == currentStatus)
-  console.log(status)
+export default function Home() {
+  const router = useRouter()
   return (
     <Layout>
-      <Flex as="section" flexDir="column">
-        <StatusCard
-          status={status}
-          bgColor={theme.colors.black['800']}
-          submissionNo={submissionNo}
-        />
-        <Text
-          my={8}
-          color={theme.colors.gray['100']}
-          fontWeight="bold"
-          fontSize={['md', 'md', 'xl']}
+      <Stack
+        direction={{ base: 'column-reverse', lg: 'row' }}
+        spacing={{ base: '3rem', lg: '4rem' }}
+        align={{ lg: 'center' }}
+        justify="space-between"
+      >
+        <Box flex="1" maxW={{ lg: '520px' }}>
+          <Heading
+            as="h1"
+            size="3xl"
+            color={'white'}
+            fontWeight="extrabold"
+            letterSpacing="tighter"
+          >
+            Your learning journey starts here.
+          </Heading>
+          <Text color={'gray.400'} mt="4" fontSize="lg" fontWeight="medium">
+            Signup to start your admission process for neoG Camp (levelOne)
+          </Text>
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            spacing="4"
+            mt={{ base: '12', md: '8' }}
+          >
+            <Button
+              size="lg"
+              minW="210px"
+              colorScheme="brand.500"
+              height="14"
+              px="8"
+              color="black.900"
+              onClick={() => router.push('/auth/signup')}
+            >
+              Signup
+            </Button>
+            <Button
+              size="lg"
+              bg="black.900"
+              color="brand.500"
+              _hover={{ bg: 'black.800' }}
+              height="14"
+              px="8"
+              shadow="base"
+              border="2px"
+              borderColor="brand.500"
+              onClick={() => router.push('/auth/login')}
+            >
+              Login
+            </Button>
+          </Stack>
+          <Button
+            variant="link"
+            color="gray.400"
+            rightIcon={<FiExternalLink fontSize="xl" />}
+            size="md"
+            mt={{ base: '12', md: '8' }}
+            onClick={() => router.push('https://neog.camp/level-one')}
+          >
+            Know more about the camp
+          </Button>
+          <Footer />
+        </Box>
+        <Box
+          pos="relative"
+          w={{ base: 'full', lg: '500px' }}
+          h={{ base: 'auto', lg: '500px' }}
+          px={4}
         >
-          {submissionSting}
-        </Text>
-
-        <Flex flexDir="column">
-          {steps.map((step: StepType, index: number) => {
-            return (
-              <StepCard
-                bgColor={theme.colors.black['800']}
-                step={step}
-                status={status as StatusType}
-                key={index.toString()}
-                index={index}
-              />
-            )
-          })}
-        </Flex>
-      </Flex>
+          <Image src={illustration} layout="responsive" />
+        </Box>
+      </Stack>
     </Layout>
   )
 }
+
