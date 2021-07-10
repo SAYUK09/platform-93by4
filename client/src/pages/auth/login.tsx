@@ -12,6 +12,7 @@ import {
   useToast,
   InputRightElement,
   InputGroup,
+  Skeleton,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React, { useState } from 'react'
@@ -32,7 +33,8 @@ const SignInSchema = yup.object().shape({
   email: yup
     .string()
     .email('Must be a valid email address.')
-    .required('Email is required.'),
+    .required('Email is required.')
+    .lowercase(),
   password: yup.string().required('Password is required.'),
 })
 
@@ -42,6 +44,7 @@ export default function Login() {
   const toast = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showPassword, setShowpassword] = useState<boolean>(false)
+  const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
   async function handleSubmit(data: LoginValues) {
     setIsLoading(true)
@@ -67,6 +70,7 @@ export default function Login() {
               userId: res.data.userId,
               submissionData: submissionParseData,
             },
+            isLoading: false,
           })
           setIsLoading(false)
           toast({
@@ -83,6 +87,7 @@ export default function Login() {
         setState({
           isAuthenticated: false,
           user: null,
+          isLoading: false,
         })
         toast({
           title: 'Failed to log you in.',
@@ -93,16 +98,24 @@ export default function Login() {
       })
   }
 
+  function handleImageLoad() {
+    setImgLoaded(true)
+  }
+
   return (
     <>
       <Navbar />
       <AuthLayout>
         <Flex flex={1} d={{ base: 'none', md: 'flex' }}>
+          {!imgLoaded && <Skeleton height="100%" width="100%" />}
           <Image
+            height={!imgLoaded ? '' : '100%'}
             alt={'Login Image'}
             objectFit={'cover'}
-            src="https://unsplash.com/photos/SmkZz4aR-Ng/download?force=true"
+            src="/auth.jpg"
             width="100%"
+            d={!imgLoaded ? 'none' : 'inherit'}
+            onLoad={handleImageLoad}
           />
         </Flex>
 

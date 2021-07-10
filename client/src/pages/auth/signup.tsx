@@ -14,6 +14,7 @@ import {
   useToast,
   InputRightElement,
   InputGroup,
+  Skeleton,
 } from '@chakra-ui/react'
 
 import { AuthLayout, Navbar } from '../../components'
@@ -51,7 +52,8 @@ const SignUpSchema = yup.object().shape({
   email: yup
     .string()
     .email('Email must be a valid email address.')
-    .required('Email address is required.'),
+    .required('Email address is required.')
+    .lowercase(),
   password: yup
     .string()
     .required('Password is required.')
@@ -68,27 +70,31 @@ const SignUpSchema = yup.object().shape({
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setState } = useAuth()
+  const { authState, setState } = useAuth()
   const router = useRouter()
   const toast = useToast()
   const [showPassword, setShowpassword] = useState<boolean>(false)
+  const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)
     await register(data)
       // use dispatch actions here
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
+          const { email, firstName, lastName, userId } = res.data.user
           setState({
             isAuthenticated: true,
             user: {
-              email: res.data.email,
-              firstName: res.data.firstName,
-              lastName: res.data.lastName,
-              userId: res.data.userId,
+              email,
+              firstName,
+              lastName,
+              userId,
+              submissionData: null,
             },
+            isLoading: false,
           })
+          console.log({ authState, data: res.data })
           setIsLoading(false)
           router.push('/auth/email-verification')
         }
@@ -98,9 +104,10 @@ export default function SignUp() {
         setState({
           isAuthenticated: false,
           user: null,
+          isLoading: false,
         })
         toast({
-          title: 'Failed to register account.',
+          title: 'Email already exists.',
           description: error.response.data.msg,
           isClosable: true,
           status: 'error',
@@ -109,16 +116,24 @@ export default function SignUp() {
       })
   }
 
+  function handleImageLoad() {
+    setImgLoaded(true)
+  }
+
   return (
     <>
       <Navbar />
       <AuthLayout>
         <Flex flex={1} d={{ base: 'none', md: 'flex' }}>
+          {!imgLoaded && <Skeleton height="100%" width="100%" />}
           <Image
+            height={!imgLoaded ? '' : '100%'}
             alt={'Login Image'}
             objectFit={'cover'}
-            src="https://unsplash.com/photos/SmkZz4aR-Ng/download?force=true"
+            src="/auth.jpg"
             width="100%"
+            d={!imgLoaded ? 'none' : 'inherit'}
+            onLoad={handleImageLoad}
           />
         </Flex>
 
@@ -330,7 +345,7 @@ export default function SignUp() {
                         </Link>
                       </NextLink>
                       <Field>
-                        {({ form }) => {
+                        {({ form }: { form: any }) => {
                           return (
                             <Button
                               isLoading={isLoading}

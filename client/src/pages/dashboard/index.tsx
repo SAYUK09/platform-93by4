@@ -9,8 +9,9 @@ import {
   submissionSting,
 } from '../../data/staticData/admissionStages'
 import { theme } from '../../themes'
+import withAuth from '../../context/WithAuth'
 
-export default function Dashboard() {
+function Dashboard() {
   const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
   const status = data.find((e) => e.status == currentStatus)
   console.log(status)
@@ -56,3 +57,5 @@ export default function Dashboard() {
     </Layout>
   )
 }
+
+export default withAuth(Dashboard)

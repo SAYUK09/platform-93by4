@@ -1,12 +1,15 @@
 import {
   Flex,
+  WrapItem,
+  Avatar,
   Text,
-  Button,
-  useToast,
+  Link as ChakraLink,
   Menu,
   MenuButton,
-  MenuItem,
+  Button,
   MenuList,
+  MenuItem,
+  useToast,
 } from '@chakra-ui/react'
 import { theme } from '../../themes'
 import { useState } from 'react'
@@ -74,8 +77,10 @@ export function Navbar() {
         padding={'0 1rem'}
         justifyContent={'space-between'}
       >
-        <Link href="/">
-          <Image src={Logo} alt="neog logo" />
+        <Link href="/" passHref>
+          <ChakraLink>
+            <Image src={Logo} alt="neog logo" />
+          </ChakraLink>
         </Link>
         <Flex alignItems="center">
           <Menu>

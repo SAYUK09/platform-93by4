@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
+import withAuth from '../../context/WithAuth'
 import { useAuth } from '../../context/AuthContext'
 
 const SubmissionWindow: React.FC = () => {
@@ -183,4 +184,4 @@ const SubmissionWindow: React.FC = () => {
   )
 }
 
-export default SubmissionWindow
+export default withAuth(SubmissionWindow)
