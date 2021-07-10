@@ -71,11 +71,11 @@ function CheckList() {
 
       <Flex marginTop={'3rem'} justifyContent={'space-between'}>
         <Button
-          colorscheme="blue"
+          colorscheme="brand.500"
+          bg="black.900"
           size={'lg'}
           variant="outline"
-          _hover={{ bg: 'rgba(49, 130, 206, 0.1)' }}
-          _active={{ bg: 'rgba(49, 130, 206, 0.1)' }}
+          _hover={{ bg: 'black.800' }}
           onClick={() => handlePrevButton()}
           visibility={pageNumber > 1 ? 'visible' : 'hidden'}
           disabled={pageNumber < 2}
@@ -84,7 +84,8 @@ function CheckList() {
         </Button>
 
         <Button
-          colorscheme="blue"
+          colorscheme="brand"
+          textColor="black.900"
           size={'lg'}
           onClick={() => handleNextButton()}
           disabled={!checkAllIdsInArray()}
