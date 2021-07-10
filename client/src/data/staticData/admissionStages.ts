@@ -8,7 +8,6 @@ export type StatusType = {
   color?: string
 }
 
-
 export const data: StatusType[] = [
   {
     status: 'portfolio_not_submitted',

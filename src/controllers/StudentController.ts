@@ -115,4 +115,3 @@ export const reSubmitHandler: RequestHandler = async (
     return res.status(500).json({ message: 'Fail to submit portfolio Url' })
   }
 }
-

@@ -86,7 +86,6 @@ const SubmissionWindow: React.FC = () => {
           duration: 2000,
           isClosable: true,
         })
-        router.push('./submission/congrats')
       } else if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',

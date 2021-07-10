@@ -9,7 +9,7 @@ import {
   MenuList,
 } from '@chakra-ui/react'
 import { theme } from '../../themes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
@@ -31,6 +31,9 @@ export function Navbar() {
     console.log(loginStatus)
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }
+  useEffect(() => {
+    setLoginStatus(authState?.user?.firstName || 'Login')
+  }, [authState])
 
   const onHandleLogout = async () => {
     await logout()
@@ -42,6 +45,7 @@ export function Navbar() {
           isClosable: true,
         })
         setLoginStatus('Login')
+        localStorage.removeItem('neogSubmission')
         router.push('/')
         Router.reload()
       })

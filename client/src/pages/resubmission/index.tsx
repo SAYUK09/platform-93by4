@@ -28,11 +28,11 @@ const ReSubmissionWindow: React.FC = () => {
     inputRef.current.focus()
   }, [])
 
-  // useEffect(() => {
-  //   if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
-  //     router.push('/')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+      router.push('/dashboard')
+    }
+  }, [])
 
   const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
