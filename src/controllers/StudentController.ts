@@ -115,6 +115,8 @@ export const reSubmitHandler: RequestHandler = async (
     return res.status(500).json({ message: 'Fail to submit portfolio Url' })
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const dashboardInfoHandler = async (req: AuthRequest, res: any) => {
   const user = req.user
 
@@ -127,6 +129,7 @@ export const dashboardInfoHandler = async (req: AuthRequest, res: any) => {
   try {
     const foundPortfolio = (await User.findOne({
       email: user?.email,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }).populate('portfolioUrl')) as any
 
     res.status(200).json({

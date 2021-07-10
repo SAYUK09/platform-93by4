@@ -42,6 +42,9 @@ export function Navbar() {
     console.log(loginStatus)
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }
+  useEffect(() => {
+    setLoginStatus(authState?.user?.firstName || 'Login')
+  }, [authState])
 
   const onHandleLogout = async () => {
     await logout()
@@ -54,6 +57,7 @@ export function Navbar() {
         })
         // TODO: Clear the token history from local Storage
         setLoginStatus('Login')
+        localStorage.removeItem('neogSubmission')
         router.push('/')
         Router.reload()
       })

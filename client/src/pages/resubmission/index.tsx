@@ -23,7 +23,7 @@ const ReSubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
-  const { authState } = useAuth()
+  const { setAuthState } = useAuth()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -31,7 +31,7 @@ const ReSubmissionWindow: React.FC = () => {
 
   // useEffect(() => {
   //   if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
-  //     router.push('/')
+  //     router.push('/dashboard')
   //   }
   // }, [])
 
@@ -74,6 +74,17 @@ const ReSubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
+
         router.push('./resubmission/congrats')
       }
       console.log(response.data)

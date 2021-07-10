@@ -46,7 +46,7 @@ export function CongratsCard({
           </Link>
         </Heading>
         <Button colorscheme="brand" color="black">
-          <a href="/">Go back to Dashboard</a>
+          <a href="/Dashboard">Go back to Dashboard</a>
         </Button>
       </Flex>
     </Box>
