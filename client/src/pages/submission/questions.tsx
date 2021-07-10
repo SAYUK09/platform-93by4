@@ -1,4 +1,5 @@
 import { Layout, Card } from '../../components'
+import withAuth from '../../context/WithAuth'
 import { QuestionData } from '../../data/strings/questions'
 
 export function QuestionsBeforeSubmission() {
@@ -11,4 +12,4 @@ export function QuestionsBeforeSubmission() {
   )
 }
 
-export default QuestionsBeforeSubmission
+export default withAuth(QuestionsBeforeSubmission)

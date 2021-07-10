@@ -17,11 +17,10 @@ export const data: StatusType[] = [
       'Please submit your portfolio for review : Click on Step 1',
   },
   {
-    status: 'portfolio_under_review',
+    status: 'under review',
     level: 1, // control the locks
     statusText: 'Portfolio Under Review', // show your header
-    statusDescription:
-      'Your portfolio is under review. Your submission number is #123 . Wait for results. ',
+    statusDescription: 'Your portfolio is under review.Wait for results. ',
   },
   {
     status: 'portfolio_needs_revision',

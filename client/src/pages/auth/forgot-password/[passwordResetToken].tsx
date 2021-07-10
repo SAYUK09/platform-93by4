@@ -33,6 +33,7 @@ export const PasswordResetSchema = yup.object().shape({
     .min(8, 'Password must be atleast 8 characters long.'),
   confirmPassword: yup
     .string()
+    .required('Please confirm password before submitting.')
     .oneOf([yup.ref('password'), null], 'Passwords must match.'),
 })
 
@@ -159,16 +160,22 @@ export default function PasswordResetForm() {
                 </FormControl>
               )}
             </Field>
-
-            <Button
-              marginTop="1rem"
-              width="100%"
-              type="submit"
-              loadingText="Submitting"
-              colorscheme="blue"
-            >
-              Submit
-            </Button>
+            <Field>
+              {({ form }: { form: any }) => {
+                return (
+                  <Button
+                    marginTop="1rem"
+                    width="100%"
+                    type="submit"
+                    loadingText="Submitting"
+                    colorscheme="blue"
+                    disabled={!form.isValid || form.isDirty}
+                  >
+                    Submit
+                  </Button>
+                )
+              }}
+            </Field>
           </Form>
         </Formik>
       </Box>

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { CongratsCard, Layout } from '../../components'
 import { fireworks } from '../../utils/fireworks'
 import { useAuth } from '../../context/AuthContext'
+import withAuth from '../../context/WithAuth'
 
 const ReCongratsCard: React.FC = () => {
   const { authState, setAuthState } = useAuth()
@@ -20,4 +21,4 @@ const ReCongratsCard: React.FC = () => {
   )
 }
 
-export default ReCongratsCard
+export default withAuth(ReCongratsCard)
