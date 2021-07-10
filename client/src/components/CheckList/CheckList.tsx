@@ -33,7 +33,7 @@ export function CheckList({
             return (
               <Checkbox
                 key={id}
-                colorScheme="teal"
+                colorScheme="brand"
                 color={theme.colors.black['100']}
                 marginBottom={'0.5rem'}
                 display={'flex'}
