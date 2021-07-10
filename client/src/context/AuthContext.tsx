@@ -9,10 +9,10 @@ import {
 import { getUser, logout } from '../services/axiosService'
 
 export interface User {
-  userId: string
-  firstName: string
-  lastName: string
-  email: string
+  userId?: string
+  firstName?: string
+  lastName?: string
+  email?: string
   submissionData: { submissionNo: string; currentStatus: string } | null
 }
 

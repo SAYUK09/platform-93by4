@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { FiExternalLink } from 'react-icons/Fi'
+import { FiExternalLink } from 'react-icons/fi'
 import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
 import illustration from '../../public/svgs/landingPage.svg'

@@ -1,4 +1,4 @@
-import { Layout, Card } from '../../components'
+import { Layout, Card, Breadcrumbs } from '../../components'
 import { CheckListData, CardOnEachPage } from '../../data/staticData/mark15'
 import { useState } from 'react'
 import { Button, Link, Flex } from '@chakra-ui/react'
@@ -53,8 +53,21 @@ function CheckList() {
     )
   }
 
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    {
+      breadcrumbName: 'Submit Portfolio',
+      breadcrumbLink: '/submission/questions',
+    },
+    {
+      breadcrumbName: 'Mark15 Checklist',
+      breadcrumbLink: '/submission/checklist',
+    },
+  ]
+
   return (
     <Layout>
+      <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
       {CheckListData.slice(
         CardOnEachPage * (pageNumber - 1),
         CardOnEachPage * (pageNumber - 1) + CardOnEachPage

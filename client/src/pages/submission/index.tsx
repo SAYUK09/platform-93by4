@@ -23,7 +23,7 @@ const SubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
-  const { authState } = useAuth()
+  const { authState, setAuthState } = useAuth()
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -73,6 +73,16 @@ const SubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
         // for removing localStorage mark15 data.
         localStorage.removeItem('mark15')
         router.push('./submission/congrats')
@@ -184,3 +194,6 @@ const SubmissionWindow: React.FC = () => {
 }
 
 export default withAuth(SubmissionWindow)
+function setAuthState(arg0: (prev: any) => any) {
+  throw new Error('Function not implemented.')
+}
