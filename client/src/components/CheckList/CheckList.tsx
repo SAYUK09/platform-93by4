@@ -33,7 +33,7 @@ export function CheckList({
             return (
               <Checkbox
                 key={id}
-                colorScheme="teal"
+                colorScheme="brand"
                 color={theme.colors.black['100']}
                 marginBottom={'0.5rem'}
                 display={'flex'}
@@ -41,8 +41,8 @@ export function CheckList({
                 onChange={() => handleCheckBoxChange(id, text)}
                 isChecked={isChecked}
               >
-                <Text>
-                  {isChecked.toString()} {text}
+                <Text pos="relative" top="-2px" color="black.200">
+                  {text}
                 </Text>
               </Checkbox>
             )

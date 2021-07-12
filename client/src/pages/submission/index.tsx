@@ -1,10 +1,12 @@
 import {
   Flex,
   Input,
+  Center,
   Box,
   Heading,
   useToast,
   Text,
+  Spinner,
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
@@ -15,6 +17,7 @@ import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
 import withAuth from '../../context/WithAuth'
 import { useAuth } from '../../context/AuthContext'
+import { CheckListData } from '../../data/staticData/mark15'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -23,14 +26,33 @@ const SubmissionWindow: React.FC = () => {
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
   useEffect(() => {
-    if (authState?.user?.submissionData?.currentStatus === 'under review') {
+    if (localStorage) {
+      const localCheckData = localStorage.getItem('mark15')
+      let localParsedCheckData = undefined
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      if (
+        !(
+          localParsedCheckData &&
+          CheckListData.length === localParsedCheckData.length
+        )
+      ) {
+        router.push('/dashboard')
+      }
+    } else if (
+      authState?.user?.submissionData?.currentStatus === 'under review'
+    ) {
       router.push('/submission/congrats')
+    } else {
+      setIsLoading(false)
     }
   }, [])
 
@@ -130,7 +152,12 @@ const SubmissionWindow: React.FC = () => {
   ]
 
   return (
-    <>   
+    <>
+      return isLoading ? (
+      <Center minH="100vh">
+        <Spinner />
+      </Center>
+      ) : (
       <Layout>
         <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
         <Heading

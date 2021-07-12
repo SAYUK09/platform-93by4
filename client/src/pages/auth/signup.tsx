@@ -20,11 +20,11 @@ import {
 import { AuthLayout, Navbar } from '../../components'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Formik, Form, Field, FormikHelpers } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import * as yup from 'yup'
 import { register } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { theme } from '../../themes'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 
@@ -75,6 +75,12 @@ export default function SignUp() {
   const toast = useToast()
   const [showPassword, setShowpassword] = useState<boolean>(false)
   const [imgLoaded, setImgLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (authState?.isAuthenticated) {
+      router.push('/dashboard')
+    }
+  }, [authState?.isAuthenticated])
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)

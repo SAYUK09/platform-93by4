@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Heading } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
@@ -13,6 +13,7 @@ interface CardPropType extends CheckListType {
   id: string
   title?: string
   subTitle?: string | JSX.Element
+  projectName?: string
   link?: string
   index?: number
   lockIcon?: boolean
@@ -24,6 +25,7 @@ export function Card({
   status,
   id,
   title,
+  projectName,
   subTitle,
   link,
   checks,
@@ -84,6 +86,7 @@ export function Card({
         <CardText
           collapsible={collapsible}
           title={title}
+          projectName={projectName}
           subTitle={subTitle}
           status={status}
           checklist={checks}
@@ -121,13 +124,21 @@ export function Card({
           display={'flex'}
           flexDirection={'column'}
           background={theme.colors.black['800']}
-          padding={openDrawer ? '0rem 3rem 1.7rem 3rem' : '0 3rem'}
+          padding={openDrawer ? '0rem 1rem 1.7rem 3rem' : '0 3rem'}
           transition={'0s padding ease, 0.4s all ease'}
           maxHeight={openDrawer ? '10000vh' : '0'}
           height={openDrawer ? 'auto' : '0'}
           overflow={'overhidden'}
           opacity={openDrawer ? '1' : '0.7'}
         >
+          <Heading
+            fontSize="1.15rem"
+            pb="1.8rem"
+            fontWeight="600"
+            color="black.200"
+          >
+            {projectName}
+          </Heading>
           <CheckList
             checklist={checks}
             checkCount={checkCount}

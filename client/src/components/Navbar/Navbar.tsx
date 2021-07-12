@@ -15,10 +15,12 @@ import { theme } from '../../themes'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import NextLink from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { useAuth } from '../../context/AuthContext'
 import { logout } from './../../services/axiosService'
 import { CgProfile, CgLogOut } from 'react-icons/cg'
+import { RiDashboardFill } from 'react-icons/ri'
 import Logo from '../../assests/svgs/neogcamp.svg'
 
 export function Navbar() {
@@ -29,6 +31,12 @@ export function Navbar() {
   const [loginStatus, setLoginStatus] = useState(
     authState?.user?.firstName || 'Login'
   )
+  useEffect(() => {
+    setLoginStatus(authState?.user?.firstName || 'Login')
+  }, [authState])
+
+  console.log(authState?.user?.firstName)
+  console.log(loginStatus)
 
   const authRedirect = () => {
     console.log(loginStatus)
@@ -110,6 +118,9 @@ export function Navbar() {
               </Flex>
             </MenuButton>
             <MenuList bg="black.800" hidden={loginStatus === 'Login' && true}>
+              <NextLink href="/dashboard">
+                <MenuItem icon={<RiDashboardFill />}>Dashboard</MenuItem>
+              </NextLink>
               <MenuItem icon={<CgLogOut />} onClick={onHandleLogout}>
                 Logout
               </MenuItem>
