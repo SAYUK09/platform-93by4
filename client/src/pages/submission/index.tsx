@@ -55,7 +55,7 @@ const SubmissionWindow: React.FC = () => {
         router.push('/dashboard')
         setTimeout(() => {
           setIsLoading(false)
-        }, 1500)
+        }, 2000)
       } else if (
         localParsedCheckData &&
         CheckListData.length === Object.keys(localParsedCheckData).length
@@ -81,7 +81,7 @@ const SubmissionWindow: React.FC = () => {
 
           setTimeout(() => {
             setIsLoading(false)
-          }, 1500)
+          }, 2000)
         }
       }
     } else if (
@@ -92,7 +92,7 @@ const SubmissionWindow: React.FC = () => {
       router.push('/submission/congrats')
       setTimeout(() => {
         setIsLoading(false)
-      }, 1500)
+      }, 2000)
     }
   }, [])
 

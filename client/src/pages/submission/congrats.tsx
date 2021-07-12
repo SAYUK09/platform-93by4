@@ -23,7 +23,7 @@ const Congrats: React.FC = () => {
     }
     setTimeout(() => {
       setIsLoading(false)
-    }, 1500)
+    }, 2000)
   }, [])
   useEffect(() => {
     if (authState?.user?.submissionData?.currentStatus === 'under review') {
