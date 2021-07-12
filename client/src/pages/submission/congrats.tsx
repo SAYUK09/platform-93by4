@@ -3,6 +3,7 @@ import { Layout } from '../../components'
 import { CongratsCard } from '../../components'
 import { fireworks } from '../../utils/fireworks'
 import { useAuth } from '../../context/AuthContext'
+import { Breadcrumbs } from './../../components/BreadCrumbs/BreadCrumbs'
 import withAuth from '../../context/WithAuth'
 import router from 'next/router'
 
@@ -22,8 +23,16 @@ const Congrats: React.FC = () => {
       router.push('/submission/checklist')
     }
   })
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
+    {
+      breadcrumbName: 'Congrats ',
+      breadcrumbLink: '/submission/congrats',
+    },
+  ]
   return (
     <Layout>
+      <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
       <CongratsCard {...userStatus} />
     </Layout>
   )

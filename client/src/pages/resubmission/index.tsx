@@ -112,7 +112,7 @@ const ReSubmissionWindow: React.FC = () => {
     }
   }
   const breadcrumbsLinks = [
-    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
       breadcrumbName: 'Submit Portfolio',
       breadcrumbLink: '/submission/questions',

@@ -35,25 +35,41 @@ const SubmissionWindow: React.FC = () => {
   useEffect(() => {
     if (localStorage) {
       const localCheckData = localStorage.getItem('mark15')
-      let localParsedCheckData = undefined
+      let localParsedCheckData: any = undefined
       if (localCheckData) {
         localParsedCheckData = JSON.parse(localCheckData)
       }
+
       if (
-        !(
-          localParsedCheckData &&
-          CheckListData.length === localParsedCheckData.length
-        )
+        localParsedCheckData &&
+        CheckListData.length === Object.keys(localParsedCheckData).length
       ) {
-        router.push('/dashboard')
+        const checkForAllChecks = CheckListData.every((checkItem, index) => {
+          return (
+            localParsedCheckData &&
+            checkItem.checks?.length ===
+              localParsedCheckData[checkItem.id]?.length
+          )
+        })
+        if (!checkForAllChecks) {
+          router.push('/dashboard')
+          toast({
+            title: 'Mark15 Checks!!!',
+            description: 'Please complete all the checks to proceed further',
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+          })
+        }
       }
     } else if (
       authState?.user?.submissionData?.currentStatus === 'under review'
     ) {
       router.push('/submission/congrats')
-    } else {
-      setIsLoading(false)
     }
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
   }, [])
 
   const checkPortfolioUrl = (): void => {
@@ -81,7 +97,7 @@ const SubmissionWindow: React.FC = () => {
       )
       if (response.status === 200) {
         toast({
-          title: 'Successfully Submitted!!!',
+          title: 'Successfully Submitted!',
           description: 'Your portfolio is submitted successfully',
           status: 'success',
           duration: 2000,
@@ -112,7 +128,7 @@ const SubmissionWindow: React.FC = () => {
       console.log({ err })
       if (err.response?.status === 302) {
         toast({
-          title: 'Your portfolio is already submitted!!!',
+          title: 'Your portfolio is already submitted!',
           description: 'Your portfolio is already submitted successfully',
           status: 'success',
           duration: 2000,
@@ -139,7 +155,7 @@ const SubmissionWindow: React.FC = () => {
     }
   }
   const breadcrumbsLinks = [
-    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
       breadcrumbName: 'Submit Portfolio ',
       breadcrumbLink: '/submission/questions',

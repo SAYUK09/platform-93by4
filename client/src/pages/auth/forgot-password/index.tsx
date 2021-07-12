@@ -91,7 +91,7 @@ export default function ForgotPassword() {
         >
           <Form>
             <Field name="email">
-              {({ field, form }) => (
+              {({ field, form }: { field: any; form: any }) => (
                 <FormControl
                   isInvalid={form.errors.email && form.touched.email}
                 >
