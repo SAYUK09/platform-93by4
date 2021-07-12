@@ -16,6 +16,7 @@ const Congrats: React.FC = () => {
     submissionNo: authState?.user?.submissionData?.submissionNo,
     currentStatus: authState?.user?.submissionData?.currentStatus,
   }
+
   useEffect(() => {
     if (authState?.user?.submissionData?.currentStatus !== 'under review') {
       router.push('/submission/checklist')
@@ -29,6 +30,7 @@ const Congrats: React.FC = () => {
       fireworks()
     }
   }, [])
+
   const breadcrumbsLinks = [
     { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {

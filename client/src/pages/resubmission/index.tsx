@@ -25,7 +25,6 @@ const ReSubmissionWindow: React.FC = () => {
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
 
- 
 
   useEffect(() => {
     if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
