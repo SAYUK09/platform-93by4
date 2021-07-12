@@ -25,14 +25,14 @@ const ReSubmissionWindow: React.FC = () => {
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
 
-  useEffect(() => {
-    inputRef.current.focus()
-  }, [])
 
   useEffect(() => {
     if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
       router.push('/dashboard')
     }
+  }, [])
+  useEffect(() => {
+    inputRef.current.focus()
   }, [])
 
   const checkPortfolioUrl = (): void => {

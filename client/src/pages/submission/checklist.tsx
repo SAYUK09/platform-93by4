@@ -3,7 +3,6 @@ import { CheckListData, CardOnEachPage } from '../../data/staticData/mark15'
 import { useState } from 'react'
 import { Button, Link, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { Breadcrumbs } from './../../components/BreadCrumbs/BreadCrumbs'
 import withAuth from '../../context/WithAuth'
 
 function CheckList() {
