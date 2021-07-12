@@ -195,9 +195,7 @@ const SubmissionWindow: React.FC = () => {
     { breadcrumbName: 'Submission Window', breadcrumbLink: '/submission' },
   ]
 
-  return (
-    <>
-      return isLoading ? (
+  return isLoading ? (
       <Center minH="100vh">
         <Spinner />
       </Center>
@@ -259,7 +257,6 @@ const SubmissionWindow: React.FC = () => {
           </Flex>
         </Box>
       </Layout>
-    </>
   )
 }
 
