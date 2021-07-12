@@ -9,7 +9,6 @@ import {
   signUpHandler,
   userInfoHandler,
   verifyHandler,
-  
 } from '../controllers/AuthController'
 import { signInSchema, signUpSchema } from '../validation/AuthValidation'
 import { requiresAuth } from '../middleware/AuthMiddleware'

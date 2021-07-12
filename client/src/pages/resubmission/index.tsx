@@ -7,7 +7,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
@@ -15,6 +15,7 @@ import { theme } from '../../themes'
 import { isUrlValid } from '../../utils/utils'
 import { ResubmissionData } from '../../data/strings/submission'
 import { useAuth } from '../../context/AuthContext'
+import withAuth from '../../context/WithAuth'
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -22,7 +23,7 @@ const ReSubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
-  const { authState } = useAuth()
+  const { setAuthState } = useAuth()
 
   useEffect(() => {
     inputRef.current.focus()
@@ -30,7 +31,7 @@ const ReSubmissionWindow: React.FC = () => {
 
   // useEffect(() => {
   //   if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
-  //     router.push('/')
+  //     router.push('/dashboard')
   //   }
   // }, [])
 
@@ -73,6 +74,17 @@ const ReSubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
+
         router.push('./resubmission/congrats')
       }
       console.log(response.data)
@@ -194,4 +206,4 @@ const ReSubmissionWindow: React.FC = () => {
   )
 }
 
-export default ReSubmissionWindow
+export default withAuth(ReSubmissionWindow)

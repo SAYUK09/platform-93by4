@@ -4,7 +4,7 @@ import { MdLock } from 'react-icons/md'
 interface LockIconPropType {
   collapsible?: boolean
   locked?: boolean
-  index: number
+  index?: number
 }
 
 export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
@@ -33,12 +33,12 @@ export function LockIcon({ collapsible, locked, index }: LockIconPropType) {
               fontSize={'1rem'}
               color={theme.colors.black['800']}
             >
-              {index + 1}
+              {index && index + 1}
             </Text>
           ) : (
             <Flex marginRight={'1rem'} alignItems="flex-end">
               <MdLock style={{ height: '2em', width: '2em' }} />
-              <Text fontSize={'0.8rem'}>{index + 1} </Text>
+              <Text fontSize={'0.8rem'}>{index && index + 1} </Text>
             </Flex>
           )}
         </Flex>

@@ -1,4 +1,5 @@
-import { Layout, Card } from '../../components'
+import { Layout, Card, Breadcrumbs } from '../../components'
+import withAuth from '../../context/WithAuth'
 import { QuestionData } from '../../data/strings/questions'
 import { Breadcrumbs } from './../../components/BreadCrumbs/BreadCrumbs'
 
@@ -20,4 +21,4 @@ export function QuestionsBeforeSubmission() {
   )
 }
 
-export default QuestionsBeforeSubmission
+export default withAuth(QuestionsBeforeSubmission)

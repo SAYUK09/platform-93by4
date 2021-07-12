@@ -69,8 +69,25 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         </a>
         </div>`,
       })
+      // to persist user info across page refresh. replaced with new token after email
+      // verification.
+      const token = await createToken({
+        _id: user._id,
+        email: user.email,
+      })
+
+      res.cookie('token', token, {
+        httpOnly: true,
+      })
+
       return res.status(200).json({
         msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
+        user: {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          userId: user._id,
+        },
       })
     } catch (error) {
       user.verificationToken = undefined
