@@ -17,7 +17,7 @@ export const QuestionData = [
         to the guide.
       </>
     ),
-    link: '/',
+    link: 'https://handbook.neog.camp/guide/home',
   },
   {
     id: uuid(),
@@ -25,7 +25,7 @@ export const QuestionData = [
     subTitle: (
       <>
         if not,{' '}
-        <a href={`https://handbook.neog.camp/guide/home`}>
+        <a href={`https://neog.camp/qualifier/point-system`}>
           <Text color={theme.colors.brand['500']} display={'inline'}>
             here&apos;s the info{' '}
           </Text>
@@ -33,7 +33,7 @@ export const QuestionData = [
         on it.
       </>
     ),
-    link: '/',
+    link: 'https://neog.camp/qualifier/point-system',
   },
   {
     id: uuid(),
