@@ -7,7 +7,7 @@ interface CardTextPropType {
   collapsible?: boolean
   status?: string
   title?: string
-  markNumber?: string
+  projectName?: string
   subTitle?: string | JSX.Element
   checklist?: ChecksType[]
   checkedCount?: number
@@ -17,7 +17,7 @@ export function CardText({
   collapsible,
   title,
   subTitle,
-  markNumber,
+  projectName,
   checklist,
   checkedCount,
 }: CardTextPropType) {
@@ -56,8 +56,12 @@ export function CardText({
             )}
           </Flex>
         )}
-        <Heading color="brand.500" fontSize={'1.3rem'} minW="110px">
-          {markNumber}
+        <Heading
+          color={checkedCount === checklist?.length ? 'brand.500' : 'black.300'}
+          fontSize={'1.3rem'}
+          minW="110px"
+        >
+          {title}
         </Heading>
         {!collapsible && (
           <Text

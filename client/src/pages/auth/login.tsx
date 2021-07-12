@@ -15,7 +15,7 @@ import {
   Skeleton,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import { Navbar, AuthLayout } from '../../components'
@@ -39,12 +39,18 @@ const SignInSchema = yup.object().shape({
 })
 
 export default function Login() {
-  const { setState } = useAuth()
+  const { setState, authState } = useAuth()
   const router = useRouter()
   const toast = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showPassword, setShowpassword] = useState<boolean>(false)
   const [imgLoaded, setImgLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (authState?.isAuthenticated) {
+      router.push('/dashboard')
+    }
+  }, [authState?.isAuthenticated])
 
   async function handleSubmit(data: LoginValues) {
     setIsLoading(true)
