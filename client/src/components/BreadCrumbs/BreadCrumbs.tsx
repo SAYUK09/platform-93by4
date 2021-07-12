@@ -18,10 +18,10 @@ export const Breadcrumbs = ({
   return (
     <Breadcrumb
       spacing="8px"
-      separator={<BsChevronRight color={theme.colors.black['200']} />}
+      separator={<BsChevronRight color={theme.colors.black['400']} />}
     >
       {breadcrumbProp.map((breadcrumb: BreadcrumbObj, index) => (
-        <BreadcrumbItem key={index} color={theme.colors.black['200']}>
+        <BreadcrumbItem key={index} color={theme.colors.black['400']}>
           <BreadcrumbLink href={breadcrumb.breadcrumbLink}>
             {breadcrumb.breadcrumbName}
           </BreadcrumbLink>

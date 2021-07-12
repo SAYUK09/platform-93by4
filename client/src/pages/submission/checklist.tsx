@@ -3,6 +3,7 @@ import { CheckListData, CardOnEachPage } from '../../data/staticData/mark15'
 import { useState } from 'react'
 import { Button, Link, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { Breadcrumbs } from './../../components/BreadCrumbs/BreadCrumbs'
 import withAuth from '../../context/WithAuth'
 
 function CheckList() {
@@ -54,13 +55,13 @@ function CheckList() {
   }
 
   const breadcrumbsLinks = [
-    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
-      breadcrumbName: 'Submit Portfolio',
+      breadcrumbName: 'Submit Portfolio ',
       breadcrumbLink: '/submission/questions',
     },
     {
-      breadcrumbName: 'Mark15 Checklist',
+      breadcrumbName: 'mark15 Checklist',
       breadcrumbLink: '/submission/checklist',
     },
   ]

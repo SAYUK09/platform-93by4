@@ -66,7 +66,7 @@ export default function ReviewPortfolios(): JSX.Element {
             <Box my="4" color="black.400" justifyContent="flex-start">
               <Breadcrumbs
                 breadcrumbProp={[
-                  { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+                  { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
                   {
                     breadcrumbName: 'Review Portfolio',
                     breadcrumbLink: '/admin/review-portfolios',

@@ -80,7 +80,7 @@ export default function Login() {
           })
           setIsLoading(false)
           toast({
-            title: 'Logged in..!',
+            title: 'Login Successful!',
             isClosable: true,
             status: 'success',
           })
