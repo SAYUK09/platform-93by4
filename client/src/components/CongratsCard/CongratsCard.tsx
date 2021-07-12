@@ -1,4 +1,5 @@
 import { Box, Button, Heading, Text, Link, Flex } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 type userStatusProps = {
   submissionNo?: string
@@ -45,9 +46,11 @@ export function CongratsCard({
             Tweet this out!
           </Link>
         </Heading>
-        <Button colorscheme="brand" color="black">
-          <a href="/">Go back to Dashboard</a>
-        </Button>
+        <NextLink href="/dashboard">
+          <Button colorscheme="brand" color="black">
+            Go back to Dashboard
+          </Button>
+        </NextLink>
       </Flex>
     </Box>
   )

@@ -59,7 +59,7 @@ const SubmissionWindow: React.FC = () => {
       )
       if (response.status === 200) {
         toast({
-          title: 'Successfully Submitted!!!',
+          title: 'Successfully Submitted!',
           description: 'Your portfolio is submitted successfully',
           status: 'success',
           duration: 2000,
@@ -80,7 +80,7 @@ const SubmissionWindow: React.FC = () => {
       console.log({ err })
       if (err.response?.status === 302) {
         toast({
-          title: 'Your portfolio is already submitted!!!',
+          title: 'Your portfolio is already submitted!',
           description: 'Your portfolio is already submitted successfully',
           status: 'success',
           duration: 2000,

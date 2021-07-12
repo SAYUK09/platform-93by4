@@ -196,7 +196,7 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
 
     // some sort of cookie or session mgmt
     res.status(200).json({
-      msg: 'Logged in successfully !',
+      msg: 'Login Successful!',
       email,
       firstName: user.firstName,
       lastName: user.lastName,

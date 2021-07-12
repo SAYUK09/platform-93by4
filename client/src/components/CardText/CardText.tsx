@@ -62,7 +62,6 @@ export function CardText({
             marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
-            padding={'0 0.5rem'}
           >
             {subTitle}
           </Text>

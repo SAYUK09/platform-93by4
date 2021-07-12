@@ -47,7 +47,7 @@ export function Alert({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent bg={'black.800'}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Confirm submission
             </AlertDialogHeader>
@@ -61,6 +61,7 @@ export function Alert({
                 ref={cancelRef}
                 background={theme.colors.red['400']}
                 onClick={onClose}
+                _hover={{ bg: 'red.600' }}
               >
                 Cancel
               </Button>
