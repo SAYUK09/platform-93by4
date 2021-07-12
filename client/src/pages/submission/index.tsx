@@ -1,7 +1,6 @@
 import {
   Flex,
   Input,
-  Button,
   Box,
   Heading,
   useToast,
@@ -131,7 +130,7 @@ const SubmissionWindow: React.FC = () => {
   ]
 
   return (
-    <>
+    <>   
       <Layout>
         <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
         <Heading
