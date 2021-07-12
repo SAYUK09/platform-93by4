@@ -23,17 +23,17 @@ const ReSubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
-  const { setAuthState } = useAuth()
+  const { authState, setAuthState } = useAuth()
 
   useEffect(() => {
     inputRef.current.focus()
   }, [])
 
-  // useEffect(() => {
-  //   if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
-  //     router.push('/dashboard')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+      router.push('/dashboard')
+    }
+  }, [])
 
   const checkPortfolioUrl = (): void => {
     if (isUrlValid(inputRef.current.value)) {
