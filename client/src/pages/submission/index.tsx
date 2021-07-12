@@ -26,11 +26,9 @@ const SubmissionWindow: React.FC = () => {
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [])
+
 
   useEffect(() => {
     if (localStorage) {
@@ -39,8 +37,26 @@ const SubmissionWindow: React.FC = () => {
       if (localCheckData) {
         localParsedCheckData = JSON.parse(localCheckData)
       }
-
+      console.log(
+        'locall',
+        CheckListData.length,
+        localParsedCheckData
+          ? Object.keys(localParsedCheckData).length
+          : localParsedCheckData
+      )
       if (
+        !(
+          localParsedCheckData &&
+          CheckListData.length === Object.keys(localParsedCheckData).length
+        )
+      ) {
+        setIsLoading(true)
+
+        router.push('/dashboard')
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1500)
+      } else if (
         localParsedCheckData &&
         CheckListData.length === Object.keys(localParsedCheckData).length
       ) {
@@ -51,7 +67,9 @@ const SubmissionWindow: React.FC = () => {
               localParsedCheckData[checkItem.id]?.length
           )
         })
+        console.log('checksss', checkForAllChecks)
         if (!checkForAllChecks) {
+          setIsLoading(true)
           router.push('/dashboard')
           toast({
             title: 'Mark15 Checks!!!',
@@ -60,16 +78,26 @@ const SubmissionWindow: React.FC = () => {
             duration: 2000,
             isClosable: true,
           })
+
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 1500)
         }
       }
     } else if (
       authState?.user?.submissionData?.currentStatus === 'under review'
     ) {
+      setIsLoading(true)
+
       router.push('/submission/congrats')
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
     }
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+  }, [])
+
+  useEffect(() => {
+    inputRef.current?.focus()
   }, [])
 
   const checkPortfolioUrl = (): void => {
