@@ -13,7 +13,7 @@ interface CardPropType extends CheckListType {
   id: string
   title?: string
   subTitle?: string | JSX.Element
-  markNumber?: string
+  projectName?: string
   link?: string
   index?: number
   lockIcon?: boolean
@@ -25,7 +25,7 @@ export function Card({
   status,
   id,
   title,
-  markNumber,
+  projectName,
   subTitle,
   link,
   checks,
@@ -86,7 +86,7 @@ export function Card({
         <CardText
           collapsible={collapsible}
           title={title}
-          markNumber={markNumber}
+          projectName={projectName}
           subTitle={subTitle}
           status={status}
           checklist={checks}
@@ -135,9 +135,9 @@ export function Card({
             fontSize="1.15rem"
             pb="1.8rem"
             fontWeight="600"
-            color="black.50"
+            color="black.200"
           >
-            {title}
+            {projectName}
           </Heading>
           <CheckList
             checklist={checks}

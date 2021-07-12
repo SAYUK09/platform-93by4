@@ -5,8 +5,8 @@ export interface ChecksType {
 
 export interface CheckListType {
   id: string
-  markNumber?: string
   title?: string
+  projectName?: string
   checks?: ChecksType[]
 }
 
@@ -15,8 +15,8 @@ export const CardOnEachPage = 5
 export const CheckListData: CheckListType[] = [
   {
     id: '1',
-    markNumber: 'markOne',
-    title: 'Do you know me? CLI App',
+    title: 'markOne',
+    projectName: 'Do you know me? CLI App',
     checks: [
       {
         id: '1a',
@@ -34,8 +34,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '2',
-    markNumber: 'markTwo',
-    title: 'Quiz CLI App',
+    title: 'markTwo',
+    projectName: 'Quiz CLI App',
     checks: [
       {
         id: '2a',
@@ -53,8 +53,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '3',
-    markNumber: 'markThree',
-    title: 'Hosting your website with Github + Netlify Integration',
+    title: 'markThree',
+    projectName: 'Hosting your website with Github + Netlify Integration',
     checks: [
       {
         id: '3a',
@@ -72,8 +72,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '4',
-    markNumber: 'markFour',
-    title: 'Portfolio Website',
+    title: 'markFour',
+    projectName: 'Portfolio Website',
     checks: [
       {
         id: '4a',
@@ -87,8 +87,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '5',
-    markNumber: 'markFive',
-    title: 'Adding Blogs in Portfolio Website',
+    title: 'markFive',
+    projectName: 'Adding Blogs in Portfolio Website',
     checks: [
       {
         id: '5a',
@@ -102,8 +102,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '6',
-    markNumber: 'markSix',
-    title: 'Minions Speak App',
+    title: 'markSix',
+    projectName: 'Minions Speak App',
     checks: [
       {
         id: '6a',
@@ -117,8 +117,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '7',
-    markNumber: 'markSeven',
-    title: 'Fun Translation App',
+    title: 'markSeven',
+    projectName: 'Fun Translation App',
     checks: [
       {
         id: '7a',
@@ -132,8 +132,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '8',
-    markNumber: 'markEight',
-    title: 'Know your Emoji',
+    title: 'markEight',
+    projectName: 'Know your Emoji',
     checks: [
       {
         id: '8a',
@@ -155,8 +155,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '9',
-    markNumber: 'markNine',
-    title: 'Books Suggestion',
+    title: 'markNine',
+    projectName: 'Books Suggestion',
     checks: [
       {
         id: '9a',
@@ -178,8 +178,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '10',
-    markNumber: 'markTen',
-    title: 'Cash Register Manager',
+    title: 'markTen',
+    projectName: 'Cash Register Manager',
     checks: [
       {
         id: '10a',
@@ -201,8 +201,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '11',
-    markNumber: 'markEleven',
-    title: 'Lucky Birthday Number',
+    title: 'markEleven',
+    projectName: 'Lucky Birthday Number',
     checks: [
       {
         id: '11a',
@@ -228,8 +228,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '12',
-    markNumber: 'markTwelve',
-    title: 'Do you know your triangles?',
+    title: 'markTwelve',
+    projectName: 'Do you know your triangles?',
     checks: [
       {
         id: '12a',
@@ -259,8 +259,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '13',
-    markNumber: 'markThirteen',
-    title: 'Palindrome Birthday',
+    title: 'markThirteen',
+    projectName: 'Palindrome Birthday',
     checks: [
       {
         id: '13a',
@@ -282,8 +282,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '14',
-    markNumber: 'markFourteen',
-    title: 'Profit and loss calculator',
+    title: 'markFourteen',
+    projectName: 'Profit and loss calculator',
     checks: [
       {
         id: '14a',
@@ -309,8 +309,8 @@ export const CheckListData: CheckListType[] = [
   },
   {
     id: '15',
-    markNumber: 'markFifteen',
-    title: 'Blog and Social Media',
+    title: 'markFifteen',
+    projectName: 'Blog and Social Media',
     checks: [
       {
         id: '15a',
