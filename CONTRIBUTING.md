@@ -66,6 +66,12 @@ git push -u origin Branch_Name
 
 - Voila! Your Pull Request has been submitted and will be reviewed by the moderators and merged.🥳 Make sure you make a PR to `develop` branch as the base.
 
+## Run Tests
+
+Before Raising a PR, make sure you run `yarn lint:fix` and `yarn format` in order to avoid any linting or formatting inconsistensies.
+
+Also check for any tests if any.
+
 ## Code of Conduct
 
 We have adopted the [Contributor Covenant](https://www.contributor-covenant.org/) as its Code of Conduct, and we expect project contributors to adhere to it. Please read the full text so that you can understand what actions will and will not be tolerated.
