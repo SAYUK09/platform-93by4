@@ -2,7 +2,7 @@
 
 **Platform 93by4** is the Admission Portal for the [neoG camp Cohort](neog.camp).
 
-## Get started 💻
+## **Get started** 💻
 
 To spin up the development environment, follow the following steps.
 
@@ -80,6 +80,15 @@ yarn run dev
 
 This should run the server on **localhost:5000** and also should establish a connection to the database.
 
-## Contributing 💖
+## **Tech Stack 🛠**
+
+- Frontend Framework: **Next.js**
+- UI Library: **Chakra-UI**
+- UI Development Tool: **Storybook.js**
+- Backend Framework: **Express.js**
+- Runtime Environment: **Node.js**
+- Database: **MongoDB** + **Mongoose**
+
+## **Contributing 💖**
 
 If you are interested to contribute to this project, any sort of contributions are highly appreciated and welcomed. Please read the [Contributing Guide](/CONTRIBUTING.md) to learn more on how to contribute to the project, propose bug fixes or improvements and how to make a PR to get your changes merged to **Platform94by4**.
