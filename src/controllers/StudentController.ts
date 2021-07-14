@@ -17,11 +17,11 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
   const currentSubmission = await PortfolioUrl.find()
     .sort({ submissionNo: -1 })
     .limit(1)
-    let currentSubmissionCount;
+  let currentSubmissionCount
   try {
-    if(currentSubmission.length < 1){
+    if (currentSubmission.length < 1) {
       currentSubmissionCount = 0
-    }else{
+    } else {
       currentSubmissionCount = currentSubmission[0].submissionNo
     }
     if (foundUser && foundUser.portfolioUrl) {
@@ -113,5 +113,32 @@ export const reSubmitHandler: RequestHandler = async (
     }
     console.error(error)
     return res.status(500).json({ message: 'Fail to submit portfolio Url' })
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const dashboardInfoHandler = async (req: AuthRequest, res: any) => {
+  const user = req.user
+
+  if (!user) {
+    return res.status(404).json({
+      msg: 'Data for the user was not found on the server.',
+    })
+  }
+
+  try {
+    const foundPortfolio = (await User.findOne({
+      email: user?.email,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    }).populate('portfolioUrl')) as any
+
+    res.status(200).json({
+      foundPortfolio: foundPortfolio,
+    })
+  } catch (error) {
+    res.status(500).json({
+      msg: 'There was some error while fetching user information.',
+      code: 'INTERNAL_ERROR',
+    })
   }
 }

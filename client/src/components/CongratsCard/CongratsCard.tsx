@@ -1,4 +1,5 @@
 import { Box, Button, Heading, Text, Link, Flex } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 type userStatusProps = {
   submissionNo?: string
@@ -38,16 +39,18 @@ export function CongratsCard({
       >
         <Heading fontSize="md" p={{ base: '3', md: '0' }}>
           <Link
-            href="https://twitter.com/intent/tweet?text=I%20have%20successfully%20submitted%20my%20application.%20Thanks%20to%20%40tanaypratap%20%40neogcamp%20for%20such%20a%20great%20experience."
+            href="https://twitter.com/intent/tweet?text=I%20am%20super%20excited%20to%20announce%20that%20I%20have%20completed%20levelZero%20of%20%40neogcamp%20and%20have%20successfully%20submitted%20my%20mark15%20portfolio.%0AIt%20was%20a%20great%20learning%20journey%20with%20%40tanaypratap.%0A%23neogcamp%20%23webdevlopment."
             isExternal
             color="cyan"
           >
             Tweet this out!
           </Link>
         </Heading>
-        <Button colorscheme="brand" color="black">
-          <a href="/">Go back to Dashboard</a>
-        </Button>
+        <NextLink href="/dashboard">
+          <Button colorscheme="brand" color="black">
+            Go back to Dashboard
+          </Button>
+        </NextLink>
       </Flex>
     </Box>
   )

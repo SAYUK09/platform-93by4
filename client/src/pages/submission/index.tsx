@@ -1,19 +1,23 @@
 import {
   Flex,
   Input,
-  Button,
+  Center,
   Box,
   Heading,
   useToast,
   Text,
+  Spinner,
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
 import axios from 'axios'
-import { Layout, Breadcrumbs } from '../../components'
+import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
+import withAuth from '../../context/WithAuth'
+import { useAuth } from '../../context/AuthContext'
+import { CheckListData } from '../../data/staticData/mark15'
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -21,6 +25,76 @@ const SubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
+  const { authState, setAuthState } = useAuth()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData = localStorage.getItem('mark15')
+      let localParsedCheckData: any = undefined
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      console.log(
+        'locall',
+        CheckListData.length,
+        localParsedCheckData
+          ? Object.keys(localParsedCheckData).length
+          : localParsedCheckData
+      )
+      if (
+        !(
+          localParsedCheckData &&
+          CheckListData.length === Object.keys(localParsedCheckData).length
+        )
+      ) {
+        setIsLoading(true)
+
+        router.push('/dashboard')
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 2000)
+      } else if (
+        localParsedCheckData &&
+        CheckListData.length === Object.keys(localParsedCheckData).length
+      ) {
+        const checkForAllChecks = CheckListData.every((checkItem, index) => {
+          return (
+            localParsedCheckData &&
+            checkItem.checks?.length ===
+              localParsedCheckData[checkItem.id]?.length
+          )
+        })
+        console.log('checksss', checkForAllChecks)
+        if (!checkForAllChecks) {
+          setIsLoading(true)
+          router.push('/dashboard')
+          toast({
+            title: 'Mark15 Checks!!!',
+            description: 'Please complete all the checks to proceed further',
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+          })
+
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 2000)
+        }
+      }
+    } else if (
+      authState?.user?.submissionData?.currentStatus === 'under review'
+    ) {
+      setIsLoading(true)
+
+      router.push('/submission/congrats')
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 2000)
+    }
+  }, [])
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -51,7 +125,7 @@ const SubmissionWindow: React.FC = () => {
       )
       if (response.status === 200) {
         toast({
-          title: 'Successfully Submitted!!!',
+          title: 'Successfully Submitted!',
           description: 'Your portfolio is submitted successfully',
           status: 'success',
           duration: 2000,
@@ -64,19 +138,30 @@ const SubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
+        // for removing localStorage mark15 data.
+        localStorage.removeItem('mark15')
         router.push('./submission/congrats')
       }
     } catch (err) {
       console.log({ err })
       if (err.response?.status === 302) {
         toast({
-          title: 'Your portfolio is already submitted!!!',
+          title: 'Your portfolio is already submitted!',
           description: 'Your portfolio is already submitted successfully',
           status: 'success',
           duration: 2000,
           isClosable: true,
         })
-        router.push('./submission/congrats')
       } else if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',
@@ -98,7 +183,7 @@ const SubmissionWindow: React.FC = () => {
     }
   }
   const breadcrumbsLinks = [
-    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
       breadcrumbName: 'Submit Portfolio ',
       breadcrumbLink: '/submission/questions',
@@ -110,8 +195,11 @@ const SubmissionWindow: React.FC = () => {
     { breadcrumbName: 'Submission Window', breadcrumbLink: '/submission' },
   ]
 
-  return (
-    <>
+  return isLoading ? (
+      <Center minH="100vh">
+        <Spinner />
+      </Center>
+      ) : (
       <Layout>
         <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
         <Heading
@@ -145,7 +233,7 @@ const SubmissionWindow: React.FC = () => {
               </Heading>
             </Flex>
             <Flex
-              justifyContent="center"
+              justifyContent={['stretch', 'center']}
               alignItems="center"
               p="5"
               flexDirection={['column', 'row']}
@@ -161,16 +249,7 @@ const SubmissionWindow: React.FC = () => {
                 color={theme.colors.black['50']}
                 maxWidth="300px"
               />
-              <Button
-                background={theme.colors.brand['500']}
-                isDisabled={disableButton}
-                onClick={submitPortfolioUrl}
-                color={theme.colors.black['900']}
-                mt={['1rem', '0']}
-                ml={['0', '1rem']}
-              >
-                Submit
-              </Button>
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
             <Text color={theme.colors.red['500']} textAlign="center">
               {checkInput}
@@ -178,8 +257,10 @@ const SubmissionWindow: React.FC = () => {
           </Flex>
         </Box>
       </Layout>
-    </>
   )
 }
 
-export default SubmissionWindow
+export default withAuth(SubmissionWindow)
+function setAuthState(arg0: (prev: any) => any) {
+  throw new Error('Function not implemented.')
+}

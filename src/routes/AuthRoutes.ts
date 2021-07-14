@@ -29,5 +29,4 @@ router.route('/forgot-password').post(forgotPasswordHandler)
 router.route('/reset-password/:resetToken').put(resetPasswordHandler)
 router.route('/logout').post(logoutHandler)
 router.route('/user-info').get(requiresAuth, userInfoHandler)
-
 export = router

@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Heading } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
@@ -13,6 +13,7 @@ interface CardPropType extends CheckListType {
   id: string
   title?: string
   subTitle?: string | JSX.Element
+  projectName?: string
   link?: string
   index?: number
   lockIcon?: boolean
@@ -24,6 +25,7 @@ export function Card({
   status,
   id,
   title,
+  projectName,
   subTitle,
   link,
   checks,
@@ -42,15 +44,38 @@ export function Card({
         checkCount.length,
         setAllMarksChecked
       )
+
+      if (localStorage && checkCount.length) {
+        const localCheckData = localStorage.getItem('mark15')
+        let localParsedCheckData = {}
+        if (localCheckData) {
+          localParsedCheckData = JSON.parse(localCheckData)
+        }
+        localStorage.setItem(
+          'mark15',
+          JSON.stringify({ ...localParsedCheckData, [id]: checkCount })
+        )
+      }
     }
   }, [checks, id, setAllMarksChecked, checkCount])
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData: any = localStorage.getItem('mark15')
+      let localParsedCheckData: any = {}
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      localParsedCheckData[id] && setCheckCount(localParsedCheckData[id])
+    }
+  }, [])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
       <Flex
         width={'100%'}
         background={theme.colors.black['800']}
-        padding={'1.5rem'}
+        padding={['0.8rem', '1.5rem']}
         alignItems={'center'}
         flexDirection={[!collapsible ? 'column' : 'row', 'row']}
         onClick={() =>
@@ -61,6 +86,7 @@ export function Card({
         <CardText
           collapsible={collapsible}
           title={title}
+          projectName={projectName}
           subTitle={subTitle}
           status={status}
           checklist={checks}
@@ -75,8 +101,8 @@ export function Card({
                     ? '/svgs/rightArrow.svg'
                     : '/svgs/link.svg'
                 }
-                height={'30'}
-                width={'30'}
+                height="30"
+                width="30"
                 alt={'link-svg'}
               />
             </Link>
@@ -98,14 +124,26 @@ export function Card({
           display={'flex'}
           flexDirection={'column'}
           background={theme.colors.black['800']}
-          padding={openDrawer ? '0rem 3rem 1.7rem 3rem' : '0 3rem'}
+          padding={openDrawer ? '0rem 1rem 1.7rem 3rem' : '0 3rem'}
           transition={'0s padding ease, 0.4s all ease'}
           maxHeight={openDrawer ? '10000vh' : '0'}
           height={openDrawer ? 'auto' : '0'}
           overflow={'overhidden'}
           opacity={openDrawer ? '1' : '0.7'}
         >
-          <CheckList checklist={checks} setCheckCount={setCheckCount} />
+          <Heading
+            fontSize="1.15rem"
+            pb="1.8rem"
+            fontWeight="600"
+            color="black.200"
+          >
+            {projectName}
+          </Heading>
+          <CheckList
+            checklist={checks}
+            checkCount={checkCount}
+            setCheckCount={setCheckCount}
+          />
         </Flex>
       )}
     </Box>

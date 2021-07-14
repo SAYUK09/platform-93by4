@@ -8,7 +8,6 @@ export type StatusType = {
   color?: string
 }
 
-
 export const data: StatusType[] = [
   {
     status: 'portfolio_not_submitted',
@@ -18,11 +17,10 @@ export const data: StatusType[] = [
       'Please submit your portfolio for review : Click on Step 1',
   },
   {
-    status: 'portfolio_under_review',
+    status: 'under review',
     level: 1, // control the locks
     statusText: 'Portfolio Under Review', // show your header
-    statusDescription:
-      'Your portfolio is under review. Your submission number is #123 . Wait for results. ',
+    statusDescription: 'Your portfolio is under review.Wait for results. ',
   },
   {
     status: 'portfolio_needs_revision',
@@ -84,15 +82,15 @@ export const steps: StepType[] = [
     level: 1,
   },
   {
-    content: 'Interview',
+    content: 'Give your Interview',
     link: '/interview',
     level: 2,
   },
   {
-    content: 'Payment',
+    content: 'Secure your seat',
     link: '/payment',
     level: 3,
   },
 ]
 
-export const submissionSting = 'Submission in Neog camp is a 3 step process : '
+export const submissionSting = 'Submission in neoG Camp is a 3-step process:'

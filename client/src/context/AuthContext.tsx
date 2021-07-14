@@ -9,16 +9,18 @@ import {
 import { getUser, logout } from '../services/axiosService'
 
 export interface User {
-  userId: string
-  firstName: string
-  lastName: string
-  email: string
+  userId?: string
+  firstName?: string
+  lastName?: string
+  email?: string
   submissionData: { submissionNo: string; currentStatus: string } | null
 }
 
+// todo -> maybe add a global loading state here ??
 export interface IAuthState {
   user: User | null
   isAuthenticated: boolean
+  isLoading: boolean
 }
 
 interface IAuthContext {
@@ -37,6 +39,7 @@ const defaultAuthState: IAuthState = {
     submissionData: null,
   },
   isAuthenticated: false,
+  isLoading: true,
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -72,6 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 submissionData: submissionParseData,
               },
               isAuthenticated: true,
+              isLoading: false,
             })
             console.log(user)
           })
@@ -79,6 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setAuthState({
               user: null,
               isAuthenticated: false,
+              isLoading: false,
             })
             console.log({ err })
           })
@@ -87,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAuthState({
           user: null,
           isAuthenticated: false,
+          isLoading: false,
         })
       }
     }
@@ -97,6 +103,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthState({
       isAuthenticated: data.isAuthenticated,
       user: data.user,
+      isLoading: data.isLoading,
     })
   }
 

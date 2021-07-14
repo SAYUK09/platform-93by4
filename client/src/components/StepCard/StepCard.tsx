@@ -15,24 +15,29 @@ type StepcardProps = {
 export function StepCard({ bgColor, step, status, index }: StepcardProps) {
   return (
     <Flex
-      flexDir={['column', 'column', 'row']}
+      flexDir={'row'}
       alignItems="center"
       justifyContent="space-between"
       bgColor={bgColor}
       borderRadius={9.5}
-      px={8}
-      py={6}
-      mb={3}
+      px={[6, 8, 8]}
+      py={[4, 6, 6]}
+      mb={[2, 3, 3]}
     >
       <Box m={2}>
         <LockIcon index={index} locked={status.level < step.level} />
       </Box>
-      <Heading as="h3" size="md" flex="auto" color={theme.colors.gray['100']}>
+      <Heading
+        as="h3"
+        fontSize={['sm', 'md', 'lg']}
+        flex="auto"
+        color={theme.colors.gray['100']}
+      >
         {step.content}
       </Heading>
 
       {status.level == step.level ? (
-        status.status == 'portfolio_under_review' ? (
+        status.status == 'under review' ? (
           <a>{<ExternalLinkSvg color={theme.colors.black['700']} />}</a>
         ) : status.status == 'portfolio_needs_revision' ? (
           <Link href="/resubmission">

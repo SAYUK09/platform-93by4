@@ -1,21 +1,26 @@
 import {
   Flex,
+  WrapItem,
+  Avatar,
   Text,
-  Button,
-  useToast,
+  Link as ChakraLink,
   Menu,
   MenuButton,
-  MenuItem,
+  Button,
   MenuList,
+  MenuItem,
+  useToast,
 } from '@chakra-ui/react'
 import { theme } from '../../themes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import NextLink from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { useAuth } from '../../context/AuthContext'
 import { logout } from './../../services/axiosService'
 import { CgProfile, CgLogOut } from 'react-icons/cg'
+import { RiDashboardFill } from 'react-icons/ri'
 import Logo from '../../assests/svgs/neogcamp.svg'
 
 export function Navbar() {
@@ -26,11 +31,20 @@ export function Navbar() {
   const [loginStatus, setLoginStatus] = useState(
     authState?.user?.firstName || 'Login'
   )
+  useEffect(() => {
+    setLoginStatus(authState?.user?.firstName || 'Login')
+  }, [authState])
+
+  console.log(authState?.user?.firstName)
+  console.log(loginStatus)
 
   const authRedirect = () => {
     console.log(loginStatus)
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }
+  useEffect(() => {
+    setLoginStatus(authState?.user?.firstName || 'Login')
+  }, [authState])
 
   const onHandleLogout = async () => {
     await logout()
@@ -41,7 +55,9 @@ export function Navbar() {
           duration: 4000,
           isClosable: true,
         })
+        // TODO: Clear the token history from local Storage
         setLoginStatus('Login')
+        localStorage.removeItem('neogSubmission')
         router.push('/')
         Router.reload()
       })
@@ -73,8 +89,10 @@ export function Navbar() {
         padding={'0 1rem'}
         justifyContent={'space-between'}
       >
-        <Link href="/">
-          <Image src={Logo} alt="neog logo" />
+        <Link href="/" passHref>
+          <ChakraLink>
+            <Image src={Logo} alt="neog logo" />
+          </ChakraLink>
         </Link>
         <Flex alignItems="center">
           <Menu>
@@ -100,6 +118,9 @@ export function Navbar() {
               </Flex>
             </MenuButton>
             <MenuList bg="black.800" hidden={loginStatus === 'Login' && true}>
+              <NextLink href="/dashboard">
+                <MenuItem icon={<RiDashboardFill />}>Dashboard</MenuItem>
+              </NextLink>
               <MenuItem icon={<CgLogOut />} onClick={onHandleLogout}>
                 Logout
               </MenuItem>

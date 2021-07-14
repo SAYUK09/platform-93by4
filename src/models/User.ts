@@ -21,7 +21,7 @@ export interface IUser {
   getPasswordResetToken: () => Promise<string>
   getEmailVerificationToken: () => Promise<string>
   matchPasswords: (password: string) => Promise<boolean>
-  portfolioUrl: PopulatedDoc<IPortfolioUrl & Document>,
+  portfolioUrl: PopulatedDoc<IPortfolioUrl & Document>
 }
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
@@ -40,6 +40,7 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
@@ -66,7 +67,7 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     },
     portfolioUrl: {
       type: Schema.Types.ObjectId,
-      ref:"PortfolioUrl"
+      ref: 'PortfolioUrl',
     },
   },
   {

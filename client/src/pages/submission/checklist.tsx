@@ -1,10 +1,11 @@
-import { Layout, Card } from '../../components'
+import { Layout, Card, Breadcrumbs } from '../../components'
 import { CheckListData, CardOnEachPage } from '../../data/staticData/mark15'
 import { useState } from 'react'
 import { Button, Link, Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import withAuth from '../../context/WithAuth'
 
-export function CheckList() {
+function CheckList() {
   const [allMarksChecked, setAllMarksChecked] = useState<string[]>([])
   const router = useRouter()
   let pageNo = router.query?.pageNo as string
@@ -52,8 +53,21 @@ export function CheckList() {
     )
   }
 
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
+    {
+      breadcrumbName: 'Submit Portfolio ',
+      breadcrumbLink: '/submission/questions',
+    },
+    {
+      breadcrumbName: 'mark15 Checklist',
+      breadcrumbLink: '/submission/checklist',
+    },
+  ]
+
   return (
     <Layout>
+      <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
       {CheckListData.slice(
         CardOnEachPage * (pageNumber - 1),
         CardOnEachPage * (pageNumber - 1) + CardOnEachPage
@@ -70,11 +84,11 @@ export function CheckList() {
 
       <Flex marginTop={'3rem'} justifyContent={'space-between'}>
         <Button
-          colorscheme="blue"
+          colorscheme="brand.500"
+          bg="black.900"
           size={'lg'}
           variant="outline"
-          _hover={{ bg: 'rgba(49, 130, 206, 0.1)' }}
-          _active={{ bg: 'rgba(49, 130, 206, 0.1)' }}
+          _hover={{ bg: 'black.800' }}
           onClick={() => handlePrevButton()}
           visibility={pageNumber > 1 ? 'visible' : 'hidden'}
           disabled={pageNumber < 2}
@@ -83,7 +97,8 @@ export function CheckList() {
         </Button>
 
         <Button
-          colorscheme="blue"
+          colorscheme="brand"
+          textColor="black.900"
           size={'lg'}
           onClick={() => handleNextButton()}
           disabled={!checkAllIdsInArray()}
@@ -95,4 +110,4 @@ export function CheckList() {
   )
 }
 
-export default CheckList
+export default withAuth(CheckList)

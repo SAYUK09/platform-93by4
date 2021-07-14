@@ -8,11 +8,12 @@ import {
   InputGroup,
   Button,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react'
 import * as yup from 'yup'
 import { Form, Formik, Field, FormikHelpers } from 'formik'
 import { sendForgotPasswordRequest } from '../../../services/axiosService'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const ForgotPasswordSchema = yup.object().shape({
   email: yup
@@ -26,21 +27,37 @@ interface ForgotPasswordValues {
 }
 
 export default function ForgotPassword() {
-  const [status, setStatus] = useState<'sent' | 'error' | 'default'>('default')
+  const toast = useToast()
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   async function handleSubmit(data: ForgotPasswordValues) {
     await sendForgotPasswordRequest(data)
       .then((res) => {
         if (res.status === 200) {
-          setStatus('sent')
+          setButtonDisabled(true)
+          toast({
+            title: 'An email has been sent to you.',
+            description:
+              'Please check your inbox. You can request another request after 5 minutes',
+          })
         }
         console.log(res)
       })
       .catch((error) => {
-        setStatus('error')
+        setButtonDisabled(false)
+        toast({
+          title: 'There was some problem sending email.',
+          description: 'Please try again after some time.',
+        })
         console.log(error)
       })
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setButtonDisabled(false)
+    }, 300000)
+  }, [buttonDisabled])
 
   return (
     <Box
@@ -57,13 +74,8 @@ export default function ForgotPassword() {
         <Box>
           <Heading>Reset Password.</Heading>
           <Text marginTop="1rem">
-            {status === 'default' &&
-              `Enter the email you used for this account. We will mail you a link
-            to reset your password.`}
-            {status === 'error' &&
-              `There was an error sending you an email for password reset. Please try again after some time.`}
-            {status === 'sent' &&
-              `An email containing link to reset password has been sent to you. Please check your inbox.`}
+            Enter the email you used for this account. We will mail you a link
+            to reset your password.
           </Text>
         </Box>
 
@@ -79,7 +91,7 @@ export default function ForgotPassword() {
         >
           <Form>
             <Field name="email">
-              {({ field, form }) => (
+              {({ field, form }: { field: any; form: any }) => (
                 <FormControl
                   isInvalid={form.errors.email && form.touched.email}
                 >
@@ -104,6 +116,7 @@ export default function ForgotPassword() {
               type="submit"
               loadingText="Submitting"
               colorscheme="blue"
+              disabled={buttonDisabled}
             >
               Send Reset Link
             </Button>

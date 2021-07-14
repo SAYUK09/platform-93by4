@@ -7,13 +7,15 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
-import { Layout, Breadcrumbs } from '../../components'
+import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
 import { isUrlValid } from '../../utils/utils'
 import { ResubmissionData } from '../../data/strings/submission'
+import { useAuth } from '../../context/AuthContext'
+import withAuth from '../../context/WithAuth'
 
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -21,7 +23,14 @@ const ReSubmissionWindow: React.FC = () => {
   const router = useRouter()
   const toast = useToast()
   const [checkInput, setCheckInput] = useState<string>('')
+  const { authState, setAuthState } = useAuth()
 
+
+  useEffect(() => {
+    if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+      router.push('/dashboard')
+    }
+  }, [])
   useEffect(() => {
     inputRef.current.focus()
   }, [])
@@ -65,6 +74,17 @@ const ReSubmissionWindow: React.FC = () => {
             currentStatus: response.data.currentStatus,
           })
         )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
+
         router.push('./resubmission/congrats')
       }
       console.log(response.data)
@@ -92,7 +112,7 @@ const ReSubmissionWindow: React.FC = () => {
     }
   }
   const breadcrumbsLinks = [
-    { breadcrumbName: 'Dashboard', breadcrumbLink: '/' },
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
       breadcrumbName: 'Submit Portfolio',
       breadcrumbLink: '/submission/questions',
@@ -174,16 +194,7 @@ const ReSubmissionWindow: React.FC = () => {
                 color={theme.colors.black['50']}
                 maxWidth="300px"
               />
-              <Button
-                background={theme.colors.brand['500']}
-                isDisabled={disableButton}
-                onClick={submitPortfolioUrl}
-                color={theme.colors.black['900']}
-                mt={['1rem', '0']}
-                ml={['0', '1rem']}
-              >
-                Resubmit
-              </Button>
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
             <Text color={theme.colors.red['500']} textAlign="center">
               {checkInput}
@@ -195,4 +206,4 @@ const ReSubmissionWindow: React.FC = () => {
   )
 }
 
-export default ReSubmissionWindow
+export default withAuth(ReSubmissionWindow)

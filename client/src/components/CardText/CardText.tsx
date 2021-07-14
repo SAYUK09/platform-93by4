@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from '@chakra-ui/react'
+import { Flex, Heading, Text, chakra } from '@chakra-ui/react'
 import Image from 'next/image'
 import { ChecksType } from '../../data/staticData/mark15'
 import { theme } from '../../themes'
@@ -7,6 +7,7 @@ interface CardTextPropType {
   collapsible?: boolean
   status?: string
   title?: string
+  projectName?: string
   subTitle?: string | JSX.Element
   checklist?: ChecksType[]
   checkedCount?: number
@@ -16,6 +17,7 @@ export function CardText({
   collapsible,
   title,
   subTitle,
+  projectName,
   checklist,
   checkedCount,
 }: CardTextPropType) {
@@ -35,6 +37,7 @@ export function CardText({
             marginRight={'1rem'}
             position={'relative'}
             top={'-2px'}
+            minW="24px"
           >
             {checkedCount === checklist?.length ? (
               <Image
@@ -53,7 +56,11 @@ export function CardText({
             )}
           </Flex>
         )}
-        <Heading color={theme.colors.black['50']} fontSize={'1.3rem'}>
+        <Heading
+          color={checkedCount === checklist?.length ? 'brand.500' : 'black.300'}
+          fontSize={'1.3rem'}
+          minW="110px"
+        >
           {title}
         </Heading>
         {!collapsible && (
@@ -62,7 +69,6 @@ export function CardText({
             marginTop={'0.5rem'}
             textTransform={'capitalize'}
             fontSize={'0.85rem'}
-            padding={'0 0.5rem'}
           >
             {subTitle}
           </Text>
@@ -70,8 +76,11 @@ export function CardText({
       </Flex>
       {collapsible && (
         <Flex flex={'1'} justifyContent={'center'}>
-          <Text color={theme.colors.black['100']} paddingLeft={'3.5rem'}>
-            {checkedCount}/{checklist?.length}
+          <Text color="brand.500" paddingLeft={'3.5rem'}>
+            {checkedCount}/{checklist?.length}{' '}
+            <chakra.span d={{ base: 'none', md: 'inline' }}>
+              task done
+            </chakra.span>
           </Text>
         </Flex>
       )}
