@@ -18,7 +18,7 @@ interface IEmail {
 
 export class Email implements IEmail {
   // @future _> this will change
-  from = '<neoG Camp> no-reply@neogcamp.in'
+  from = '<neoG Camp> no-reply@neog.camp'
   to = ''
   firstName = ''
 

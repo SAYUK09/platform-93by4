@@ -12,6 +12,7 @@ import {
 import crypto from 'crypto'
 import log from '../utils/logger'
 import { createToken } from '../utils/authUtils'
+import { Email } from '../utils/mailer'
 import { AuthRequest } from '../types/RequestWithUser'
 /**
  * This handler handles user signups.
@@ -54,21 +55,18 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
     })
 
     try {
-      // TODO - use something like handlebars for email templates
-      // TODO - abstract this logic something like createEmail(html, user)
-      await sendEmail({
-        from: 'Sushil from Neog <neogcamp@neog.com>',
-        to: user.email,
-        subject: 'Confirm your email address.',
-        html: `<div>
-        Thank you for registering on neog.camp ! We are excited to have you onboard.
-        Please click this link to confirm your email address with us. We hope you are ready for neog!
-        
-        <a href=${verificationLink} target="_blank noreferrer noopener"/>
-          <button> Verify Email Addres </button>
-        </a>
-        </div>`,
+      // TODO - abstract this logic something like createEmail(html, user
+      await new Email({
+        email: user.email,
+        firstName: user.firstName,
+      }).send({
+        subject: 'Please verify your email',
+        template: 'verify-email',
+        variables: {
+          verificationLink: verificationLink,
+        },
       })
+
       // to persist user info across page refresh. replaced with new token after email
       // verification.
       const token = await createToken({
@@ -262,19 +260,15 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   })
 
   try {
-    // TODO - use something like handlebars for email templates
-    await sendEmail({
-      from: 'Sushil from Neog <neogcamp@neog.com>',
-      to: user.email,
-      subject: 'Confirm your email address.',
-      html: `<div>
-      Thank you for registering on neog.camp ! We are excited to have you onboard.
-      Please click this link to confirm your email address with us. We hope you are ready for neog!
-      
-      <a href=${verificationLink} target="_blank noreferrer noopener"/>
-        <button> Verify Email Addres </button>
-      </a>
-      </div>`,
+    await new Email({
+      email: user.email,
+      firstName: user.firstName,
+    }).send({
+      subject: 'Please verify your email',
+      template: 'verify-email',
+      variables: {
+        verificationLink: verificationLink,
+      },
     })
     return res.status(201).json({
       msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
@@ -313,17 +307,15 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
     const resetURL = `http://localhost:3000/auth/forgot-password/${resetToken}`
 
     try {
-      await sendEmail({
-        from: 'no-reply@neog.camp',
-        to: user.email,
-        subject: '[NeoG Camp] Password Reset Requested',
-        html: `<div>
-          <p> Password Reset Link for ${user.email}. Please click this link to reset your password. Ignore if password
-          reset was not issued by you.</p> 
-          
-         <a href=${resetURL} target="_blank noreferrer noopener"><button>Click here to reset password</button></a> 
-
-          </div>`,
+      await new Email({
+        email: user.email,
+        firstName: user.firstName,
+      }).send({
+        subject: 'You have requested to reset your password',
+        template: 'reset-password',
+        variables: {
+          resetURL: resetURL,
+        },
       })
       return res.status(200).json({
         msg: 'An email containing link to reset password has been sent to you. Please check your inbox.',
