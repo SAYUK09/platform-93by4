@@ -1,9 +1,7 @@
-import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, Button, Heading, Stack, Text, Image } from '@chakra-ui/react'
 import { FiExternalLink } from 'react-icons/fi'
 import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
-import illustration from '../../public/svgs/landingPage.svg'
 import NextLink from 'next/link'
 
 export default function Home() {
@@ -84,7 +82,7 @@ export default function Home() {
           h={{ base: 'auto', lg: '500px' }}
           px={4}
         >
-          <Image src={illustration} layout="responsive" />
+          <Image src={'/svgs/landingPage.svg'} layout="responsive" />
         </Box>
       </Stack>
     </Layout>
