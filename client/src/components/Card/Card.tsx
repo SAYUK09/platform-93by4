@@ -1,5 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, Flex, Heading, Image } from '@chakra-ui/react'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { LockIcon, CardText, CheckList } from '../'
