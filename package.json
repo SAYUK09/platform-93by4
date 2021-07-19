@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",
-    "build": "tsc && cd client && yarn build:prod",
-    "start": "yarn build && cross-env NODE_ENV=development node bin/www",
+    "start:build": "tsc && cd client && yarn build:prod",
+    "build": "yarn start:build && cross-env NODE_ENV=development node bin/www",
     "start:prod": "cross-env NODE_ENV=production node bin/www",
     "tsc": "tsc",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
