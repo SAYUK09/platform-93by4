@@ -21,12 +21,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-    
+
       - name: Get NextJS built
-      run: |
-        cd client
-        npm install -g yarn
-        yarn install --frozen-lockfile
+        run: |
+          cd client
+          npm install -g yarn
+          yarn install --frozen-lockfile
 
       - name: npm install, build, and test
         run: |
