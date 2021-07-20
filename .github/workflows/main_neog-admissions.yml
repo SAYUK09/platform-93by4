@@ -35,7 +35,7 @@ jobs:
           yarn build
       
       - name: 'Tar files'
-        run: tar -cvf neog_portal.tar 
+        run: tar -cvf neog_portal.tar .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
