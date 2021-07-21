@@ -25,7 +25,6 @@ const ReSubmissionWindow: React.FC = () => {
   const [checkInput, setCheckInput] = useState<string>('')
   const { authState, setAuthState } = useAuth()
 
-
   useEffect(() => {
     if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
       router.push('/dashboard')
@@ -48,7 +47,7 @@ const ReSubmissionWindow: React.FC = () => {
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/resubmit',
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/resubmit`,
         {
           submissionNo: 0,
           status: 'under review',
