@@ -1,53 +1,56 @@
-import { chakra, Flex, Heading, Text, useMediaQuery } from '@chakra-ui/react'
-import Image from 'next/image'
-// import { colors } from "../../styles/themeVars/themeVars";
+import {
+  chakra,
+  Flex,
+  Heading,
+  Text,
+  useMediaQuery,
+  Image,
+} from '@chakra-ui/react'
 import { AdminIntroString } from './../../data/strings/adminIntro'
 import { theme } from '../../themes'
 
 export function DashboardIntroCard() {
-  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
-  const [isSmallerThan400] = useMediaQuery('(max-width: 400px)')
+  // const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
+  // const [isSmallerThan400] = useMediaQuery('(max-width: 400px)')
   return (
     <Flex
       width={'100%'}
-      marginTop={'2rem'}
+      min-height={'35vh'}
       background={theme.colors.black['800']}
       borderRadius={'8px'}
-      padding={isSmallerThan400 ? '1rem' : '2rem'}
-      flexDirection={isSmallerThan800 ? 'column-reverse' : 'row'}
+      padding={['1rem', '0.5rem']}
+      flexDirection={['column-reverse', 'column-reverse', 'row']}
     >
       <Flex
         flex={'1'}
-        justifyContent={'center'}
-        alignItems={isSmallerThan800 ? 'center' : 'flex-start'}
+        justifyContent={'flex-start'}
+        px={'2rem'}
+        py={'2rem'}
+        alignItems={['center', 'flex-start']}
         flexDirection={'column'}
-        marginTop={isSmallerThan800 ? '2rem' : ''}
-        textAlign={isSmallerThan800 ? 'center' : 'left'}
+        textAlign={['center', 'left']}
+        width={['100%', '100%', '60%']}
       >
-        <Heading
-        // color={colors.lightBlue}
-        >
+        <Heading color={'brand.300'}>
           {AdminIntroString.heading}{' '}
-          <chakra.span color={'brand.300'}>{'14'}</chakra.span>
+          <chakra.span color={'white'}>{'14'}</chakra.span>
         </Heading>
         <Text
           fontWeight={'500'}
-          margin={'1rem 0'}
-          color={'brand.300'}
+          // margin={'1rem 0'}
+          color={'white'}
           maxWidth={'450px'}
         >
           {AdminIntroString.caption}
         </Text>
       </Flex>
       <Flex
-        position={'relative'}
+        height="100%"
         flex={'1'}
-        minHeight={isSmallerThan800 ? '200px' : '300px'}
-        maxWidth={isSmallerThan800 ? '100%' : '350px'}
         alignItems={'center'}
-        padding={'2rem'}
+        justifyContent={'center'}
       >
-        <Image src={'/svgs/adminIntro.svg'} layout={'fill'} />
+        <Image height="100%" src={'/svgs/adminIntro.svg'} />
       </Flex>
     </Flex>
   )

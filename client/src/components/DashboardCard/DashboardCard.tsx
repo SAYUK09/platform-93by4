@@ -29,7 +29,7 @@ export function DashboardCard({
       <Flex
         width={'100%'}
         background={theme.colors.black['800']}
-        padding={'1.5rem'}
+        padding={'1rem'}
         alignItems={'center'}
         flexDirection={!collapsible && isSmallerThan700 ? 'column' : 'row'}
         onClick={() =>
