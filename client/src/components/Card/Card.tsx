@@ -1,22 +1,23 @@
-import { Box, Flex, useMediaQuery } from '@chakra-ui/react';
-import { colors } from '../../styles/themeVars/themeVars';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { LockIcon, CardText, CheckList } from '../';
-import { CheckListType } from '../../data/staticData/mark15';
-import { handleMarksChecked } from './handlers';
+import { Box, Flex, Heading } from '@chakra-ui/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { LockIcon, CardText, CheckList } from '../'
+import { CheckListType } from '../../data/staticData/mark15'
+import { theme } from '../../themes'
+import { handleMarksChecked } from './handlers'
 
 interface CardPropType extends CheckListType {
-  collapsible?: boolean;
-  status?: string;
-  id: string;
-  title?: string;
-  subTitle?: string | JSX.Element;
-  link?: string;
-  index?: number;
-  lockIcon?: boolean;
-  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>;
+  collapsible?: boolean
+  status?: string
+  id: string
+  title?: string
+  subTitle?: string | JSX.Element
+  projectName?: string
+  link?: string
+  index?: number
+  lockIcon?: boolean
+  setAllMarksChecked?: Dispatch<SetStateAction<string[]>>
 }
 
 export function Card({
@@ -24,6 +25,7 @@ export function Card({
   status,
   id,
   title,
+  projectName,
   subTitle,
   link,
   checks,
@@ -31,9 +33,8 @@ export function Card({
   setAllMarksChecked,
   lockIcon,
 }: CardPropType) {
-  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [checkCount, setCheckCount] = useState([]);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
+  const [checkCount, setCheckCount] = useState<string[]>([])
 
   useEffect(() => {
     if (checks) {
@@ -42,28 +43,50 @@ export function Card({
         checks.length,
         checkCount.length,
         setAllMarksChecked
-      );
+      )
+
+      if (localStorage && checkCount.length) {
+        const localCheckData = localStorage.getItem('mark15')
+        let localParsedCheckData = {}
+        if (localCheckData) {
+          localParsedCheckData = JSON.parse(localCheckData)
+        }
+        localStorage.setItem(
+          'mark15',
+          JSON.stringify({ ...localParsedCheckData, [id]: checkCount })
+        )
+      }
     }
-  }, [checks, id, setAllMarksChecked, checkCount]);
+  }, [checks, id, setAllMarksChecked, checkCount])
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData: any = localStorage.getItem('mark15')
+      let localParsedCheckData: any = {}
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      localParsedCheckData[id] && setCheckCount(localParsedCheckData[id])
+    }
+  }, [])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
       <Flex
         width={'100%'}
-        background={colors.darkGrey}
-        padding={'1.5rem'}
+        background={theme.colors.black['800']}
+        padding={['0.8rem', '1.5rem']}
         alignItems={'center'}
-        flexDirection={!collapsible && isSmallerThan700 ? 'column' : 'row'}
+        flexDirection={[!collapsible ? 'column' : 'row', 'row']}
         onClick={() =>
           collapsible && setOpenDrawer((openDrawer) => !openDrawer)
         }
       >
-        {lockIcon && (
-          <LockIcon index={index} collapsible={collapsible} status={status} />
-        )}
+        {lockIcon && <LockIcon index={index} collapsible={collapsible} />}
         <CardText
           collapsible={collapsible}
           title={title}
+          projectName={projectName}
           subTitle={subTitle}
           status={status}
           checklist={checks}
@@ -74,12 +97,12 @@ export function Card({
             <Link href={`${link}`}>
               <Image
                 src={
-                  link.includes('/checklist')
+                  link && link.includes('/checklist')
                     ? '/svgs/rightArrow.svg'
                     : '/svgs/link.svg'
                 }
-                height={'30'}
-                width={'30'}
+                height="30"
+                width="30"
                 alt={'link-svg'}
               />
             </Link>
@@ -100,17 +123,29 @@ export function Card({
         <Flex
           display={'flex'}
           flexDirection={'column'}
-          background={colors.darkGrey}
-          padding={openDrawer ? '0rem 3rem 1.7rem 3rem' : '0 3rem'}
+          background={theme.colors.black['800']}
+          padding={openDrawer ? '0rem 1rem 1.7rem 3rem' : '0 3rem'}
           transition={'0s padding ease, 0.4s all ease'}
           maxHeight={openDrawer ? '10000vh' : '0'}
           height={openDrawer ? 'auto' : '0'}
           overflow={'overhidden'}
           opacity={openDrawer ? '1' : '0.7'}
         >
-          <CheckList checklist={checks} setCheckCount={setCheckCount} />
+          <Heading
+            fontSize="1.15rem"
+            pb="1.8rem"
+            fontWeight="600"
+            color="black.200"
+          >
+            {projectName}
+          </Heading>
+          <CheckList
+            checklist={checks}
+            checkCount={checkCount}
+            setCheckCount={setCheckCount}
+          />
         </Flex>
       )}
     </Box>
-  );
+  )
 }

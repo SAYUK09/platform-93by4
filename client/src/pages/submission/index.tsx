@@ -1,73 +1,266 @@
-import { Flex, Input, Button, Heading } from '@chakra-ui/react';
-import { useRef, useState, useEffect } from 'react';
-import { Layout } from '../../components';
-import { colors } from '../../styles/themeVars/themeVars';
+import {
+  Flex,
+  Input,
+  Center,
+  Box,
+  Heading,
+  useToast,
+  Text,
+  Spinner,
+} from '@chakra-ui/react'
+import { useRef, useState, useEffect, MutableRefObject } from 'react'
+import axios from 'axios'
+import { Layout, Breadcrumbs, Alert } from '../../components'
+import { useRouter } from 'next/router'
+import { isUrlValid } from '../../utils/utils'
+import { theme } from '../../themes'
+import { SubmissionData } from '../../data/strings/submission'
+import withAuth from '../../context/WithAuth'
+import { useAuth } from '../../context/AuthContext'
+import { CheckListData } from '../../data/staticData/mark15'
 
-export default function SubmissionPage() {
-  const [disableButton, setDisabledButton] = useState(true);
-  const inputRef = useRef(null);
+const SubmissionWindow: React.FC = () => {
+  const [disableButton, setDisabledButton] = useState<boolean>(true)
+  const inputRef = useRef() as MutableRefObject<HTMLInputElement>
+  const router = useRouter()
+  const toast = useToast()
+  const [checkInput, setCheckInput] = useState<string>('')
+  const { authState, setAuthState } = useAuth()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  function isUrlValid(portfolioUrl) {
-    const res = portfolioUrl.match(
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/g
-    );
-    return res !== null;
+
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData = localStorage.getItem('mark15')
+      let localParsedCheckData: any = undefined
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      console.log(
+        'locall',
+        CheckListData.length,
+        localParsedCheckData
+          ? Object.keys(localParsedCheckData).length
+          : localParsedCheckData
+      )
+      if (
+        !(
+          localParsedCheckData &&
+          CheckListData.length === Object.keys(localParsedCheckData).length
+        )
+      ) {
+        setIsLoading(true)
+
+        router.push('/dashboard')
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 2000)
+      } else if (
+        localParsedCheckData &&
+        CheckListData.length === Object.keys(localParsedCheckData).length
+      ) {
+        const checkForAllChecks = CheckListData.every((checkItem, index) => {
+          return (
+            localParsedCheckData &&
+            checkItem.checks?.length ===
+              localParsedCheckData[checkItem.id]?.length
+          )
+        })
+        console.log('checksss', checkForAllChecks)
+        if (!checkForAllChecks) {
+          setIsLoading(true)
+          router.push('/dashboard')
+          toast({
+            title: 'Mark15 Checks!!!',
+            description: 'Please complete all the checks to proceed further',
+            status: 'warning',
+            duration: 2000,
+            isClosable: true,
+          })
+
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 2000)
+        }
+      }
+    } else if (
+      authState?.user?.submissionData?.currentStatus === 'under review'
+    ) {
+      setIsLoading(true)
+
+      router.push('/submission/congrats')
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 2000)
+    }
+  }, [])
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  const checkPortfolioUrl = (): void => {
+    if (isUrlValid(inputRef.current.value)) {
+      setCheckInput('')
+      setDisabledButton(false)
+    } else {
+      setCheckInput("That's not a URL")
+      setDisabledButton(true)
+    }
   }
 
-  const checkPortfolioUrl = () => {
-    if (isUrlValid(inputRef.current.value)) {
-      setDisabledButton(false);
-      console.log('correct');
-    } else {
-      setDisabledButton(true);
-      console.log('please enter the correct URL');
+  const submitPortfolioUrl = async (): Promise<void> => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/submit',
+        {
+          status: 'under review',
+          portfolioUrl: inputRef.current.value,
+          submissionNo: 0,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      if (response.status === 200) {
+        toast({
+          title: 'Successfully Submitted!',
+          description: 'Your portfolio is submitted successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        const submissionData = localStorage.setItem(
+          'neogSubmission',
+          JSON.stringify({
+            submissionNo: response.data.submissionNo,
+            currentStatus: response.data.currentStatus,
+          })
+        )
+        setAuthState((prev) => ({
+          ...prev,
+          user: {
+            ...prev.user,
+            submissionData: {
+              submissionNo: response.data.submissionNo,
+              currentStatus: response.data.currentStatus,
+            },
+          },
+        }))
+        // for removing localStorage mark15 data.
+        localStorage.removeItem('mark15')
+        router.push('./submission/congrats')
+      }
+    } catch (err) {
+      console.log({ err })
+      if (err.response?.status === 302) {
+        toast({
+          title: 'Your portfolio is already submitted!',
+          description: 'Your portfolio is already submitted successfully',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+      } else if (err.response?.status === 409) {
+        toast({
+          title: 'Portfolio URL Exists',
+          description:
+            'The link you have submitted already exists, please try again with different link!',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: 'Something went wrong',
+          description: 'Check your internet connection',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
     }
-  };
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  }
+  const breadcrumbsLinks = [
+    { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
+    {
+      breadcrumbName: 'Submit Portfolio ',
+      breadcrumbLink: '/submission/questions',
+    },
+    {
+      breadcrumbName: 'mark15 Checklist',
+      breadcrumbLink: '/submission/checklist',
+    },
+    { breadcrumbName: 'Submission Window', breadcrumbLink: '/submission' },
+  ]
 
-  const submitPortfolioUrl = () => {
-    console.log('noice :))');
-  };
-  return (
-    <Layout>
-      <Flex
-        flexDirection={'column'}
-        justifyContent="center"
-        alignItems="center"
-        pt="10"
-      >
-        <Heading color={colors.lightBlue}>
-          Congrats your Portfolio is ready to submit!
-        </Heading>
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          width={'100%'}
-          marginTop={'3rem'}
+  return isLoading ? (
+      <Center minH="100vh">
+        <Spinner />
+      </Center>
+      ) : (
+      <Layout>
+        <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
+        <Heading
+          as="h1"
+          size="xl"
+          color={theme.colors.brand['500']}
+          fontFamily="Inter"
+          pt="4"
         >
-          <Input
-            colorScheme="blackAlpha"
-            maxWidth="30%"
-            placeholder="https://adarshbalika.netlify.app"
-            onChange={() => checkPortfolioUrl()}
-            ref={inputRef}
-            color={colors.textColor}
-            background={colors.darkGrey}
-            borderColor={colors.mediumGrey}
-            _hover={{ borderColor: colors.mediumBlue }}
-          />
-          <Button
-            ml="10"
-            colorScheme="teal"
-            isDisabled={disableButton}
-            onClick={submitPortfolioUrl}
-          >
-            Submit
-          </Button>
-        </Flex>
-      </Flex>
-    </Layout>
-  );
+          {SubmissionData.heading}
+        </Heading>
+        <Box
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          m="10"
+          p="5"
+          background={theme.colors.black['700']}
+          border="none"
+        >
+          <Flex flexDirection="column">
+            <Flex>
+              <Heading
+                as="h2"
+                size="md"
+                p="2"
+                ml="2"
+                color={theme.colors.black['50']}
+              >
+                {SubmissionData.text}
+              </Heading>
+            </Flex>
+            <Flex
+              justifyContent={['stretch', 'center']}
+              alignItems="center"
+              p="5"
+              flexDirection={['column', 'row']}
+              gap="1rem"
+            >
+              <Input
+                placeholder="https://adarshbalika.netlify.app"
+                onChange={checkPortfolioUrl}
+                ref={inputRef}
+                border="none"
+                background={theme.colors.black['600']}
+                width="100%"
+                color={theme.colors.black['50']}
+                maxWidth="300px"
+              />
+              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
+            </Flex>
+            <Text color={theme.colors.red['500']} textAlign="center">
+              {checkInput}
+            </Text>
+          </Flex>
+        </Box>
+      </Layout>
+  )
+}
+
+export default withAuth(SubmissionWindow)
+function setAuthState(arg0: (prev: any) => any) {
+  throw new Error('Function not implemented.')
 }

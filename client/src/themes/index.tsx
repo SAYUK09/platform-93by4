@@ -1,15 +1,19 @@
 import { extendTheme } from '@chakra-ui/react'
 import { Button } from './Button/Button'
-import { Checkbox } from './Checkbox/Checkbox'
+import { Input } from './Input/Input'
 
 export const theme = extendTheme({
   components: {
     Button,
-    Checkbox,
+    Input,
   },
   fonts: {
     body: 'Inter, system-ui, sans-serif',
     heading: 'Inter, system-ui, sans-serif',
+  },
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
   },
   colors: {
     brand: {

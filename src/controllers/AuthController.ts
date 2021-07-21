@@ -12,6 +12,7 @@ import {
 import crypto from 'crypto'
 import log from '../utils/logger'
 import { createToken } from '../utils/authUtils'
+import { Email } from '../utils/mailer'
 import { AuthRequest } from '../types/RequestWithUser'
 /**
  * This handler handles user signups.
@@ -27,10 +28,10 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
   const isAlreadyRegistered = await User.findOne({
     email,
   })
-
+  console.log('signHandle', req.body)
   if (isAlreadyRegistered) {
-    return res.json({
-      msg: 'An account with that email already exists. Please try signing up using another email. If you think this is a mistake, please contact support@neog.camp',
+    return res.status(409).json({
+      msg: 'An account with that email already exists. Please log in instead.',
     })
   }
 
@@ -43,6 +44,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
     })
 
     const verificationToken = await user.getEmailVerificationToken()
+    const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
 
     await user.save((err) => {
       if (err) {
@@ -53,16 +55,37 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
     })
 
     try {
-      // TODO - use something like handlebars for email templates
-      // TODO - abstract this logic something like createEmail(html, user)
-      await sendEmail({
-        from: 'Sushil from Neog <neogcamp@neog.com>',
-        to: user.email,
-        subject: 'Confirm your email address.',
-        html: `<h1>Hello world Here is your token ${verificationToken}</h1>`,
+      // TODO - abstract this logic something like createEmail(html, user
+      await new Email({
+        email: user.email,
+        firstName: user.firstName,
+      }).send({
+        subject: 'Please verify your email',
+        template: 'verify-email',
+        variables: {
+          verificationLink: verificationLink,
+        },
       })
+
+      // to persist user info across page refresh. replaced with new token after email
+      // verification.
+      const token = await createToken({
+        _id: user._id,
+        email: user.email,
+      })
+
+      res.cookie('token', token, {
+        httpOnly: true,
+      })
+
       return res.status(200).json({
         msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
+        user: {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          userId: user._id,
+        },
       })
     } catch (error) {
       user.verificationToken = undefined
@@ -75,6 +98,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
       })
     }
   } catch (error) {
+    console.log('sign-up', error.message, error)
     res.status(500).json({
       msg: 'Something went wrong while registering you.',
       code: 'INTERNAL_ERROR',
@@ -88,11 +112,11 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
  * */
 export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
   async (req, res) => {
-    const { verificationToken, email } = req.body
+    const { verificationToken } = req.body
 
     try {
       const user = await User.findOne({
-        email,
+        verificationToken,
       })
 
       if (!user) {
@@ -122,20 +146,21 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
         user.verificationTokenExpiresIn = undefined
 
         await user.save()
+
+        const token = await createToken({
+          _id: user._id,
+          email: user.email,
+        })
+
+        res.cookie('token', token, {
+          httpOnly: true,
+        })
+
+        // TODO : send cookie here or session here
+        res.status(200).json({
+          msg: 'Your email address has been verified. You may now continue using the website.',
+        })
       }
-      const token = await createToken({
-        _id: user._id,
-        email: user.email,
-      })
-
-      res.cookie('token', token, {
-        httpOnly: true,
-      })
-
-      // TODO : send cookie here or session here
-      res.status(200).json({
-        msg: 'Your email address has been verified. You may now continue using the website.',
-      })
     } catch (error) {
       return res.status(500).json({
         msg: 'Something went wrong while verifying your email. Please try again or contact support@neogcamp.com',
@@ -186,12 +211,15 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
 
     // some sort of cookie or session mgmt
     res.status(200).json({
-      msg: 'Logged in successfully !',
+      msg: 'Login Successful!',
       email,
       firstName: user.firstName,
+      lastName: user.lastName,
+      userId: user._id,
       token,
     })
   } catch (error) {
+    console.log(error.message, error)
     return res.status(500).json({
       msg: 'Something went wrong while signing you in. Please contact support@neogcamp.com',
       code: 'INTERNAL_ERROR',
@@ -222,7 +250,7 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   }
 
   const verificationToken = await user.getEmailVerificationToken()
-
+  const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
   await user.save((err) => {
     if (err) {
       return res.status(500).json({
@@ -232,14 +260,17 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   })
 
   try {
-    // TODO - use something like handlebars for email templates
-    await sendEmail({
-      from: 'Sushil from Neog <neogcamp@neog.com>',
-      to: user.email,
-      subject: 'Confirm your email address.',
-      html: `<h1>Verify Email : Here is your token ${verificationToken}</h1>`,
+    await new Email({
+      email: user.email,
+      firstName: user.firstName,
+    }).send({
+      subject: 'Please verify your email',
+      template: 'verify-email',
+      variables: {
+        verificationLink: verificationLink,
+      },
     })
-    return res.status(200).json({
+    return res.status(201).json({
       msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
     })
   } catch (error) {
@@ -273,14 +304,18 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
     await user.save()
 
     // Ṭodo -> this can be better.
-    // const resetURL = `http://localhost:3000/auth/resetpassword/${resetToken}`
+    const resetURL = `http://localhost:3000/auth/forgot-password/${resetToken}`
 
     try {
-      await sendEmail({
-        from: 'no-reply@neog.camp',
-        to: user.email,
-        subject: '[NeoG Camp] Password Reset Requested',
-        html: `<h1>Password Reset Token for ${user.email} ${resetToken}</h1>`,
+      await new Email({
+        email: user.email,
+        firstName: user.firstName,
+      }).send({
+        subject: 'You have requested to reset your password',
+        template: 'reset-password',
+        variables: {
+          resetURL: resetURL,
+        },
       })
       return res.status(200).json({
         msg: 'An email containing link to reset password has been sent to you. Please check your inbox.',
@@ -316,7 +351,7 @@ export const resetPasswordHandler: RequestHandler = async (req, res) => {
     })
 
     if (!user) {
-      return res.json({
+      return res.status(404).json({
         msg: 'Password reset token is invalid or expired.',
       })
     } else {
@@ -365,7 +400,10 @@ export const userInfoHandler = async (req: AuthRequest, res: Response) => {
       email: user.email,
     })
     res.status(200).json({
-      foundUser,
+      email: foundUser?.email,
+      firstName: foundUser?.firstName,
+      lastName: foundUser?.lastName,
+      userId: foundUser?._id,
     })
   } catch (error) {
     res.status(500).json({

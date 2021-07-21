@@ -1,6 +1,6 @@
-import { Text } from '@chakra-ui/react';
-import { v4 as uuid } from 'uuid';
-import { colors } from '../../styles/themeVars/themeVars';
+import { Text } from '@chakra-ui/react'
+import { v4 as uuid } from 'uuid'
+import { theme } from '../../themes'
 
 export const QuestionData = [
   {
@@ -10,14 +10,14 @@ export const QuestionData = [
       <>
         if not,{' '}
         <a href={`https://handbook.neog.camp/guide/home`}>
-          <Text color={colors.lightBlue} display={'inline'}>
+          <Text color={theme.colors.brand['500']} display={'inline'}>
             here&apos;s the link
           </Text>
         </a>{' '}
         to the guide.
       </>
     ),
-    link: '/',
+    link: 'https://handbook.neog.camp/guide/home',
   },
   {
     id: uuid(),
@@ -25,15 +25,15 @@ export const QuestionData = [
     subTitle: (
       <>
         if not,{' '}
-        <a href={`https://handbook.neog.camp/guide/home`}>
-          <Text color={colors.lightBlue} display={'inline'}>
+        <a href={`https://neog.camp/qualifier/point-system`}>
+          <Text color={theme.colors.brand['500']} display={'inline'}>
             here&apos;s the info{' '}
           </Text>
         </a>
         on it.
       </>
     ),
-    link: '/',
+    link: 'https://neog.camp/qualifier/point-system',
   },
   {
     id: uuid(),
@@ -46,4 +46,4 @@ export const QuestionData = [
     ),
     link: '/submission/checklist',
   },
-];
+]
