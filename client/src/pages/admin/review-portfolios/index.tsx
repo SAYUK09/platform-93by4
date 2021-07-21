@@ -8,10 +8,10 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { useBreakpointValue } from '@chakra-ui/react'
-import { Navbar } from '../../../components'
+import { Breadcrumbs, Navbar } from '../../../components'
 import { useState } from 'react'
 import Head from 'next/head'
-import Breadcrumbs from '../../../components/BreadCrumbs/BreadCrumbs'
+// import Breadcrumbs from '../../../components/BreadCrumbs/BreadCrumbs'
 
 export type Data = {
   applicationNo: string | number
