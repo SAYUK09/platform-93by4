@@ -28,8 +28,6 @@ const SubmissionWindow: React.FC = () => {
   const { authState, setAuthState } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-
-
   useEffect(() => {
     if (localStorage) {
       const localCheckData = localStorage.getItem('mark15')
@@ -113,7 +111,7 @@ const SubmissionWindow: React.FC = () => {
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/submit',
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/submit`,
         {
           status: 'under review',
           portfolioUrl: inputRef.current.value,
@@ -196,67 +194,67 @@ const SubmissionWindow: React.FC = () => {
   ]
 
   return isLoading ? (
-      <Center minH="100vh">
-        <Spinner />
-      </Center>
-      ) : (
-      <Layout>
-        <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
-        <Heading
-          as="h1"
-          size="xl"
-          color={theme.colors.brand['500']}
-          fontFamily="Inter"
-          pt="4"
-        >
-          {SubmissionData.heading}
-        </Heading>
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          overflow="hidden"
-          m="10"
-          p="5"
-          background={theme.colors.black['700']}
-          border="none"
-        >
-          <Flex flexDirection="column">
-            <Flex>
-              <Heading
-                as="h2"
-                size="md"
-                p="2"
-                ml="2"
-                color={theme.colors.black['50']}
-              >
-                {SubmissionData.text}
-              </Heading>
-            </Flex>
-            <Flex
-              justifyContent={['stretch', 'center']}
-              alignItems="center"
-              p="5"
-              flexDirection={['column', 'row']}
-              gap="1rem"
+    <Center minH="100vh">
+      <Spinner />
+    </Center>
+  ) : (
+    <Layout>
+      <Breadcrumbs breadcrumbProp={breadcrumbsLinks} />
+      <Heading
+        as="h1"
+        size="xl"
+        color={theme.colors.brand['500']}
+        fontFamily="Inter"
+        pt="4"
+      >
+        {SubmissionData.heading}
+      </Heading>
+      <Box
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+        m="10"
+        p="5"
+        background={theme.colors.black['700']}
+        border="none"
+      >
+        <Flex flexDirection="column">
+          <Flex>
+            <Heading
+              as="h2"
+              size="md"
+              p="2"
+              ml="2"
+              color={theme.colors.black['50']}
             >
-              <Input
-                placeholder="https://adarshbalika.netlify.app"
-                onChange={checkPortfolioUrl}
-                ref={inputRef}
-                border="none"
-                background={theme.colors.black['600']}
-                width="100%"
-                color={theme.colors.black['50']}
-                maxWidth="300px"
-              />
-              <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
-            </Flex>
-            <Text color={theme.colors.red['500']} textAlign="center">
-              {checkInput}
-            </Text>
+              {SubmissionData.text}
+            </Heading>
           </Flex>
-        </Box>
-      </Layout>
+          <Flex
+            justifyContent={['stretch', 'center']}
+            alignItems="center"
+            p="5"
+            flexDirection={['column', 'row']}
+            gap="1rem"
+          >
+            <Input
+              placeholder="https://adarshbalika.netlify.app"
+              onChange={checkPortfolioUrl}
+              ref={inputRef}
+              border="none"
+              background={theme.colors.black['600']}
+              width="100%"
+              color={theme.colors.black['50']}
+              maxWidth="300px"
+            />
+            <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
+          </Flex>
+          <Text color={theme.colors.red['500']} textAlign="center">
+            {checkInput}
+          </Text>
+        </Flex>
+      </Box>
+    </Layout>
   )
 }
 

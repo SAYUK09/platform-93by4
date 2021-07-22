@@ -9,3 +9,5 @@ client/package-lock
 client/out
 
 .production.env
+
+client/.env.local
