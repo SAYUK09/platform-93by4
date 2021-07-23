@@ -48,15 +48,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 /**
  * Boots the app on PORT mentioned in .env
  * */
-if (process.env.NODE_ENV === 'development') {
-  app.listen(process.env.PORT, () => {
-    log.info(`[server] ->🚀 started on ${process.env.PORT}`)
-    log.warn(`⚠️ Make sure to use "yarn serve" in production.`)
-    log.info(
-      `[${process.env.NODE_ENV}] -> http://localhost:${process.env.PORT}`
-    )
-  })
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.listen(process.env.PORT, () => {
+//     log.info(`[server] ->🚀 started on ${process.env.PORT}`)
+//     log.warn(`⚠️ Make sure to use "yarn serve" in production.`)
+//     log.info(
+//       `[${process.env.NODE_ENV}] -> http://localhost:${process.env.PORT}`
+//     )
+//   })
+// }
 
 /**
  * This helps us debug better incase of unhandledRejection of any promise.

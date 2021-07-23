@@ -5,7 +5,7 @@ import { SignUpValues } from '../pages/auth/signup'
 
 // todo - replace this with process.env.NEXT_APP_BACKEND_LOCAL
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: '/api/',
   withCredentials: true,
 })
 /**

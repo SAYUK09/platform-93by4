@@ -76,11 +76,6 @@ export default function SignUp() {
   const [showPassword, setShowpassword] = useState<boolean>(false)
   const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (authState?.isAuthenticated) {
-      router.push('/dashboard')
-    }
-  }, [authState?.isAuthenticated])
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)
