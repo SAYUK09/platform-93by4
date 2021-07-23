@@ -63,7 +63,7 @@ export const getUser = async () => {
   return response.data
 }
 export const getDashboard = async () => {
-  const response = await apiClient.get('/dashbord-info')
+  const response = await apiClient.get('/dashboard-info')
   return response.data
 }
 
