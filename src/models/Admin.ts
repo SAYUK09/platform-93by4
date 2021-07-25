@@ -3,6 +3,7 @@ import { IReviewHistory } from './ReviewHistory'
 import { Schema, model, Model, ObjectId, PopulatedDoc } from 'mongoose'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
+import { IPortfolioUrl } from './Portfolio'
 
 export interface IAdmin {
   email: string
@@ -15,7 +16,8 @@ export interface IAdmin {
   getPasswordResetToken: () => Promise<string>
   matchPasswords: (password: string) => Promise<boolean>
   portfolioReviewed: number | undefined
-  reviewHistory: Array<IReviewHistory>
+  portfolioAssigned: IPortfolioUrl
+  reviewHistory: Array<IPortfolioUrl>
 }
 
 const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
