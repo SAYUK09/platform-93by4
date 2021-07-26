@@ -1,5 +1,4 @@
 import { IUser } from './User'
-import { IReviewHistory } from './ReviewHistory'
 import { Schema, model, Model, ObjectId, PopulatedDoc } from 'mongoose'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
