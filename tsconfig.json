@@ -21,6 +21,6 @@
      
    },
    "exclude": ["node_modules", "bin", "client"],
-   "include": ["./**/*.ts"],
+   "include": ["./**/*.ts", "./src/templates"],
    "typeRoots": ["./node_modules/@types", "./src/types"]
  }
