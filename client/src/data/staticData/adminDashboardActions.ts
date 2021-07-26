@@ -1,15 +1,14 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 export const adminDashboardActions = [
   {
     id: uuid(),
-    title: 'I am ready to review portfolio',
+    title: 'Have you read the review guide',
     link: '/dashboard/review-portfolios',
   },
   {
     id: uuid(),
-    title: 'Enough for today, will review tomorrow',
-    link: '/',
+    title: 'I want to review more portfolios',
+    link: '/admin/review-portfolios',
   },
-  
-];
+]
