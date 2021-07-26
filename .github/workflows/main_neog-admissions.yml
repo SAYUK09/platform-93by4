@@ -27,17 +27,20 @@ jobs:
           cd client
           npm install -g yarn
           yarn install --frozen-lockfile
-
+          yarn build
       - name: yarn install, build, and test
         run: |
           yarn install
-          yarn run build
+          yarn build
+
+      - name: 'Tar files'
+        run: tar -cvf neog_portal.tar .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: neog_portal.tar
 
       - name: Run Azure webapp deploy action using publish profile credentials
         uses: azure/webapps-deploy@v2

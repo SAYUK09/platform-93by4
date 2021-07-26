@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",
-    "build": "tsc && cd next-app && yarn build:prod",
+    "build": "yarn tsc",
     "copyfiles": "copyfiles -u 1 src/templates/*.hbs dist/",
-    "start": "cd client && cross-env NODE_ENV=development node server.js",
+    "start": "cd client && node server.js",
     "start:prod": "cross-env NODE_ENV=production node bin/www",
-    "final": "cd client && node server.js",
     "tsc": "tsc && yarn copyfiles",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn lint -- --fix",
