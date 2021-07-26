@@ -1,34 +1,36 @@
-import nodemailer, { Transport, Transporter } from 'nodemailer'
+import nodemailer from 'nodemailer'
+import sendgrid from '@sendgrid/mail'
 import handlebars from 'handlebars'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
 import fs from 'fs'
 import path from 'path'
 import log from './logger'
 
+/* Sets the SG API Key */
+if (process.env.SG_MAIL_API_KEY) {
+  sendgrid.setApiKey(process.env.SG_MAIL_API_KEY)
+} else {
+  log.warn(`No sendGrid API key was found. You likely forgot to set Env key`)
+}
+
 interface User {
+  /* Email of the use to send email to */
   readonly email: string
+  /* First name of the user to send email to */
   readonly firstName: string
 }
 
-interface IEmail {
-  readonly from: string
-  readonly to: string
-  readonly firstName: string
-}
-
-export class Email implements IEmail {
-  // @future _> this will change
-  from = '<neoG Camp> no-reply@neog.camp'
-  to = ''
-  firstName = ''
+export class Email {
+  private from = '<neoG Camp> no-reply@neog.camp'
+  private to = ''
+  private firstName = ''
 
   constructor(user: User) {
     this.to = user.email
     this.firstName = user.firstName
   }
 
-  newTransport() {
-    console.log(process.env.EMAIL_PORT)
+  private newTransport() {
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
@@ -44,13 +46,13 @@ export class Email implements IEmail {
     subject,
     variables,
   }: {
-    //   template is templateID so its probably gonna be a file name
+    /* File name of the email template */
     template: string
+    /* Subject of the email */
     subject: string
-    //send any variables like links and tokens etc
+    /* Any dynamic values to send in email. Make sure to correctly include them in template as well */
     variables: Record<string, unknown>
   }) {
-    //html
     try {
       const emailTemplate = fs.readFileSync(
         path.join(__dirname, '..', 'templates', `${template}.hbs`),
@@ -62,7 +64,7 @@ export class Email implements IEmail {
       const htmlToSend = html({
         ...variables,
       })
-      // mailOPtions
+
       const mailOptions = {
         to: this.to,
         from: this.from,
@@ -70,13 +72,19 @@ export class Email implements IEmail {
         html: htmlToSend,
       }
 
-      await this.newTransport().sendMail(mailOptions, (error, response) => {
-        if (error) {
-          console.log('Error occured while sending email', error)
-        } else {
-          console.log('Response after sending email', response)
-        }
-      })
+      /* Use sendGrid in only production mode */
+      if (process.env.NODE_ENV === 'production') {
+        await sendgrid.send(mailOptions)
+        return
+      } else {
+        await this.newTransport().sendMail(mailOptions, (error, response) => {
+          if (error) {
+            console.log('Error occured while sending email', error)
+          } else {
+            console.log('Response after sending email', response)
+          }
+        })
+      }
     } catch (error) {
       if (error.code === 'ENOENT') {
         log.error(
@@ -86,17 +94,4 @@ export class Email implements IEmail {
       log.error(`This error occured during sending emails`, error)
     }
   }
-}
-//testing purpose --delete me ---
-export async function sendEmail() {
-  await new Email({
-    email: 'omkarak@gmail.com',
-    firstName: 'Omkar',
-  }).send({
-    subject: 'Password Reset Link',
-    template: 'hello',
-    variables: {
-      resetURL: 'http://resetPassword.com',
-    },
-  })
 }
