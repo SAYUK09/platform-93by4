@@ -151,7 +151,7 @@ export default function PasswordResetForm() {
                   <Input
                     {...field}
                     id="confirmPassword"
-                    placeholder="Your confirmPassword"
+                    placeholder="Re-enter your new password"
                     type="password"
                   />
                   <FormErrorMessage>
