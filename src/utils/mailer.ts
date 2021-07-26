@@ -21,7 +21,7 @@ interface User {
 }
 
 export class Email {
-  private from = '<neoG Camp> no-reply@neog.camp'
+  private from = 'no-reply@neog.camp'
   private to = ''
   private firstName = ''
 
@@ -73,8 +73,18 @@ export class Email {
       }
 
       /* Use sendGrid in only production mode */
-      if (process.env.NODE_ENV === 'production') {
-        await sendgrid.send(mailOptions)
+      if (process.env.NODE_ENV === 'development') {
+        await sendgrid.send(mailOptions).then(
+          //eslint-disable-next-line
+          () => {},
+          (error) => {
+            console.error(error)
+
+            if (error.response) {
+              console.error(error.response.body)
+            }
+          }
+        )
         return
       } else {
         await this.newTransport().sendMail(mailOptions, (error, response) => {

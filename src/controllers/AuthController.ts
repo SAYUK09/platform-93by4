@@ -44,8 +44,9 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
     })
 
     const verificationToken = await user.getEmailVerificationToken()
-    const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
-
+    const verificationLink = `${req.get(
+      'origin'
+    )}/auth/email-verification/${verificationToken}`
     await user.save((err) => {
       if (err) {
         return res.status(500).json({
@@ -250,7 +251,9 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   }
 
   const verificationToken = await user.getEmailVerificationToken()
-  const verificationLink = `http://localhost:3000/auth/email-verification/${verificationToken}`
+  const verificationLink = `${req.get(
+    'origin'
+  )}/auth/email-verification/${verificationToken}`
   await user.save((err) => {
     if (err) {
       return res.status(500).json({
@@ -304,7 +307,7 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
     await user.save()
 
     // Ṭodo -> this can be better.
-    const resetURL = `http://localhost:3000/auth/forgot-password/${resetToken}`
+    const resetURL = `${req.get('origin')}/auth/forgot-password/${resetToken}`
 
     try {
       await new Email({

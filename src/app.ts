@@ -1,5 +1,6 @@
-import express, { Application, Request, Response, NextFunction } from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { corsOptions } from './config/corsOptions'
@@ -7,7 +8,6 @@ import log from './utils/logger'
 import { makeConnection } from './db/mongodb'
 import authRoutes from './routes/AuthRoutes'
 import studentRoutes from './routes/StudentRoutes'
-dotenv.config()
 
 makeConnection()
 
