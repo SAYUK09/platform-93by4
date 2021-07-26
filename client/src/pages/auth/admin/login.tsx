@@ -82,7 +82,7 @@ export default function Login() {
                 <Stack spacing={8}>
                   <Field name="email">
                     {/* These have no typedefinitions from formik itself. */}
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={form.errors.email && form.touched.email}
                       >
@@ -102,7 +102,7 @@ export default function Login() {
                   </Field>
 
                   <Field name="password">
-                    {({ field, form }) => (
+                    {({ field, form }: { field: any; form: any }) => (
                       <FormControl
                         isInvalid={
                           form.errors.password && form.touched.password

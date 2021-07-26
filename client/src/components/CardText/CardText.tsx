@@ -1,5 +1,4 @@
-import { Flex, Heading, Text, chakra } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Flex, Heading, Text, chakra, Image } from '@chakra-ui/react'
 import { ChecksType } from '../../data/staticData/mark15'
 import { theme } from '../../themes'
 
@@ -42,15 +41,15 @@ export function CardText({
             {checkedCount === checklist?.length ? (
               <Image
                 src={'/svgs/circleCheck.svg'}
-                height={'24'}
-                width={'24'}
+                height={'24px'}
+                width={'24px'}
                 alt={'link-svg'}
               />
             ) : (
               <Image
                 src={'/svgs/circle.svg'}
-                height={'24'}
-                width={'24'}
+                height={'24px'}
+                width={'24px'}
                 alt={'link-svg'}
               />
             )}

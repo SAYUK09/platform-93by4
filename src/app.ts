@@ -20,6 +20,8 @@ app.use(cookieParser())
 /**
  * Route Configuration
  * */
+app.use(express.static(path.join(__dirname, '..', 'client', 'out')))
+
 app.use('/api/auth', authRoutes)
 app.use('/api', studentRoutes)
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Flex, Heading, Spacer, Text } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Flex, Heading, Spacer, Text, Image } from '@chakra-ui/react'
 import DashboardImage from '../../images/dashboard-girl.svg'
 import { theme } from '../../themes'
 export function StatusCard({ status, bgColor, step, submissionNo }: any) {

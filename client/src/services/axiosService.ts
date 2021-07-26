@@ -3,7 +3,6 @@ import { User } from '../context/AuthContext'
 import { LoginValues } from '../pages/auth/login'
 import { SignUpValues } from '../pages/auth/signup'
 
-// todo - replace this with process.env.NEXT_APP_BACKEND_LOCAL
 const apiClient = axios.create({
   baseURL: '/api/',
   withCredentials: true,

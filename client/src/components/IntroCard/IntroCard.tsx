@@ -1,5 +1,4 @@
-import { Flex, Heading, Text } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Flex, Heading, Text, Image } from '@chakra-ui/react'
 import { theme } from '../../themes'
 
 export function IntroCard() {
