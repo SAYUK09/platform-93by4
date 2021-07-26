@@ -1,5 +1,6 @@
-import express, { Application, Request, Response, NextFunction } from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { corsOptions } from './config/corsOptions'
@@ -7,8 +8,6 @@ import log from './utils/logger'
 import { makeConnection } from './db/mongodb'
 import authRoutes from './routes/AuthRoutes'
 import studentRoutes from './routes/StudentRoutes'
-import path from 'path'
-dotenv.config()
 
 makeConnection()
 
@@ -41,12 +40,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 /**
  * This route handles all 404 routes
  * */
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    msg: 'Requested resource was not found on the server.',
-  })
-  next()
-})
 
 /**
  * Boots the app on PORT mentioned in .env
