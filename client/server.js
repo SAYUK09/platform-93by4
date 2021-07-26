@@ -8,7 +8,6 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const expressServer = require('../dist/app')
-
 app.prepare().then(() => {
   expressServer.all('*', (req, res) => {
     return handle(req, res)
@@ -16,6 +15,7 @@ app.prepare().then(() => {
 
   expressServer.listen(port, (err) => {
     if (err) throw err
+    console.log(process.env.NODE_ENV)
     console.log(`> Ready on http://localhost:${port}`)
   })
 })

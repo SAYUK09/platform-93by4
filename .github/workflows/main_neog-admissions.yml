@@ -27,13 +27,12 @@ jobs:
           cd client
           npm install -g yarn
           yarn install --frozen-lockfile
-          yarn build:prod
-
+          yarn build
       - name: yarn install, build, and test
         run: |
           yarn install
           yarn build
-      
+
       - name: 'Tar files'
         run: tar -cvf neog_portal.tar .
 

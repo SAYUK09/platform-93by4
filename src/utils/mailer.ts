@@ -14,9 +14,9 @@ if (process.env.SG_MAIL_API_KEY) {
 }
 
 interface User {
-  /* Email of the use to send email to */
+  /** Email of the use to send email to */
   readonly email: string
-  /* First name of the user to send email to */
+  /** First name of the user to send email to */
   readonly firstName: string
 }
 
@@ -46,11 +46,11 @@ export class Email {
     subject,
     variables,
   }: {
-    /* File name of the email template */
+    /** File name of the email template */
     template: string
-    /* Subject of the email */
+    /** Subject of the email */
     subject: string
-    /* Any dynamic values to send in email. Make sure to correctly include them in template as well */
+    /** Any dynamic values to send in email. Make sure to correctly include them in template as well */
     variables: Record<string, unknown>
   }) {
     try {
@@ -71,9 +71,9 @@ export class Email {
         subject,
         html: htmlToSend,
       }
-
+      console.log('ENVIRONMENT', process.env.NODE_ENV)
       /* Use sendGrid in only production mode */
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'production') {
         await sendgrid.send(mailOptions).then(
           //eslint-disable-next-line
           () => {},
@@ -91,6 +91,7 @@ export class Email {
           if (error) {
             console.log('Error occured while sending email', error)
           } else {
+            console.log(process.env.NODE_ENV)
             console.log('Response after sending email', response)
           }
         })

@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",
-    "build": "tsc && cd next-app && yarn build:prod",
-    "start": "yarn build && cross-env NODE_ENV=development node client/server.js",
+    "build": "yarn tsc",
+    "copyfiles": "copyfiles -u 1 src/templates/*.hbs dist/",
+    "start": "cd client && node server.js",
     "start:prod": "cross-env NODE_ENV=production node bin/www",
-    "final": "cd client && node server.js",
-    "tsc": "tsc",
+    "tsc": "tsc && yarn copyfiles",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn lint -- --fix",
     "format": "prettier --write src/**/*.ts{,x}"
@@ -17,6 +17,7 @@
     "@sendgrid/mail": "^7.4.5",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+    "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "crypto": "^1.0.1",
