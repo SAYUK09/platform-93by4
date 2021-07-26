@@ -2,9 +2,11 @@ import { IUser } from './User'
 import { Schema, model, Model, ObjectId } from 'mongoose'
 
 export interface IPortfolioUrl {
-  portfolioUrl: string
   submissionNo: number
+  resubmissionNo?: number
+  portfolioUrl: string
   status: string
+  reviewComment?: string | undefined
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any
 }
@@ -30,3 +32,17 @@ export const PortfolioUrl = model<IPortfolioUrl>(
   'PortfolioUrl',
   PortfolioSchema
 )
+
+const ReviewHistory = new Schema<
+  IPortfolioUrl,
+  Model<IPortfolioUrl>,
+  IPortfolioUrl
+>({
+  submissionNo: String,
+  portfolioUrl: {
+    type: String,
+    unique: true,
+  },
+  status: String,
+  reviewComment: String,
+})

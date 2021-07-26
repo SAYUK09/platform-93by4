@@ -7,7 +7,7 @@ import log from './utils/logger'
 import { makeConnection } from './db/mongodb'
 import authRoutes from './routes/AuthRoutes'
 import studentRoutes from './routes/StudentRoutes'
-import path from 'path'
+import adminRoutes from './routes/AdminRoutes'
 dotenv.config()
 
 makeConnection()
@@ -21,10 +21,9 @@ app.use(cookieParser())
 /**
  * Route Configuration
  * */
-app.use(express.static(path.join(__dirname, '..', 'client', 'out')))
-
 app.use('/api/auth', authRoutes)
 app.use('/api', studentRoutes)
+app.use('/api/admin', adminRoutes)
 
 /**
  * This handles all the errors in application that were not catched by controllers
@@ -38,16 +37,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     message: err.message,
   })
 })
-/**
- * This route handles all 404 routes
- * */
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    msg: 'Requested resource was not found on the server.',
-  })
-  next()
-})
-
 /**
  * Boots the app on PORT mentioned in .env
  * */
