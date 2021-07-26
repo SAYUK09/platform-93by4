@@ -38,12 +38,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 /**
  * This route handles all 404 routes
  * */
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    msg: 'Requested resource was not found on the server.',
-  })
-  next()
-})
 
 /**
  * Boots the app on PORT mentioned in .env

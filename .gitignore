@@ -7,3 +7,4 @@ client/node_modules
 client/.next
 client/package-lock
 client/out
+client/.env.local
