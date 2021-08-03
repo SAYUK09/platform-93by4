@@ -77,7 +77,7 @@ export class Email {
         await sendgrid.send(mailOptions).then(
           //eslint-disable-next-line
           () => {},
-          (error) => {
+          (error: any) => {
             console.error(error)
 
             if (error.response) {

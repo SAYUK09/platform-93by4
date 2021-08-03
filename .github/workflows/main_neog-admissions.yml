@@ -22,12 +22,6 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Get NextJS built
-        run: |
-          cd client
-          npm install -g yarn
-          yarn install --frozen-lockfile
-          yarn build
       - name: yarn install, build, and test
         run: |
           yarn install

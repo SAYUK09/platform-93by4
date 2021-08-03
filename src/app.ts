@@ -20,6 +20,13 @@ app.use(cors(corsOptions))
 app.use(cookieParser())
 
 /**
+ * test route
+ */
+app.get('/', (req, res) => {
+  res.json({ success: true })
+})
+
+/**
  * Route Configuration
  * */
 app.use('/api/auth', authRoutes)
