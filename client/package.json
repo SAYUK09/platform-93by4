@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build:prod": "next build && next export && rm -rf node_modules",
     "start": "next start",
     "type-check": "tsc",
     "test": "jest",

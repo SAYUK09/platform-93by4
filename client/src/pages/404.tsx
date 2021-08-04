@@ -1,9 +1,8 @@
 import React from 'react'
-import notFoundSvg from '../assests/svgs/notFound.svg'
-import Image from 'next/image'
+
 import Link from 'next/link'
 import Head from 'next/head'
-import { Heading, Box, Flex, Text } from '@chakra-ui/react'
+import { Heading, Box, Flex, Text, Image } from '@chakra-ui/react'
 import { Navbar } from '../components'
 
 const Error = () => {
@@ -22,7 +21,7 @@ const Error = () => {
         minH="100vh"
       >
         <Box padding="2rem">
-          <Image src={notFoundSvg} alt={`user-pic`} />
+          <Image src={'/svgs/notFound.svg'} alt={`user-pic`} />
         </Box>
 
         <Box margin={'2rem'}>

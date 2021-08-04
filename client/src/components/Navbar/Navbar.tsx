@@ -10,10 +10,10 @@ import {
   MenuList,
   MenuItem,
   useToast,
+  Image,
 } from '@chakra-ui/react'
 import { theme } from '../../themes'
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import NextLink from 'next/link'
 import Router, { useRouter } from 'next/router'
@@ -21,7 +21,6 @@ import { useAuth } from '../../context/AuthContext'
 import { logout } from './../../services/axiosService'
 import { CgProfile, CgLogOut } from 'react-icons/cg'
 import { RiDashboardFill } from 'react-icons/ri'
-import Logo from '../../assests/svgs/neogcamp.svg'
 
 export function Navbar() {
   const { authState } = useAuth()
@@ -91,7 +90,7 @@ export function Navbar() {
       >
         <Link href="/" passHref>
           <ChakraLink>
-            <Image src={Logo} alt="neog logo" />
+            <Image src={'/svgs/neogcamp.svg'} alt="neog logo" />
           </ChakraLink>
         </Link>
         <Flex alignItems="center">

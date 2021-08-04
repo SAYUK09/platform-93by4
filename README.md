@@ -91,4 +91,4 @@ This should run the server on **localhost:5000** and also should establish a con
 
 ## **Contributing 💖**
 
-If you are interested to contribute to this project, any sort of contributions are highly appreciated and welcomed. Please read the [Contributing Guide](/CONTRIBUTING.md) to learn more on how to contribute to the project, propose bug fixes or improvements and how to make a PR to get your changes merged to **Platform94by4**.
+If you are interested to contribute to this project, any sort of contributions are highly appreciated and welcomed. Please read the [Contributing Guide](/CONTRIBUTING.md) to learn more on how to contribute to the project, propose bug fixes or improvements and how to make a PR to get your changes merged to **Platform94by4**

@@ -1,5 +1,6 @@
-import express, { Application, Request, Response, NextFunction } from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+import express, { Application, Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { corsOptions } from './config/corsOptions'
@@ -7,6 +8,7 @@ import log from './utils/logger'
 import { makeConnection } from './db/mongodb'
 import authRoutes from './routes/AuthRoutes'
 import studentRoutes from './routes/StudentRoutes'
+import adminRoutes from './routes/AdminRoutes'
 dotenv.config()
 
 makeConnection()
@@ -18,10 +20,18 @@ app.use(cors(corsOptions))
 app.use(cookieParser())
 
 /**
+ * test route
+ */
+app.get('/', (req, res) => {
+  res.json({ success: true })
+})
+
+/**
  * Route Configuration
  * */
 app.use('/api/auth', authRoutes)
 app.use('/api', studentRoutes)
+app.use('/api/admin', adminRoutes)
 
 /**
  * This handles all the errors in application that were not catched by controllers
@@ -36,27 +46,17 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 /**
- * This route handles all 404 routes
- * */
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    msg: 'Requested resource was not found on the server.',
-  })
-  next()
-})
-
-/**
  * Boots the app on PORT mentioned in .env
  * */
-if (process.env.NODE_ENV === 'development') {
-  app.listen(process.env.PORT, () => {
-    log.info(`[server] ->🚀 started on ${process.env.PORT}`)
-    log.warn(`⚠️ Make sure to use "yarn serve" in production.`)
-    log.info(
-      `[${process.env.NODE_ENV}] -> http://localhost:${process.env.PORT}`
-    )
-  })
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.listen(process.env.PORT, () => {
+//     log.info(`[server] ->🚀 started on ${process.env.PORT}`)
+//     log.warn(`⚠️ Make sure to use "yarn serve" in production.`)
+//     log.info(
+//       `[${process.env.NODE_ENV}] -> http://localhost:${process.env.PORT}`
+//     )
+//   })
+// }
 
 /**
  * This helps us debug better incase of unhandledRejection of any promise.
