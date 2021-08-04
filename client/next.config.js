@@ -5,6 +5,6 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   env: {
-    API_URL: 'http://neog-admissions.azurewebsites.net',
+    API_URL: 'https://neog-admissions.azurewebsites.net',
   },
 }
