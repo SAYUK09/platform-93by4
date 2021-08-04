@@ -77,6 +77,8 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
 
       res.cookie('token', token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'none',
       })
 
       return res.status(200).json({
@@ -155,6 +157,8 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
 
         res.cookie('token', token, {
           httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          sameSite: 'none',
         })
 
         // TODO : send cookie here or session here
@@ -208,6 +212,8 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
 
     res.cookie('token', token, {
       httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'none',
     })
 
     // some sort of cookie or session mgmt
@@ -377,12 +383,20 @@ export const resetPasswordHandler: RequestHandler = async (req, res) => {
 
 export const logoutHandler: RequestHandler = async (req, res) => {
   try {
-    res.cookie('token', '', { httpOnly: true })
+    res.cookie('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'none',
+    })
     res.status(200).json({
       msg: 'Logged out successfully.',
     })
   } catch (error) {
-    res.cookie('token', '', { httpOnly: true })
+    res.cookie('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'none',
+    })
     res.status(500).json({
       msg: 'Logged out successfully.',
     })
