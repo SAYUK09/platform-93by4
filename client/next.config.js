@@ -4,4 +4,7 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  env: {
+    API_URL: 'http://neog-admissions.azurewebsites.net',
+  },
 }

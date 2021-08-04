@@ -4,7 +4,7 @@ import { LoginValues } from '../pages/auth/login'
 import { SignUpValues } from '../pages/auth/signup'
 
 const apiClient = axios.create({
-  baseURL: '/api/',
+  baseURL: `${process.env.API_URL}/api/`,
   withCredentials: true,
 })
 /**
