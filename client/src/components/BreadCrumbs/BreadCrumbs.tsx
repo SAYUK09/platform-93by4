@@ -2,6 +2,7 @@ import React from 'react'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
 import { BsChevronRight } from 'react-icons/bs'
 import { theme } from '../../themes'
+import Link from 'next/link'
 
 export type BreadcrumbObj = {
   breadcrumbName: string
@@ -22,7 +23,7 @@ export const Breadcrumbs = ({
     >
       {breadcrumbProp.map((breadcrumb: BreadcrumbObj, index) => (
         <BreadcrumbItem key={index} color={theme.colors.black['400']}>
-          <BreadcrumbLink href={breadcrumb.breadcrumbLink}>
+          <BreadcrumbLink as = {Link} href={breadcrumb.breadcrumbLink}>
             {breadcrumb.breadcrumbName}
           </BreadcrumbLink>
         </BreadcrumbItem>
