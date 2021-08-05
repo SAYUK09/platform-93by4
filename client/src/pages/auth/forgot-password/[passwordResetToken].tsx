@@ -17,6 +17,7 @@ import { sendPasswordResetRequest } from '../../../services/axiosService'
 import * as yup from 'yup'
 import { Formik, Form, Field } from 'formik'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+import { SEO } from '../../../components/Layout/SEO'
 interface PasswordResetValues {
   password: string
   confirmPassword: string
@@ -82,103 +83,110 @@ export default function PasswordResetForm() {
   }
 
   return (
-    <Box
-      rounded="10px"
-      maxW={['90%', '75%', '75%', '50%', '30%']}
-      mx="auto"
-      mt="3rem"
-      bg={'gray.800'}
-      shadow={'none'}
-      border="1px solid"
-      borderColor="gray.500"
-    >
-      <Box p={8}>
-        <Box>
-          <Heading>Set New Password.</Heading>
-          <Text mt="1rem">Please enter your new password.</Text>
-        </Box>
-        <Formik
-          initialValues={{
-            password: '',
-            confirmPassword: '',
-          }}
-          validationSchema={PasswordResetSchema}
-          onSubmit={(values: PasswordResetValues) => handleSubmit(values)}
-        >
-          <Form>
-            <Field name="password">
-              {({ field, form }: any) => (
-                <FormControl
-                  isInvalid={form.errors.password && form.touched.password}
-                >
-                  <FormLabel htmlFor="password">New Password</FormLabel>
-                  <InputGroup>
+    <>
+      <SEO
+        title="Reset your password. | NeoG Camp"
+        description="Please enter your new password."
+      />
+      <Box
+        rounded="10px"
+        maxW={['90%', '75%', '75%', '50%', '30%']}
+        mx="auto"
+        mt="3rem"
+        bg={'gray.800'}
+        shadow={'none'}
+        border="1px solid"
+        borderColor="gray.500"
+      >
+        <Box p={8}>
+          <Box>
+            <Heading>Set New Password.</Heading>
+            <Text mt="1rem">Please enter your new password.</Text>
+          </Box>
+          <Formik
+            initialValues={{
+              password: '',
+              confirmPassword: '',
+            }}
+            validationSchema={PasswordResetSchema}
+            onSubmit={(values: PasswordResetValues) => handleSubmit(values)}
+          >
+            <Form>
+              <Field name="password">
+                {({ field, form }: any) => (
+                  <FormControl
+                    isInvalid={form.errors.password && form.touched.password}
+                  >
+                    <FormLabel htmlFor="password">New Password</FormLabel>
+                    <InputGroup>
+                      <Input
+                        {...field}
+                        id="password"
+                        placeholder="Your password"
+                        type={showPassword ? 'text' : 'password'}
+                      />
+                      <InputRightElement mr="4">
+                        <Button
+                          h="1.75rem"
+                          size="sm"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <AiOutlineEyeInvisible />
+                          ) : (
+                            <AiOutlineEye />
+                          )}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+
+              <Field name="confirmPassword">
+                {({ field, form }: any) => (
+                  <FormControl
+                    isInvalid={
+                      form.errors.confirmPassword &&
+                      form.touched.confirmPassword
+                    }
+                  >
+                    <FormLabel htmlFor="confirmPassword">
+                      Confirm New Password
+                    </FormLabel>
                     <Input
                       {...field}
-                      id="password"
-                      placeholder="Your password"
-                      type={showPassword ? 'text' : 'password'}
+                      id="confirmPassword"
+                      placeholder="Re-enter your new password"
+                      type="password"
                     />
-                    <InputRightElement mr="4">
-                      <Button
-                        h="1.75rem"
-                        size="sm"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <AiOutlineEyeInvisible />
-                        ) : (
-                          <AiOutlineEye />
-                        )}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-
-            <Field name="confirmPassword">
-              {({ field, form }: any) => (
-                <FormControl
-                  isInvalid={
-                    form.errors.confirmPassword && form.touched.confirmPassword
-                  }
-                >
-                  <FormLabel htmlFor="confirmPassword">
-                    Confirm New Password
-                  </FormLabel>
-                  <Input
-                    {...field}
-                    id="confirmPassword"
-                    placeholder="Re-enter your new password"
-                    type="password"
-                  />
-                  <FormErrorMessage>
-                    {form.errors.confirmPassword}
-                  </FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field>
-              {({ form }: { form: any }) => {
-                return (
-                  <Button
-                    marginTop="1rem"
-                    width="100%"
-                    type="submit"
-                    loadingText="Submitting"
-                    colorscheme="blue"
-                    disabled={!form.isValid || form.isDirty}
-                  >
-                    Submit
-                  </Button>
-                )
-              }}
-            </Field>
-          </Form>
-        </Formik>
+                    <FormErrorMessage>
+                      {form.errors.confirmPassword}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field>
+                {({ form }: { form: any }) => {
+                  return (
+                    <Button
+                      marginTop="1rem"
+                      width="100%"
+                      type="submit"
+                      loadingText="Submitting"
+                      colorscheme="blue"
+                      disabled={!form.isValid || form.isDirty}
+                    >
+                      Submit
+                    </Button>
+                  )
+                }}
+              </Field>
+            </Form>
+          </Formik>
+        </Box>
       </Box>
-    </Box>
+    </>
   )
 }

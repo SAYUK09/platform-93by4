@@ -14,6 +14,7 @@ import {
   InputGroup,
   Skeleton,
 } from '@chakra-ui/react'
+import { SEO } from '../../components/Layout/SEO'
 import NextLink from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, FormikHelpers } from 'formik'
@@ -110,6 +111,10 @@ export default function Login() {
 
   return (
     <>
+      <SEO
+        title="Login | NeoG Camp"
+        description="Start your journey into NeoG Camp."
+      />
       <Navbar />
       <AuthLayout>
         <Flex flex={1} d={{ base: 'none', md: 'flex' }}>

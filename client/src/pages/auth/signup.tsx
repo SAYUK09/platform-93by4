@@ -27,6 +27,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useEffect, useState } from 'react'
 import { theme } from '../../themes'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+import { SEO } from '../../components/Layout/SEO'
 
 export interface SignUpValues {
   firstName: string
@@ -128,6 +129,10 @@ export default function SignUp() {
 
   return (
     <>
+      <SEO
+        title="SignUp | NeoG Camp"
+        description="Start your journey into NeoG Camp."
+      />
       <Navbar />
       <AuthLayout>
         <Flex flex={1} d={{ base: 'none', md: 'flex' }}>
