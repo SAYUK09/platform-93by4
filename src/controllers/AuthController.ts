@@ -74,13 +74,15 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         _id: user._id,
         email: user.email,
       })
-
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'none',
-        domain: '.neog.camp',
-      })
+      res.setHeader('Set-Cookie', [
+        `token=${token}; Path=/;HttpOnly;SameSite=None;Secure=true;`,
+      ])
+      // res.cookie('token', token, {
+      //   httpOnly: true,
+      //   secure: process.env.NODE_ENV !== 'development',
+      //   sameSite: 'none',
+      //   domain: '.neog.camp',
+      // })
 
       return res.status(200).json({
         msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
@@ -156,12 +158,15 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
           email: user.email,
         })
 
-        res.cookie('token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV !== 'development',
-          sameSite: 'none',
-          domain: '.neog.camp',
-        })
+        // res.cookie('token', token, {
+        //   httpOnly: true,
+        //   secure: process.env.NODE_ENV !== 'development',
+        //   sameSite: 'none',
+        //   domain: '.neog.camp',
+        // })
+        res.setHeader('Set-Cookie', [
+          `token=${token}; Path=/;HttpOnly;SameSite=None;Secure=true;`,
+        ])
 
         // TODO : send cookie here or session here
         res.status(200).json({
@@ -212,12 +217,15 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
 
     log.info('TOKEN', token)
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none',
-      domain: '.neog.camp',
-    })
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV !== 'development',
+    //   sameSite: 'none',
+    //   domain: '.neog.camp',
+    // })
+    res.setHeader('Set-Cookie', [
+      `token=${token}; Path=/;HttpOnly;SameSite=None;Secure=true;`,
+    ])
 
     // some sort of cookie or session mgmt
     res.status(200).json({
@@ -386,22 +394,28 @@ export const resetPasswordHandler: RequestHandler = async (req, res) => {
 
 export const logoutHandler: RequestHandler = async (req, res) => {
   try {
-    res.cookie('token', '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none',
-      domain: '.neog.camp',
-    })
+    // res.cookie('token', '', {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV !== 'development',
+    //   sameSite: 'none',
+    //   domain: '.neog.camp',
+    // })
+    res.setHeader('Set-Cookie', [
+      `token=''; Path=/;HttpOnly;SameSite=None;Secure=true;`,
+    ])
     res.status(200).json({
       msg: 'Logged out successfully.',
     })
   } catch (error) {
-    res.cookie('token', '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none',
-      domain: '.neog.camp',
-    })
+    // res.cookie('token', '', {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV !== 'development',
+    //   sameSite: 'none',
+    //   domain: '.neog.camp',
+    // })
+    res.setHeader('Set-Cookie', [
+      `token=''; Path=/;HttpOnly;SameSite=None;Secure=true;`,
+    ])
     res.status(500).json({
       msg: 'Logged out successfully.',
     })
