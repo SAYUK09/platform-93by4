@@ -79,6 +79,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         httpOnly: true,
         secure: process.env.NODE_ENV !== 'development',
         sameSite: 'none',
+        domain: '.neog.camp',
       })
 
       return res.status(200).json({
@@ -159,6 +160,7 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
           httpOnly: true,
           secure: process.env.NODE_ENV !== 'development',
           sameSite: 'none',
+          domain: '.neog.camp',
         })
 
         // TODO : send cookie here or session here
@@ -214,6 +216,7 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'none',
+      domain: '.neog.camp',
     })
 
     // some sort of cookie or session mgmt
@@ -387,6 +390,7 @@ export const logoutHandler: RequestHandler = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'none',
+      domain: '.neog.camp',
     })
     res.status(200).json({
       msg: 'Logged out successfully.',
@@ -396,6 +400,7 @@ export const logoutHandler: RequestHandler = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'none',
+      domain: '.neog.camp',
     })
     res.status(500).json({
       msg: 'Logged out successfully.',
