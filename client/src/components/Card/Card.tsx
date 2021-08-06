@@ -1,6 +1,8 @@
 import { Box, Flex, Heading, Image } from '@chakra-ui/react'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { HiArrowCircleRight } from 'react-icons/hi'
+import { BiLinkExternal } from 'react-icons/bi'
 import { LockIcon, CardText, CheckList } from '../'
 import { CheckListType } from '../../data/staticData/mark15'
 import { theme } from '../../themes'
@@ -94,16 +96,11 @@ export function Card({
         {!collapsible && (
           <Flex cursor={'pointer'}>
             <Link href={`${link}`}>
-              <Image
-                src={
-                  link && link.includes('/checklist')
-                    ? '/svgs/rightArrow.svg'
-                    : '/svgs/link.svg'
-                }
-                height="30"
-                width="30"
-                alt={'link-svg'}
-              />
+              {link && link.includes('/checklist') ? (
+                <HiArrowCircleRight style={{ height: '30px', width: '30px' }} />
+              ) : (
+                <BiLinkExternal style={{ height: '30px', width: '30px' }} />
+              )}
             </Link>
           </Flex>
         )}
@@ -134,7 +131,7 @@ export function Card({
             fontSize="1.15rem"
             pb="1.8rem"
             fontWeight="600"
-            color="black.200"
+            color="white"
           >
             {projectName}
           </Heading>

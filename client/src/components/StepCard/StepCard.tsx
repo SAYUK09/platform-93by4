@@ -4,6 +4,7 @@ import { LockIcon, ExternalLinkSvg } from '..'
 import { theme } from '../../themes'
 import Link from 'next/link'
 import { StepType, StatusType } from '../../data/staticData/admissionStages'
+import { HiArrowCircleRight } from 'react-icons/hi'
 
 type StepcardProps = {
   bgColor: string
@@ -38,18 +39,46 @@ export function StepCard({ bgColor, step, status, index }: StepcardProps) {
 
       {status.level == step.level ? (
         status.status == 'under review' ? (
-          <a>{<ExternalLinkSvg color={theme.colors.black['700']} />}</a>
+          <a>
+            {
+              <HiArrowCircleRight
+                color={theme.colors.black['700']}
+                style={{ height: '30px', width: '30px' }}
+              />
+            }
+          </a>
         ) : status.status == 'portfolio_needs_revision' ? (
           <Link href="/resubmission">
-            <a>{<ExternalLinkSvg color={theme.colors.black['100']} />}</a>
+            <a>
+              {
+                <HiArrowCircleRight
+                  color={theme.colors.black['100']}
+                  style={{ height: '30px', width: '30px' }}
+                />
+              }
+            </a>
           </Link>
         ) : (
           <Link href={step.link}>
-            <a>{<ExternalLinkSvg color={theme.colors.black['100']} />}</a>
+            <a>
+              {
+                <HiArrowCircleRight
+                  color={theme.colors.black['100']}
+                  style={{ height: '30px', width: '30px' }}
+                />
+              }
+            </a>
           </Link>
         )
       ) : (
-        <a>{<ExternalLinkSvg color={theme.colors.black['700']} />}</a>
+        <a>
+          {
+            <HiArrowCircleRight
+              color={theme.colors.black['700']}
+              style={{ height: '30px', width: '30px' }}
+            />
+          }
+        </a>
       )}
     </Flex>
   )
