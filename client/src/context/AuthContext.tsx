@@ -13,7 +13,7 @@ export interface User {
   firstName?: string
   lastName?: string
   email?: string
-  submissionData: { submissionNo: string; currentStatus: string } | null
+  submissionData: { submissionNo: string; status: string } | null
 }
 
 // todo -> maybe add a global loading state here ??
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         let submissionParseData: {
           submissionNo: string
-          currentStatus: string
+          status: string
         } | null = null
         const submissionData =
           localStorage && localStorage.getItem('neogSubmission')

@@ -17,7 +17,7 @@ export const data: StatusType[] = [
       'Please submit your portfolio for review : Click on Step 1',
   },
   {
-    status: 'under review',
+    status: 'portfolio_under_review',
     level: 1, // control the locks
     statusText: 'Portfolio Under Review', // show your header
     statusDescription: 'Your portfolio is under review.Wait for results. ',

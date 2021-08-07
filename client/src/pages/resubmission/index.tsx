@@ -16,7 +16,13 @@ import { isUrlValid } from '../../utils/utils'
 import { ResubmissionData } from '../../data/strings/submission'
 import { useAuth } from '../../context/AuthContext'
 import withAuth from '../../context/WithAuth'
+import { reSubmissionLink } from '../../services/axiosService'
 
+export interface reSubmissionValues {
+  submissionNo: number
+  status: string
+  portfolioUrl: string
+}
 const ReSubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
   const inputRef = useRef<any>()
@@ -26,7 +32,7 @@ const ReSubmissionWindow: React.FC = () => {
   const { authState, setAuthState } = useAuth()
 
   useEffect(() => {
-    if (authState?.user?.submissionData?.currentStatus !== 'needs revision') {
+    if (authState?.user?.submissionData?.status !== 'needs revision') {
       router.push('/dashboard')
     }
   }, [])
@@ -46,17 +52,11 @@ const ReSubmissionWindow: React.FC = () => {
 
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/resubmit`,
-        {
-          submissionNo: 0,
-          status: 'under review',
-          portfolioUrl: inputRef.current.value,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      const response = await reSubmissionLink({
+        submissionNo: 0,
+        status: 'portfolio_under_review',
+        portfolioUrl: inputRef.current.value,
+      })
 
       if (response.status === 200) {
         toast({
@@ -70,7 +70,7 @@ const ReSubmissionWindow: React.FC = () => {
           'neogSubmission',
           JSON.stringify({
             submissionNo: response.data.submissionNo,
-            currentStatus: response.data.currentStatus,
+            status: response.data.status,
           })
         )
         setAuthState((prev) => ({
@@ -79,7 +79,7 @@ const ReSubmissionWindow: React.FC = () => {
             ...prev.user,
             submissionData: {
               submissionNo: response.data.submissionNo,
-              currentStatus: response.data.currentStatus,
+              status: response.data.status,
             },
           },
         }))

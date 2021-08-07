@@ -12,10 +12,10 @@ const ReCongratsCard: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const userStatus = {
     submissionNo: authState?.user?.submissionData?.submissionNo,
-    currentStatus: authState?.user?.submissionData?.currentStatus,
+    status: authState?.user?.submissionData?.status,
   }
   useEffect(() => {
-    if (authState?.user?.submissionData?.currentStatus !== 'under review') {
+    if (authState?.user?.submissionData?.status !== 'portfolio_under_review') {
       router.push('/submission/checklist')
     }
     setTimeout(() => {
@@ -24,7 +24,7 @@ const ReCongratsCard: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (authState?.user?.submissionData?.currentStatus === 'under review') {
+    if (authState?.user?.submissionData?.status === 'portfolio_under_review') {
       fireworks()
     }
   }, [])

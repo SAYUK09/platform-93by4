@@ -2,6 +2,8 @@ import axios from 'axios'
 import { User } from '../context/AuthContext'
 import { LoginValues } from '../pages/auth/login'
 import { SignUpValues } from '../pages/auth/signup'
+import { submissionValues } from '../pages/submission'
+import { reSubmissionValues } from '../pages/resubmission'
 
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api/`,
@@ -77,3 +79,18 @@ export const resendLink = async (email: string | undefined) => {
   })
   return response
 }
+
+export const submissionLink = async (submissionData: submissionValues) => {
+  const response = await apiClient.post('submit', {
+    ...submissionData,
+  })
+  return response
+}
+
+export const reSubmissionLink = async (reSubmissionData: reSubmissionValues) => {
+  const response = await apiClient.post('resubmit', {
+    ...reSubmissionData,
+  })
+  return response
+}
+
