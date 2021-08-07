@@ -57,6 +57,7 @@ export function Navbar() {
         // TODO: Clear the token history from local Storage
         setLoginStatus('Login')
         localStorage.removeItem('neogSubmission')
+        localStorage.removeItem('mark15')
         router.push('/')
         Router.reload()
       })

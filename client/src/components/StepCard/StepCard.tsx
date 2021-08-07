@@ -38,15 +38,8 @@ export function StepCard({ bgColor, step, status, index }: StepcardProps) {
       </Heading>
 
       {status.level == step.level ? (
-        status.status == 'under review' ? (
-          <a>
-            {
-              <HiArrowCircleRight
-                color={theme.colors.black['700']}
-                style={{ height: '30px', width: '30px' }}
-              />
-            }
-          </a>
+        status.status == 'portfolio_under_review' ? (
+          <a>{<ExternalLinkSvg color={theme.colors.black['700']} />}</a>
         ) : status.status == 'portfolio_needs_revision' ? (
           <Link href="/resubmission">
             <a>

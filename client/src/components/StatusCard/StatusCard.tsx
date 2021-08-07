@@ -49,7 +49,7 @@ export function StatusCard({ status, bgColor, step, submissionNo }: any) {
         >
           {status.statusDescription} <br />
           {submissionNo !== null &&
-            status.status == 'under review' &&
+            status.status == 'portfolio_under_review' &&
             'Submission Number : #' + submissionNo}
         </Text>
       </Flex>

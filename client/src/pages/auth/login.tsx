@@ -57,7 +57,7 @@ export default function Login() {
     setIsLoading(true)
     let submissionParseData: {
       submissionNo: string
-      currentStatus: string
+      status: string
     } | null = null
     const submissionData =
       localStorage && localStorage.getItem('neogSubmission')

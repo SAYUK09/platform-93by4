@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Text, Link } from '@chakra-ui/react'
 import { theme } from '../../themes'
 
 export const SubmissionData = {
@@ -14,7 +14,9 @@ export const ResubmissionData = {
       complete portfolio. We would encourage you to go through{' '}
       <Text color={theme.colors.brand['500']} d="inline">
         {' '}
-        mark15 guide
+        <Link href="https://neog.camp/qualifier/point-system" isExternal>
+          mark15 guide
+        </Link>
       </Text>{' '}
       once more too.{' '}
     </>
