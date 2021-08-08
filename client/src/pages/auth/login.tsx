@@ -125,6 +125,7 @@ export default function Login() {
             objectFit={'cover'}
             src="/auth.jpg"
             width="100%"
+            boxSize="80vh"
             d={!imgLoaded ? 'none' : 'inherit'}
             onLoad={handleImageLoad}
           />
