@@ -1,4 +1,12 @@
-import { Box, Button, Heading, Stack, Text, Image } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Heading,
+  Stack,
+  Text,
+  Image,
+  Flex,
+} from '@chakra-ui/react'
 import { FiExternalLink } from 'react-icons/fi'
 import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
