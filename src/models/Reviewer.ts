@@ -5,7 +5,7 @@ import { IPortfolioUrl } from './Portfolio'
 export interface IReviewer {
   email: string
   isVerified: boolean
-  isAllowedToReview:boolean
+  isAllowedToReview: boolean
   firstName: string
   lastName: string
   password: string
@@ -30,7 +30,7 @@ const reviewerSchema = new Schema<IReviewer, Model<IReviewer>, IReviewer>(
       unique: true,
       lowercase: true,
     },
-   isAllowedToReview: {
+    isAllowedToReview: {
       type: Boolean,
       default: true,
     },

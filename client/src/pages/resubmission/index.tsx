@@ -32,7 +32,9 @@ const ReSubmissionWindow: React.FC = () => {
   const { authState, setAuthState } = useAuth()
 
   useEffect(() => {
-    if (authState?.user?.submissionData?.status !== 'needs revision') {
+    if (
+      authState?.user?.submissionData?.status !== 'portfolio_needs_revision'
+    ) {
       router.push('/dashboard')
     }
   }, [])
@@ -45,7 +47,7 @@ const ReSubmissionWindow: React.FC = () => {
       setCheckInput('')
       setDisabledButton(false)
     } else {
-      setCheckInput("That's not a URL")
+      setCheckInput('Please enter a valid URL')
       setDisabledButton(true)
     }
   }
@@ -177,7 +179,7 @@ const ReSubmissionWindow: React.FC = () => {
               molestias quibusdam architecto! Recusandae beatae.
             </Text>
             <Flex
-              justifyContent="center"
+              justifyContent={['stretch', 'center']}
               alignItems="center"
               p="5"
               flexDirection={['column', 'row']}
@@ -188,6 +190,8 @@ const ReSubmissionWindow: React.FC = () => {
                 onChange={checkPortfolioUrl}
                 ref={inputRef}
                 border="none"
+                isInvalid={disableButton}
+                errorBorderColor={theme.colors.red['500']}
                 background={theme.colors.black['600']}
                 width="100%"
                 color={theme.colors.black['50']}
@@ -195,9 +199,21 @@ const ReSubmissionWindow: React.FC = () => {
               />
               <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
             </Flex>
-            <Text color={theme.colors.red['500']} textAlign="center">
-              {checkInput}
-            </Text>
+            <Flex
+              justifyContent={['stretch', 'center']}
+              alignItems="center"
+              w="100%"
+              flexDirection={['column', 'row']}
+            >
+              <Text
+                color={theme.colors.red['500']}
+                textAlign="left"
+                w="85%"
+                maxW="380px"
+              >
+                {checkInput}
+              </Text>
+            </Flex>
           </Flex>
         </Box>
       </Layout>

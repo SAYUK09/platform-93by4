@@ -14,9 +14,9 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
     'portfolioUrl'
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   )) as any
-  const currentSubmission = await PortfolioUrl.findOne(
-    {}
-  ).sort({ submissionNo: -1 }) as IPortfolioUrl
+  const currentSubmission = (await PortfolioUrl.findOne({}).sort({
+    submissionNo: -1,
+  })) as IPortfolioUrl
   let currentSubmissionCount
   try {
     if (!currentSubmission?.submissionNo) {
@@ -72,9 +72,9 @@ export const reSubmitHandler: RequestHandler = async (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   )) as any
 
-  const currentSubmission = (await PortfolioUrl.findOne({}).sort(
-    { submissionNo: -1 }
-  )) as IPortfolioUrl
+  const currentSubmission = (await PortfolioUrl.findOne({}).sort({
+    submissionNo: -1,
+  })) as IPortfolioUrl
   // if(!currentSubmission){
   //   currentSubmission={}
   // }
