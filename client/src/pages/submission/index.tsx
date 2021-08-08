@@ -13,11 +13,18 @@ import axios from 'axios'
 import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
+import { submissionLink } from '../../services/axiosService'
 import { theme } from '../../themes'
 import { SubmissionData } from '../../data/strings/submission'
 import withAuth from '../../context/WithAuth'
 import { useAuth } from '../../context/AuthContext'
 import { CheckListData } from '../../data/staticData/mark15'
+
+export interface submissionValues {
+  status: string
+  portfolioUrl: string
+  submissionNo: number
+}
 
 const SubmissionWindow: React.FC = () => {
   const [disableButton, setDisabledButton] = useState<boolean>(true)
@@ -35,13 +42,6 @@ const SubmissionWindow: React.FC = () => {
       if (localCheckData) {
         localParsedCheckData = JSON.parse(localCheckData)
       }
-      console.log(
-        'locall',
-        CheckListData.length,
-        localParsedCheckData
-          ? Object.keys(localParsedCheckData).length
-          : localParsedCheckData
-      )
       if (
         !(
           localParsedCheckData &&
@@ -65,7 +65,6 @@ const SubmissionWindow: React.FC = () => {
               localParsedCheckData[checkItem.id]?.length
           )
         })
-        console.log('checksss', checkForAllChecks)
         if (!checkForAllChecks) {
           setIsLoading(true)
           router.push('/dashboard')
@@ -82,9 +81,7 @@ const SubmissionWindow: React.FC = () => {
           }, 2000)
         }
       }
-    } else if (
-      authState?.user?.submissionData?.currentStatus === 'under review'
-    ) {
+    } else if (authState?.user?.submissionData?.status === 'portfolio_under_review') {
       setIsLoading(true)
 
       router.push('/submission/congrats')
@@ -110,17 +107,11 @@ const SubmissionWindow: React.FC = () => {
 
   const submitPortfolioUrl = async (): Promise<void> => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/submit`,
-        {
-          status: 'under review',
-          portfolioUrl: inputRef.current.value,
-          submissionNo: 0,
-        },
-        {
-          withCredentials: true,
-        }
-      )
+      const response = await submissionLink({
+        status: 'portfolio_under_review',
+        portfolioUrl: inputRef.current.value,
+        submissionNo: 0,
+      })
       if (response.status === 200) {
         toast({
           title: 'Successfully Submitted!',
@@ -133,7 +124,7 @@ const SubmissionWindow: React.FC = () => {
           'neogSubmission',
           JSON.stringify({
             submissionNo: response.data.submissionNo,
-            currentStatus: response.data.currentStatus,
+            status: response.data.status,
           })
         )
         setAuthState((prev) => ({
@@ -142,7 +133,7 @@ const SubmissionWindow: React.FC = () => {
             ...prev.user,
             submissionData: {
               submissionNo: response.data.submissionNo,
-              currentStatus: response.data.currentStatus,
+              status: response.data.status,
             },
           },
         }))

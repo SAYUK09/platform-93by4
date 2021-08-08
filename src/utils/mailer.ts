@@ -21,7 +21,6 @@ interface User {
 }
 
 export class Email {
-  private from = 'no-reply@neog.camp'
   private to = ''
   private firstName = ''
 
@@ -65,16 +64,28 @@ export class Email {
         ...variables,
       })
 
-      const mailOptions = {
+      const sgMailOptions = {
         to: this.to,
-        from: this.from,
+        from: {
+          name: 'neoG Camp',
+          email: 'no-reply@neog.camp',
+        },
+        subject,
+        html: htmlToSend,
+      }
+      const nodemailerOptions = {
+        to: this.to,
+        from: {
+          name: 'neoG Camp',
+          address: 'no-reply@neog.camp',
+        },
         subject,
         html: htmlToSend,
       }
       console.log('ENVIRONMENT', process.env.NODE_ENV)
       /* Use sendGrid in only production mode */
       if (process.env.NODE_ENV === 'production') {
-        await sendgrid.send(mailOptions).then(
+        await sendgrid.send(sgMailOptions).then(
           //eslint-disable-next-line
           () => {},
           (error: any) => {
@@ -87,14 +98,17 @@ export class Email {
         )
         return
       } else {
-        await this.newTransport().sendMail(mailOptions, (error, response) => {
-          if (error) {
-            console.log('Error occured while sending email', error)
-          } else {
-            console.log(process.env.NODE_ENV)
-            console.log('Response after sending email', response)
+        await this.newTransport().sendMail(
+          nodemailerOptions,
+          (error, response) => {
+            if (error) {
+              console.log('Error occured while sending email', error)
+            } else {
+              console.log(process.env.NODE_ENV)
+              console.log('Response after sending email', response)
+            }
           }
-        })
+        )
       }
     } catch (error) {
       if (error.code === 'ENOENT') {

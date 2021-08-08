@@ -6,13 +6,28 @@ import {
   Text,
   Image,
   Flex,
+  Center,
+  Spinner,
 } from '@chakra-ui/react'
 import { FiExternalLink } from 'react-icons/fi'
 import { Layout } from '../components'
 import { Footer } from '../components/Footer/Footer'
 import NextLink from 'next/link'
+import { useAuth } from '../context/AuthContext'
+import router from 'next/router'
 
 export default function Home() {
+  const { authState } = useAuth()
+
+  if (authState?.isAuthenticated) {
+    router.push('/dashboard')
+    return (
+      <Center minH="100vh">
+        <Spinner />
+      </Center>
+    )
+  }
+
   return (
     <Layout>
       <Stack

@@ -1,12 +1,11 @@
-import { IUser } from './User'
-import { Schema, model, Model, ObjectId, PopulatedDoc } from 'mongoose'
+import { Schema, model, Model, ObjectId } from 'mongoose'
 import bcrypt from 'bcrypt'
-import crypto from 'crypto'
 import { IPortfolioUrl } from './Portfolio'
 
-export interface IAdmin {
+export interface IReviewer {
   email: string
   isVerified: boolean
+  isAllowedToReview:boolean
   firstName: string
   lastName: string
   password: string
@@ -14,13 +13,27 @@ export interface IAdmin {
   passwordResetTokenExpire: Date | undefined
   getPasswordResetToken: () => Promise<string>
   matchPasswords: (password: string) => Promise<boolean>
-  portfolioReviewed: number | undefined
+  portfolioReviewed?: number
   portfolioAssigned: IPortfolioUrl
-  reviewHistory: Array<IPortfolioUrl>
+  /** This is array of userID */
+  reviewHistory: Array<{
+    portfolioUrl: string
+    date: Date
+  }>
 }
 
-const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
+const reviewerSchema = new Schema<IReviewer, Model<IReviewer>, IReviewer>(
   {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+   isAllowedToReview: {
+      type: Boolean,
+      default: true,
+    },
     firstName: {
       type: String,
       required: true,
@@ -31,12 +44,7 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
       required: true,
       trim: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
+
     password: {
       type: String,
       required: true,
@@ -44,10 +52,7 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
       maxlength: 50,
       select: false,
     },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
+
     passwordResetToken: {
       type: String,
     },
@@ -56,13 +61,16 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
     },
     portfolioReviewed: {
       type: Number,
+      default: 0,
+    },
+    portfolioAssigned: {
+      type: Schema.Types.ObjectId,
+      ref: 'PortfolioUrl',
     },
     reviewHistory: [
       {
-        submissionNo: Number,
         portfolioUrl: String,
-        status: String,
-        reviewComment: String,
+        date: Date,
       },
     ],
   },
@@ -71,7 +79,7 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdmin>(
   }
 )
 
-adminSchema.pre('save', async function (next) {
+reviewerSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next()
   }
@@ -80,6 +88,8 @@ adminSchema.pre('save', async function (next) {
   next()
 })
 
-adminSchema.methods.matchPasswords = async function (password) {
+reviewerSchema.methods.matchPasswords = async function (password) {
   return await bcrypt.compare(password, this.password)
 }
+
+export const Reviewer = model<IReviewer>('Reviewer', reviewerSchema)

@@ -3,11 +3,11 @@ import NextLink from 'next/link'
 
 type userStatusProps = {
   submissionNo?: string
-  currentStatus?: string
+  status?: string
 }
 export function CongratsCard({
   submissionNo,
-  currentStatus,
+  status,
 }: userStatusProps): JSX.Element {
   return (
     <Box
@@ -22,14 +22,14 @@ export function CongratsCard({
     >
       <Heading as="h1" size="lg" color="#00F0FF" fontFamily="Inter">
         Yay! Portfolio is successfully{' '}
-        {currentStatus !== 'needs revision' ? 'submitted' : 'resubmission'}! 🎉
+        {status !== 'needs revision' ? 'submitted' : 'resubmission'}! 🎉
       </Heading>
       <Text fontSize="14px" fontStyle="bold" pt="2" pb="2" color="white">
         Submission Number: #{submissionNo}
       </Text>
 
       <Text fontSize="14px" fontStyle="bold" color="white">
-        Current Status: {currentStatus}
+        Current Status: {status!.split("_").map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
       </Text>
       <Flex
         pt="5"

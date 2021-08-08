@@ -57,6 +57,7 @@ export function Navbar() {
         // TODO: Clear the token history from local Storage
         setLoginStatus('Login')
         localStorage.removeItem('neogSubmission')
+        localStorage.removeItem('mark15')
         router.push('/')
         Router.reload()
       })
@@ -88,7 +89,7 @@ export function Navbar() {
         padding={'0 1rem'}
         justifyContent={'space-between'}
       >
-        <Link href="/" passHref>
+        <Link href={authState?.isAuthenticated ? '/dashboard' : '/'} passHref>
           <ChakraLink>
             <Image src={'/svgs/neogcamp.svg'} alt="neog logo" />
           </ChakraLink>
