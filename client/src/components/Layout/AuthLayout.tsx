@@ -15,7 +15,6 @@ export function AuthLayout({ children }: Props) {
     >
       <Stack
         maxW={['100%', '100%', '80%']}
-        minW={['100%', '100%', '80%']}
         direction={{ base: 'column', md: 'row' }}
         rounded={'10px'}
         overflow="hidden"
