@@ -5,7 +5,6 @@ import {
   Stack,
   Text,
   Image,
-  Flex,
   Center,
   Spinner,
 } from '@chakra-ui/react'

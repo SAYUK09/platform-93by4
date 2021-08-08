@@ -3,20 +3,10 @@ import {
   IconButton,
   ButtonGroup,
   Text,
-  HStack,
   Flex,
   Grid,
-  GridItem,
+  Link,
 } from '@chakra-ui/react'
-
-import {
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaDiscord,
-  FaYoutube,
-  FaTelegram,
-} from 'react-icons/fa'
 
 import { legalLinks, socialLinks } from './footerLinks'
 
@@ -51,17 +41,17 @@ export function Footer() {
         >
           {legalLinks.map(({ id, label, href }) => {
             return (
-              <Text
+              <Link
                 fontSize="xs"
                 color="black.500"
                 colSpan={1}
                 rowSpan={1}
                 key={id}
+                href={href}
+                isExternal
               >
-                <a href={href} target="_blank">
-                  {label}
-                </a>
-              </Text>
+                {label}
+              </Link>
             )
           })}
         </Grid>
