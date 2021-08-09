@@ -61,7 +61,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         email: user.email,
         firstName: user.firstName,
       }).send({
-        subject: 'Please verify your email',
+        subject: '[neoG Camp] Please verify your email address.',
         template: 'verify-email',
         variables: {
           verificationLink: verificationLink,
@@ -284,7 +284,7 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
       email: user.email,
       firstName: user.firstName,
     }).send({
-      subject: 'Please verify your email',
+      subject: '[neoG Camp] Please verify your email address.',
       template: 'verify-email',
       variables: {
         verificationLink: verificationLink,
@@ -331,7 +331,7 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
         email: user.email,
         firstName: user.firstName,
       }).send({
-        subject: 'You have requested to reset your password',
+        subject: '[neoG Camp] You have requested to reset your password.',
         template: 'reset-password',
         variables: {
           resetURL: resetURL,

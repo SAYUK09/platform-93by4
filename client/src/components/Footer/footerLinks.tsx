@@ -8,7 +8,13 @@ export type SocialLinks = {
   icon: React.ReactElement
 }
 
-export const footerLinks: SocialLinks[] = [
+export type LegalLinks = {
+  id: number
+  label: string
+  href: string
+}
+
+export const socialLinks: SocialLinks[] = [
   {
     id: 1,
     label: 'Website',
@@ -29,7 +35,7 @@ export const footerLinks: SocialLinks[] = [
   },
   {
     id: 4,
-    label: 'Instagran',
+    label: 'Instagram',
     href: 'https://www.instagram.com/neogcamp',
     icon: <FaInstagram fontSize="20px" />,
   },
@@ -38,5 +44,28 @@ export const footerLinks: SocialLinks[] = [
     label: 'Youtube',
     href: 'https://www.youtube.com/watch?v=Ezk2AwqgS9Q&list=PLzvhQUIpvvuj5KPnyPyWsvgyzNkX_ACPA',
     icon: <FaYoutube fontSize="20px" />,
+  },
+]
+
+export const legalLinks: LegalLinks[] = [
+  {
+    id: 1,
+    label: 'Privacy Policy',
+    href: 'https://neog.camp/legal/privacy',
+  },
+  {
+    id: 2,
+    label: 'Terms',
+    href: 'https://neog.camp/legal/tnc',
+  },
+  {
+    id: 3,
+    label: 'Community Guidelines',
+    href: 'https://neog.camp/legal/communityguide',
+  },
+  {
+    id: 4,
+    label: 'Refund Policy',
+    href: 'https://neog.camp/legal/refund',
   },
 ]

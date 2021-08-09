@@ -9,7 +9,6 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { useRef, useState, useEffect, MutableRefObject } from 'react'
-import axios from 'axios'
 import { Layout, Breadcrumbs, Alert } from '../../components'
 import { useRouter } from 'next/router'
 import { isUrlValid } from '../../utils/utils'
@@ -211,7 +210,7 @@ const SubmissionWindow: React.FC = () => {
         background={theme.colors.black['700']}
         border="none"
       >
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" justifyContent="center">
           <Flex>
             <Heading
               as="h2"
@@ -230,20 +229,34 @@ const SubmissionWindow: React.FC = () => {
             flexDirection={['column', 'row']}
             gap="1rem"
           >
-            <Box>
-              <Input
-                placeholder="https://adarshbalika.netlify.app"
-                onChange={checkPortfolioUrl}
-                ref={inputRef}
-                border="none"
-                background={theme.colors.black['600']}
-                width="100%"
-                color={theme.colors.black['50']}
-                maxWidth="300px"
-              />
-              <Text color={theme.colors.red['500']}>{checkInput}</Text>
-            </Box>
+            <Input
+              placeholder="https://adarshbalika.netlify.app"
+              onChange={checkPortfolioUrl}
+              ref={inputRef}
+              border="none"
+              isInvalid={disableButton}
+              errorBorderColor={theme.colors.red['500']}
+              background={theme.colors.black['600']}
+              width="100%"
+              color={theme.colors.black['50']}
+              maxWidth="300px"
+            />
             <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
+          </Flex>
+          <Flex
+            justifyContent={['stretch', 'center']}
+            alignItems="center"
+            w="100%"
+            flexDirection={['column', 'row']}
+          >
+            <Text
+              color={theme.colors.red['500']}
+              textAlign="left"
+              w="85%"
+              maxW="380px"
+            >
+              {checkInput}
+            </Text>
           </Flex>
         </Flex>
       </Box>

@@ -86,7 +86,7 @@ const PortfolioSchema = new Schema<
         'payment_completed',
         'enrollment_done',
       ],
-      message: '{VALUE} is not supported'
+      message: '{VALUE} is not supported',
     },
     reviewComments: [
       {

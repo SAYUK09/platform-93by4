@@ -89,7 +89,7 @@ export function Navbar() {
         padding={'0 1rem'}
         justifyContent={'space-between'}
       >
-        <Link href="/" passHref>
+        <Link href={authState?.isAuthenticated ? '/dashboard' : '/'} passHref>
           <ChakraLink>
             <Image src={'/svgs/neogcamp.svg'} alt="neog logo" />
           </ChakraLink>

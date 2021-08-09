@@ -137,6 +137,7 @@ export default function SignUp() {
             objectFit={'cover'}
             src="/auth.jpg"
             width="100%"
+            boxSize="49vw"
             d={!imgLoaded ? 'none' : 'inherit'}
             onLoad={handleImageLoad}
           />
