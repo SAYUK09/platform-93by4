@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, Heading } from '@chakra-ui/react'
+import { Flex, Box, Heading, chakra } from '@chakra-ui/react'
 import { LockIcon, ExternalLinkSvg } from '..'
 import { theme } from '../../themes'
 import Link from 'next/link'
@@ -39,17 +39,24 @@ export function StepCard({ bgColor, step, status, index }: StepcardProps) {
       <Box m={2}>
         <LockIcon index={index} locked={status.level < step.level} />
       </Box>
+
       <Heading
         as="h3"
         fontSize={['sm', 'md', 'lg']}
         flex="auto"
         color={theme.colors.gray['100']}
+        width="100%"
+        d="flex"
+        flexDirection={['column', 'inherit']}
       >
         {step.content}{' '}
-        <span style={{ color: theme.colors.black[500], paddingLeft: '20px' }}>
+        <chakra.span
+          color={theme.colors.black[500]}
+          paddingLeft={['0', '20px']}
+        >
           {step.content == 'Submit your portfolio' &&
             `( ${portfolioSubmissionstatus} )`}{' '}
-        </span>
+        </chakra.span>
       </Heading>
 
       {status.level == step.level ? (

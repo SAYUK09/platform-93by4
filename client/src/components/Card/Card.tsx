@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Image } from '@chakra-ui/react'
-import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { HiArrowCircleRight } from 'react-icons/hi'
 import { BiLinkExternal } from 'react-icons/bi'
@@ -7,6 +6,7 @@ import { LockIcon, CardText, CheckList } from '../'
 import { CheckListType } from '../../data/staticData/mark15'
 import { theme } from '../../themes'
 import { handleMarksChecked } from './handlers'
+import router from 'next/router'
 
 interface CardPropType extends CheckListType {
   collapsible?: boolean
@@ -21,7 +21,12 @@ interface CardPropType extends CheckListType {
   setAllMarksChecked?: Dispatch<SetStateAction<string[]>>
 }
 
-export function Card({
+interface CardCompPropType extends CardPropType {
+  checkCount: string[]
+  setCheckCount: Dispatch<SetStateAction<string[]>>
+}
+
+function CardComp({
   collapsible,
   status,
   id,
@@ -33,43 +38,10 @@ export function Card({
   index,
   setAllMarksChecked,
   lockIcon,
-}: CardPropType) {
+  checkCount,
+  setCheckCount,
+}: CardCompPropType) {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
-  const [checkCount, setCheckCount] = useState<string[]>([])
-
-  useEffect(() => {
-    if (checks) {
-      handleMarksChecked(
-        id,
-        checks.length,
-        checkCount.length,
-        setAllMarksChecked
-      )
-
-      if (localStorage && checkCount.length) {
-        const localCheckData = localStorage.getItem('mark15')
-        let localParsedCheckData = {}
-        if (localCheckData) {
-          localParsedCheckData = JSON.parse(localCheckData)
-        }
-        localStorage.setItem(
-          'mark15',
-          JSON.stringify({ ...localParsedCheckData, [id]: checkCount })
-        )
-      }
-    }
-  }, [checks, id, setAllMarksChecked, checkCount])
-
-  useEffect(() => {
-    if (localStorage) {
-      const localCheckData: any = localStorage.getItem('mark15')
-      let localParsedCheckData: any = {}
-      if (localCheckData) {
-        localParsedCheckData = JSON.parse(localCheckData)
-      }
-      localParsedCheckData[id] && setCheckCount(localParsedCheckData[id])
-    }
-  }, [])
 
   return (
     <Box borderRadius={'8px'} overflow={'hidden'} marginTop={'2rem'}>
@@ -96,13 +68,13 @@ export function Card({
         {!collapsible && (
           <Flex cursor={'pointer'}>
             {link && link.includes('/checklist') ? (
-              <Link href={`${link}`}>
-                <HiArrowCircleRight style={{ height: '30px', width: '30px' }} />
-              </Link>
+              // <Link href={`${link}`}>
+              <HiArrowCircleRight style={{ height: '30px', width: '30px' }} />
             ) : (
-              <a target="_blank" href={`${link}`}>
-                <BiLinkExternal style={{ height: '30px', width: '30px' }} />
-              </a>
+              // </Link>
+              // <a target="_blank" href={`${link}`}>
+              <BiLinkExternal style={{ height: '30px', width: '30px' }} />
+              // </a>
             )}
           </Flex>
         )}
@@ -145,5 +117,71 @@ export function Card({
         </Flex>
       )}
     </Box>
+  )
+}
+
+export function Card(props: CardPropType) {
+  const [checkCount, setCheckCount] = useState<string[]>([])
+
+  useEffect(() => {
+    if (props.checks) {
+      handleMarksChecked(
+        props.id,
+        props.checks.length,
+        checkCount.length,
+        props.setAllMarksChecked
+      )
+
+      if (localStorage && checkCount.length) {
+        const localCheckData = localStorage.getItem('mark15')
+        let localParsedCheckData = {}
+        if (localCheckData) {
+          localParsedCheckData = JSON.parse(localCheckData)
+        }
+        localStorage.setItem(
+          'mark15',
+          JSON.stringify({ ...localParsedCheckData, [props.id]: checkCount })
+        )
+      }
+    }
+  }, [props.checks, props.id, props.setAllMarksChecked, checkCount])
+
+  useEffect(() => {
+    if (localStorage) {
+      const localCheckData: any = localStorage.getItem('mark15')
+      let localParsedCheckData: any = {}
+      if (localCheckData) {
+        localParsedCheckData = JSON.parse(localCheckData)
+      }
+      localParsedCheckData[props.id] &&
+        setCheckCount(localParsedCheckData[props.id])
+    }
+  }, [])
+
+  console.log(props.link)
+
+  return (
+    <>
+      {props.link && props.link.includes('/checklist') ? (
+        <Box
+          cursor="pointer"
+          onClick={() => {
+            router.push('/submission/checklist')
+          }}
+        >
+          <CardComp
+            {...props}
+            checkCount={checkCount}
+            setCheckCount={setCheckCount}
+          />
+        </Box>
+      ) : (
+        <CardComp
+          {...props}
+          checkCount={checkCount}
+          setCheckCount={setCheckCount}
+        />
+      )}
+    </>
   )
 }
