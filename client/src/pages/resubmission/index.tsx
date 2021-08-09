@@ -45,7 +45,7 @@ const ReSubmissionWindow: React.FC = () => {
       setCheckInput('')
       setDisabledButton(false)
     } else {
-      setCheckInput("That's not a URL")
+      setCheckInput('Please enter a valid URL')
       setDisabledButton(true)
     }
   }

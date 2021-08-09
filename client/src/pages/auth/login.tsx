@@ -227,7 +227,7 @@ export default function Login() {
                           fontStyle="italic"
                           fontSize="sm"
                         >
-                          Forgot Password ?
+                          Forgot Password?
                         </Link>
                       </NextLink>
                     </Stack>

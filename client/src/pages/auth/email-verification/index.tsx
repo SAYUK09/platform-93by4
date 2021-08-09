@@ -90,9 +90,11 @@ export default function EmailSent() {
             <VStack spacing={6}>
               <Text>
                 In order to continue using application, we need to verify your
-                email. A verification link has been sent to you. Please click it
-                verify your account. Haven't recieved email yet ?
+                email. A verification link has been sent to you.
+                <br />
+                Please click it verify your account.
               </Text>
+              <Text>Haven't recieved email yet?</Text>
               <Button onClick={handleResend}>Click here to resend.</Button>
             </VStack>
           </AlertDescription>

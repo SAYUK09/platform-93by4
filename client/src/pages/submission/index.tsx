@@ -81,7 +81,9 @@ const SubmissionWindow: React.FC = () => {
           }, 2000)
         }
       }
-    } else if (authState?.user?.submissionData?.status === 'portfolio_under_review') {
+    } else if (
+      authState?.user?.submissionData?.status === 'portfolio_under_review'
+    ) {
       setIsLoading(true)
 
       router.push('/submission/congrats')
@@ -100,7 +102,7 @@ const SubmissionWindow: React.FC = () => {
       setCheckInput('')
       setDisabledButton(false)
     } else {
-      setCheckInput("That's not a URL")
+      setCheckInput('Please enter a valid URL')
       setDisabledButton(true)
     }
   }
@@ -223,26 +225,26 @@ const SubmissionWindow: React.FC = () => {
           </Flex>
           <Flex
             justifyContent={['stretch', 'center']}
-            alignItems="center"
+            alignItems="baseline"
             p="5"
             flexDirection={['column', 'row']}
             gap="1rem"
           >
-            <Input
-              placeholder="https://adarshbalika.netlify.app"
-              onChange={checkPortfolioUrl}
-              ref={inputRef}
-              border="none"
-              background={theme.colors.black['600']}
-              width="100%"
-              color={theme.colors.black['50']}
-              maxWidth="300px"
-            />
+            <Box>
+              <Input
+                placeholder="https://adarshbalika.netlify.app"
+                onChange={checkPortfolioUrl}
+                ref={inputRef}
+                border="none"
+                background={theme.colors.black['600']}
+                width="100%"
+                color={theme.colors.black['50']}
+                maxWidth="300px"
+              />
+              <Text color={theme.colors.red['500']}>{checkInput}</Text>
+            </Box>
             <Alert isDisabled={disableButton} onClick={submitPortfolioUrl} />
           </Flex>
-          <Text color={theme.colors.red['500']} textAlign="center">
-            {checkInput}
-          </Text>
         </Flex>
       </Box>
     </Layout>

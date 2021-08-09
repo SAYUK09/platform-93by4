@@ -41,26 +41,26 @@ export interface SignUpValues {
 const SignUpSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('First Name is required.')
-    .min(2, 'First name must be atleast 2 characters long.')
+    .required('Official first name is required.')
+    .min(2, 'Official first name must be atleast 2 characters long.')
     .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
     .trim(),
   lastName: yup
     .string()
-    .required('Last name is required.')
+    .required('Official last name is required.')
     .matches(/^[A-Za-z ]*$/, 'Please use only alphabets.')
     .trim(),
   email: yup
     .string()
-    .email('Email must be a valid email address.')
-    .required('Email address is required.')
+    .email('Official email must be a valid email address.')
+    .required('Official email address is required.')
     .lowercase(),
   password: yup
     .string()
     .required('Password is required.')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, mix of numbers and alphabets.'
+      'Must contain 8 characters, mix of numbers and alphabets.'
     )
     .min(8, 'Password must be atleast 8 characters long.'),
   acceptTerms: yup
@@ -282,20 +282,6 @@ export default function SignUp() {
                   </Field>
 
                   <Stack spacing={5}>
-                    <Stack
-                      direction={{ base: 'column', sm: 'row' }}
-                      align={'start'}
-                      justify={'space-between'}
-                    >
-                      <Text
-                        fontSize={'xs'}
-                        fontStyle="italic"
-                        color={theme.colors.black['100']}
-                      >
-                        Use 8 or more characters with a mix of numbers.
-                      </Text>
-                    </Stack>
-
                     <Stack direction={'row'} align={'center'}>
                       <Field name="acceptTerms">
                         {({ field, form }: { field: any; form: any }) => (
@@ -317,15 +303,15 @@ export default function SignUp() {
                                 pt={4}
                                 color={theme.colors.black['100']}
                               >
-                                By creating an account you agree to the &nbsp;
+                                By creating an account you agree to the{' '}
                                 <Link
                                   href="https://handbook.neog.camp/qualifier/tnc"
                                   target="_blank noreferrer noopener"
                                   color={theme.colors.brand['500']}
                                 >
-                                  Terms
+                                  Terms{' '}
                                 </Link>
-                                &nbsp; and{' '}
+                                and{' '}
                                 <Link
                                   color={theme.colors.brand['500']}
                                   href="https://handbook.neog.camp/qualifier/privacy"

@@ -78,7 +78,7 @@ export default function ForgotPassword() {
       >
         <Box px="2rem" py="2rem">
           <Box>
-            <Heading>Reset Password.</Heading>
+            <Heading>Reset Password</Heading>
             <Text marginTop="1rem">
               Enter the email you used for this account. We will mail you a link
               to reset your password.

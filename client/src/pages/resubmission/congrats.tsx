@@ -32,7 +32,7 @@ const ReCongratsCard: React.FC = () => {
   const breadcrumbsLinks = [
     { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
-      breadcrumbName: 'Congrats ',
+      breadcrumbName: 'Congratulations',
       breadcrumbLink: '/resubmission/congrats',
     },
   ]

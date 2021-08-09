@@ -5,11 +5,11 @@ import { theme } from '../../themes'
 export const QuestionData = [
   {
     id: uuid(),
-    title: 'Have You completed levelZero?',
+    title: 'Have you completed levelZero?',
     subTitle: (
       <>
-        if not,{' '}
-        <a href={`https://handbook.neog.camp/guide/home`}>
+        If not,{' '}
+        <a target="_blank" href={`https://handbook.neog.camp/guide/home`}>
           <Text color={theme.colors.brand['500']} display={'inline'}>
             here&apos;s the link
           </Text>
@@ -24,13 +24,13 @@ export const QuestionData = [
     title: 'Do you know about mark15?',
     subTitle: (
       <>
-        if not,{' '}
-        <a href={`https://neog.camp/qualifier/point-system`}>
+        If not,{' '}
+        <a target="_blank" href={`https://neog.camp/qualifier/point-system`}>
           <Text color={theme.colors.brand['500']} display={'inline'}>
-            here&apos;s the info{' '}
+            here&apos;s the link{' '}
           </Text>
         </a>
-        on it.
+        to the mark15 guide.
       </>
     ),
     link: 'https://neog.camp/qualifier/point-system',

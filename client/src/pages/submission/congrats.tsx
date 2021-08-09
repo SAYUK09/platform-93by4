@@ -34,7 +34,7 @@ const Congrats: React.FC = () => {
   const breadcrumbsLinks = [
     { breadcrumbName: 'Dashboard', breadcrumbLink: '/dashboard' },
     {
-      breadcrumbName: 'Congrats ',
+      breadcrumbName: 'Congratulations ',
       breadcrumbLink: '/submission/congrats',
     },
   ]

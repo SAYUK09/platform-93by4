@@ -61,7 +61,6 @@ export function CardText({
           <Text
             color={theme.colors.black['100']}
             marginTop={'0.5rem'}
-            textTransform={'capitalize'}
             fontSize={'0.85rem'}
           >
             {subTitle}

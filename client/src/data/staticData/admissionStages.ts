@@ -13,14 +13,13 @@ export const data: StatusType[] = [
     status: 'portfolio_not_submitted',
     level: 1, // control the locks
     statusText: 'Portfolio Not Submitted', // show your header
-    statusDescription:
-      'Please submit your portfolio for review : Click on Step 1',
+    statusDescription: 'Click on Step-1 to submit your portfolio for review.',
   },
   {
     status: 'portfolio_under_review',
     level: 1, // control the locks
     statusText: 'Portfolio Under Review', // show your header
-    statusDescription: 'Your portfolio is under review.Wait for results. ',
+    statusDescription: 'Your portfolio is under review. Wait for the results. ',
   },
   {
     status: 'portfolio_needs_revision',
@@ -34,7 +33,7 @@ export const data: StatusType[] = [
     level: 2, // control the locks
     statusText: 'Portfolio Accepted', // show your header
     statusDescription:
-      'Hurray !! Interview step unlocked for you . Click on Step 2',
+      'Hurray!! Interview step unlocked for you. Click on Step-2',
   },
   // {
   //   status: 'interview_scheduled',
