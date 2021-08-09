@@ -99,6 +99,10 @@ export const CheckListData: CheckListType[] = [
         id: '4d',
         text: 'It is mandatory to put all your projects, blogs and social media handles majorly Twitter, LinkedIn in your portfolio.',
       },
+      {
+        id: '4e',
+        text: 'Making your portfolio responsive is mandatory. But making your projects & assignments responsive is optional.',
+      },
     ],
   },
   {
