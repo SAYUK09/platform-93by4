@@ -24,7 +24,7 @@ export const socialLinks: SocialLinks[] = [
   {
     id: 2,
     label: 'Discord',
-    href: 'https://bit.ly/tanaydiscord',
+    href: 'https://bit.ly/team-tanay',
     icon: <FaDiscord fontSize="20px" />,
   },
   {
