@@ -258,7 +258,7 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '11a',
-        text: "You should build a 'Is your birthday lucky' app in VanillaJS or React.",
+        text: 'You should build a "Is your birthday lucky" app in VanillaJS or React.',
       },
       {
         id: '11b',
