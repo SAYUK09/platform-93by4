@@ -53,7 +53,7 @@ export function Alert({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure? You want to submit your portfolio.
+              Are you sure, you want to submit this URL?
             </AlertDialogBody>
 
             <AlertDialogFooter>

@@ -2,7 +2,7 @@ import { Text, Link } from '@chakra-ui/react'
 import { theme } from '../../themes'
 
 export const SubmissionData = {
-  heading: 'Congrats, your portfolio is ready to submit!',
+  heading: 'Your portfolio is ready to submit!',
   text: 'Submit your portfolio for review:',
 }
 

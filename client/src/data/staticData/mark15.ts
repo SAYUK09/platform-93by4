@@ -16,7 +16,7 @@ export const CheckListData: CheckListType[] = [
   {
     id: '1',
     title: 'markOne',
-    projectName: 'Do you know me? CLI App',
+    projectName: 'Do you know me? CLI Quiz App',
     checks: [
       {
         id: '1a',
@@ -24,30 +24,34 @@ export const CheckListData: CheckListType[] = [
       },
       {
         id: '1b',
-        text: 'Should have atleast 5 questions.',
+        text: 'Have at least 5 questions.',
       },
       {
         id: '1c',
-        text: 'Display Score',
+        text: "Display the user's current score.",
       },
     ],
   },
   {
     id: '2',
     title: 'markTwo',
-    projectName: 'Quiz CLI App',
+    projectName: 'Fandom quiz. CLI Fandom Quiz App',
     checks: [
       {
         id: '2a',
-        text: 'Features Implemented in markOne',
+        text: "Make a quiz on anything you're passionate about, similar to markOne.",
       },
       {
         id: '2b',
-        text: 'Use CHALK to make it more Impressive',
+        text: 'Take Username as input.',
       },
       {
         id: '2c',
-        text: 'Implement Highest Score feature. Hint: Use array data structure and sorting',
+        text: 'Have at least 5 questions.',
+      },
+      {
+        id: '2d',
+        text: "Display the user's current score.",
       },
     ],
   },
@@ -58,15 +62,19 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '3a',
-        text: 'Push source code of your apps on Github with good commit messages.',
+        text: 'Create a different repository for every different project and push the changes.',
       },
       {
         id: '3b',
-        text: 'Have a README file and include details of project.',
+        text: 'Push source code of your apps on Github with good commit messages.',
       },
       {
         id: '3c',
-        text: 'Host your website on Netlify.',
+        text: 'Have a README file and include details of project.',
+      },
+      {
+        id: '3d',
+        text: 'Update your hosted Repl URL on GitHub.',
       },
     ],
   },
@@ -77,11 +85,19 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '4a',
-        text: 'Have a home page with your Intro, Projects and Blogs section with call to action button for those pages.',
+        text: 'Have a home page with your Introduction, Projects, and Blogs section with call to action buttons for those pages.',
       },
       {
         id: '4b',
-        text: 'Have a Projects page with all your apps listed in it with call to action buttons for live links and source code.',
+        text: 'Have a Projects page with all your apps listed in it with the call to action buttons for live links and source code.',
+      },
+      {
+        id: '4c',
+        text: 'Host your portfolio on Netlify / vercel like platforms as shown in the live Youtube video taught by Tanay.',
+      },
+      {
+        id: '4d',
+        text: 'It is mandatory to put all your projects, blogs and social media handles majorly Twitter, LinkedIn in your portfolio.',
       },
     ],
   },
@@ -92,11 +108,11 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '5a',
-        text: 'Add a Blogs page and list atleast 2 blogs in it with call to action button for blog link.',
+        text: 'Have a Blog listing page as taught in the Youtube lecture video for example: (https://adarshbalika.netlify.app/blogs.html).',
       },
       {
         id: '5b',
-        text: 'Create a dummy blog with atleast 150 words or link real blogs published by you on Hashnode, Dev.to etc.',
+        text: 'Your blog listing page should list down all your blogs with either link to your Hashnode, dev.to etc. blogs or your blog reading pages, with a call-to-action button for READ MORE.',
       },
     ],
   },
@@ -107,10 +123,14 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '6a',
-        text: 'Use Minion Fun translation API (https://funtranslations.com/minion) for web app.',
+        text: 'Make the same app as made by Tanay in live video in VanillaJS. Use Minion Fun translation API (https://funtranslations.com/minion) for the web app.',
       },
       {
         id: '6b',
+        text: "The app should take in input and translate the input into Minion's language.",
+      },
+      {
+        id: '6c',
         text: 'Create the app with your own design.',
       },
     ],
@@ -122,10 +142,18 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '7a',
-        text: 'Use Fun translation API (https://funtranslations.com/) for web app.',
+        text: 'Use Fun translation API (https://funtranslations.com/) and create another fun translation app in VanillaJS.',
       },
       {
         id: '7b',
+        text: 'All the features implemented in markSix should also be present in this app.',
+      },
+      {
+        id: '7c',
+        text: 'The app should take in input and translate the input into the respective chosen language.',
+      },
+      {
+        id: '7d',
         text: 'Create the app with your own design.',
       },
     ],
@@ -137,18 +165,26 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '8a',
-        text: 'Have atleast 10 emojis.',
+        text: 'Make emoji interpreter using React as we made in the live Youtube session.',
       },
       {
         id: '8b',
-        text: 'Display the name on emoji on click.',
+        text: 'Change & customize it by yourself.',
       },
       {
         id: '8c',
-        text: 'Display the name of emoji on input in search box.',
+        text: 'Have atleast 10 emojis.',
       },
       {
         id: '8d',
+        text: 'Display the name on emoji on click.',
+      },
+      {
+        id: '8e',
+        text: 'Display the name of emoji on input in search box.',
+      },
+      {
+        id: '8f',
         text: 'Display a message for emoji not found.',
       },
     ],
@@ -156,23 +192,35 @@ export const CheckListData: CheckListType[] = [
   {
     id: '9',
     title: 'markNine',
-    projectName: 'Books Suggestion',
+    projectName: 'Recommendation app',
     checks: [
       {
         id: '9a',
-        text: 'Have atleast 3 genres for the topic you select.',
+        text: 'This app should be similar to Goodbooks recommendation using React showed by Tanay in a Youtube video.',
       },
       {
         id: '9b',
-        text: 'Have atleast 2 books in each category.',
+        text: "You can choose to have different genres of something you're interested in: Music, Food, Travel, etc.",
       },
       {
         id: '9c',
-        text: 'Add Description and ratings for each book.',
+        text: 'List categories for the chosen genres for your recommendation app.',
       },
       {
         id: '9d',
-        text: 'Make it your own app by using your own design.',
+        text: 'When the user clicks on one category, display a list of items in that category with its details.',
+      },
+      {
+        id: '9e',
+        text: 'Have at least 3 items in each category.',
+      },
+      {
+        id: '9f',
+        text: 'Add Description and ratings for each item.',
+      },
+      {
+        id: '9g',
+        text: 'Create the app with your design.',
       },
     ],
   },
@@ -183,46 +231,50 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '10a',
-        text: 'Your program has currencies of Rs. 1, 5, 10, 20, 100, 500, 2000.',
+        text: 'You should build a cash register manager in VanillaJS or React.',
       },
       {
         id: '10b',
-        text: 'Your user enters a bill amount say Rs. 243.',
+        text: 'Your app should have currencies of Rs. 1, 5, 10, 20, 100, 500, 2000.',
       },
       {
         id: '10c',
-        text: 'Your user then enters a cash given say Rs. 2000.',
+        text: 'Have an input field for the user aka cashier to enter a bill amount.',
       },
       {
         id: '10d',
-        text: 'Now, help the user by telling how can he/she return the change to the customer with minimum number of notes?',
+        text: 'Have an input field for the user aka cashier to enter the cash given by the customer.',
+      },
+      {
+        id: '10e',
+        text: 'The app should tell the cashier/user the amount to be returned in change to the customer with the minimum number of notes.',
       },
     ],
   },
   {
     id: '11',
     title: 'markEleven',
-    projectName: 'Lucky Birthday Number',
+    projectName: 'Is your Birthday Lucky?',
     checks: [
       {
         id: '11a',
-        text: "Take user's complete birthday",
+        text: 'You should build a "Is your birthday lucky" app in VanillaJS or React.',
       },
       {
         id: '11b',
-        text: 'Take his/her lucky number.',
+        text: "Have an input field to take the user's complete birth date.",
       },
       {
         id: '11c',
-        text: 'Find out if sum of digits of birthday is divisible by the lucky number.',
+        text: "Have an input field for the user's to enter their lucky number.",
       },
       {
         id: '11d',
-        text: 'Show the result to user with some graphics.',
+        text: 'Your app should calculate if the sum of digits of birthdate is divisible by the lucky number.',
       },
       {
         id: '11e',
-        text: "Create this as a website, put a privacy notice. Say that you're not storing data.",
+        text: 'Show the output if the birthdate is lucky or not to the user depending on the calculated results.',
       },
     ],
   },
@@ -233,27 +285,27 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '12a',
-        text: 'Ask user to input three angles and you say whether user has entered angles which could make a triangle. Hint: sum of angles in triangle is 180.',
+        text: 'You should build a "Do you know triangles?" app in VanillaJS or React.',
       },
       {
         id: '12b',
-        text: 'Show three angles to the user and ask if this triangle is an obtuse triangle, right triangle or acute triangle.',
+        text: 'Your app should contain the 4 features mentioned below:',
       },
       {
         id: '12c',
-        text: 'Show two angles to the user and ask what would be the third angle?',
+        text: '1. Quiz on triangles- Make a Quiz on triangles and calculate the score of the user.',
       },
       {
         id: '12d',
-        text: 'Similar quiz on Isosceles, Equilateral.',
+        text: '2. Calculate the length of the hypotenuse- Have two input fields for base value & height value, calculate the hypotenuse of the triangle, and show the output to the user.',
       },
       {
         id: '12e',
-        text: 'Ask user to enter two legs and you tell them the hypotenuse.',
+        text: "3. Calculate the area of the triangle- Make a calculator which calculates the area of a triangle using the user's input and shows the output to the user.",
       },
       {
         id: '12f',
-        text: 'Calculator for area of triangle',
+        text: '4. Check whether angles form a triangle - Have three input fields to take three angles from the user and calculate whether the angles entered by the user form a triangle or not and show the respective output to the user.',
       },
     ],
   },
@@ -264,46 +316,50 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '13a',
-        text: "Take your user's birthday",
+        text: 'You should build a "Is your birthday a palindrome?" app in VanillaJS or React.',
       },
       {
         id: '13b',
-        text: 'Tell whether user was born on a palindrome day or not.',
+        text: "Have an input field to take the user's complete birth date.",
       },
       {
         id: '13c',
-        text: 'You can put dates in MM/DD/YYYY format, DD/MM/YYYY, MM/DD/YY format etc. to check if they have any chance.',
+        text: 'You have to put dates in different formats eg:  MM/DD/YYYY, DD/MM/YYYY, MM/DD/YY, etc., and check whether the date can be a palindrome date or not. ',
       },
       {
         id: '13d',
-        text: 'If not, then tell them what is the nearest date from their birthdate which is a palindrome date and by how many days they missed it.',
+        text: 'Show the output whether the user was born on a palindrome date or not.',
+      },
+      {
+        id: '13e',
+        text: 'If not, show the nearest palindrome date and by how many days the user has missed the palindrome date.',
       },
     ],
   },
   {
     id: '14',
     title: 'markFourteen',
-    projectName: 'Profit and loss calculator',
+    projectName: 'Profit and loss calculator (stocks)',
     checks: [
       {
         id: '14a',
-        text: "Take user's stock price for one stock when he bought it",
+        text: 'You should build a Profit or Loss calculator app in VanillaJS or React.',
       },
       {
         id: '14b',
-        text: 'Take the quantity of stocks',
+        text: 'Have an input field to take the price of one stock when the user bought it.',
       },
       {
         id: '14c',
-        text: "Take today's stock price for that stock",
+        text: 'Have an input field to take the quantity of the stocks.',
       },
       {
         id: '14d',
-        text: 'Tell the user how much profit or loss he/she is making',
+        text: 'Have an input field to take the current price per stock.',
       },
       {
         id: '14e',
-        text: 'Tell them the percentage of profit or loss',
+        text: 'Show the total profit or loss made by the user in percentage and absolute value.',
       },
     ],
   },
@@ -314,15 +370,34 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '15a',
-        text: 'Write atleast 2 blogs',
+        text: "Write at least 2 blogs, minimum of 200 words, and host them on your portfolio's blog page section. The blog could be technical or non-technical.",
       },
       {
         id: '15b',
-        text: 'Each blog should have atleast 200 words.',
+        text: 'Have a mandatory LinkedIn profile and add it to your portfolio.',
       },
       {
         id: '15c',
-        text: 'Add your social media links to your portfolio website.',
+        text: 'Make sure your blogs are not copied or plagiarised.',
+      },
+    ],
+  },
+  {
+    id: '16',
+    title: 'Final checks',
+    projectName: 'Mandatory checks for all projects',
+    checks: [
+      {
+        id: '16a',
+        text: "You should have both: a. The project's Github source-code link. b. The live project link of the projects in your portfolio.",
+      },
+      {
+        id: '16b',
+        text: 'Make sure all the links are live and working.',
+      },
+      {
+        id: '16c',
+        text: 'You should not copy any project or blog which will reduce your chances of getting a mark15 and you might be blacklisted from the admission process if you are aiming to apply for level one.',
       },
     ],
   },

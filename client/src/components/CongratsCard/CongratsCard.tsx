@@ -29,7 +29,11 @@ export function CongratsCard({
       </Text>
 
       <Text fontSize="14px" fontStyle="bold" color="white">
-        Current Status: {status!.split("_").map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+        Current Status:{' '}
+        {status!
+          .split('_')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')}
       </Text>
       <Flex
         pt="5"
@@ -39,7 +43,7 @@ export function CongratsCard({
       >
         <Heading fontSize="md" p={{ base: '3', md: '0' }}>
           <Link
-            href="https://twitter.com/intent/tweet?text=I%20am%20super%20excited%20to%20announce%20that%20I%20have%20completed%20levelZero%20of%20%40neogcamp%20and%20have%20successfully%20submitted%20my%20mark15%20portfolio.%0AIt%20was%20a%20great%20learning%20journey%20with%20%40tanaypratap.%0A%23neogcamp%20%23webdevlopment."
+            href="https://twitter.com/intent/tweet?text=I%20am%20super%20excited%20to%20announce%20that%20I%20have%20completed%20levelZero%20of%20%40neogcamp%20and%20have%20successfully%20submitted%20my%20mark15%20portfolio.%0AWish%20me%20luck%20for%20admissions.%20%0A%23neogcamp%20%23webdevelopment%20%23neog2022"
             isExternal
             color="cyan"
           >

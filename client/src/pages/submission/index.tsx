@@ -224,7 +224,7 @@ const SubmissionWindow: React.FC = () => {
           </Flex>
           <Flex
             justifyContent={['stretch', 'center']}
-            alignItems="center"
+            alignItems="baseline"
             p="5"
             flexDirection={['column', 'row']}
             gap="1rem"

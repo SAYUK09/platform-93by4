@@ -14,6 +14,17 @@ type StepcardProps = {
 }
 
 export function StepCard({ bgColor, step, status, index }: StepcardProps) {
+  let portfolioSubmissionstatus = 'Not Started'
+  if (status.status == 'portfolio_not_submitted') {
+    portfolioSubmissionstatus = 'Not Started'
+  } else if (
+    status.status == 'under review' ||
+    status.status == 'portfolio_needs_revision'
+  ) {
+    portfolioSubmissionstatus = 'In Progress'
+  } else {
+    portfolioSubmissionstatus = 'Completed'
+  }
   return (
     <Flex
       flexDir={'row'}
@@ -34,7 +45,11 @@ export function StepCard({ bgColor, step, status, index }: StepcardProps) {
         flex="auto"
         color={theme.colors.gray['100']}
       >
-        {step.content}
+        {step.content}{' '}
+        <span style={{ color: theme.colors.black[500], paddingLeft: '20px' }}>
+          {step.content == 'Submit your portfolio' &&
+            `( ${portfolioSubmissionstatus} )`}{' '}
+        </span>
       </Heading>
 
       {status.level == step.level ? (

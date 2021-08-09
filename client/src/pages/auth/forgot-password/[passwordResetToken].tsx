@@ -29,7 +29,7 @@ export const PasswordResetSchema = yup.object().shape({
     .required('Password is required.')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, mix of numbers and alphabets.'
+      'Must contain 8 characters, mix of numbers and alphabets.'
     )
     .min(8, 'Password must be atleast 8 characters long.'),
   confirmPassword: yup
@@ -100,9 +100,9 @@ export default function PasswordResetForm() {
       >
         <Box p={8}>
           <Box>
-            <Heading>Set New Password.</Heading>
-            <Text mt="1rem">Please enter your new password.</Text>
+            <Heading>Set New Password</Heading>
           </Box>
+          <br />
           <Formik
             initialValues={{
               password: '',
@@ -143,7 +143,7 @@ export default function PasswordResetForm() {
                   </FormControl>
                 )}
               </Field>
-
+              <br />
               <Field name="confirmPassword">
                 {({ field, form }: any) => (
                   <FormControl

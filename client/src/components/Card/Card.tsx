@@ -95,13 +95,15 @@ export function Card({
         />
         {!collapsible && (
           <Flex cursor={'pointer'}>
-            <Link href={`${link}`}>
-              {link && link.includes('/checklist') ? (
+            {link && link.includes('/checklist') ? (
+              <Link href={`${link}`}>
                 <HiArrowCircleRight style={{ height: '30px', width: '30px' }} />
-              ) : (
+              </Link>
+            ) : (
+              <a target="_blank" href={`${link}`}>
                 <BiLinkExternal style={{ height: '30px', width: '30px' }} />
-              )}
-            </Link>
+              </a>
+            )}
           </Flex>
         )}
         {collapsible && (
