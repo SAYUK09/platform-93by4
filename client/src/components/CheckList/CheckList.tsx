@@ -41,7 +41,7 @@ export function CheckList({
                 onChange={() => handleCheckBoxChange(id, text)}
                 isChecked={isChecked}
               >
-                <Text pos="relative" top="-2px" color="black.200">
+                <Text pos="relative" top="-2px" color="black.200" overflowWrap="break-word" wordBreak="break-word">
                   {text}
                 </Text>
               </Checkbox>
