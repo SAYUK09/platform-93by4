@@ -25,6 +25,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+import { BgPattern } from '../../components/BgPattern/BgPattern'
 export interface LoginValues {
   email: string
   password: string
@@ -117,142 +118,136 @@ export default function Login() {
       />
       <Navbar />
       <AuthLayout>
-        <Flex flex={1} d={{ base: 'none', md: 'flex' }}>
-          {!imgLoaded && <Skeleton height="100%" width="100%" />}
-          <Image
-            height={!imgLoaded ? '' : '100%'}
-            alt={'Login Image'}
-            objectFit={'cover'}
-            src="/auth.jpg"
-            width="100%"
-            boxSize="80vh"
-            d={!imgLoaded ? 'none' : 'inherit'}
-            onLoad={handleImageLoad}
-          />
-        </Flex>
+        <Flex w="100vw" maxW="1000px">
+          <Flex flex={1.2} d={{ base: 'none', md: 'flex' }}>
+            <BgPattern />
+          </Flex>
 
-        <Flex
-          p={['2rem', '2rem 3rem']}
-          flex={1}
-          align={'center'}
-          justify={'center'}
-        >
-          <Stack spacing={8} w={'full'} maxW={'lg'}>
-            <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
-              Log In
-            </Heading>
-            <Formik
-              initialValues={{
-                email: '',
-                password: '',
-              }}
-              validationSchema={SignInSchema}
-              onSubmit={(values: LoginValues) => handleSubmit(values)}
-            >
-              <Form>
-                <Stack spacing={8}>
-                  <Field name="email">
-                    {/* These have no typedefinitions from formik itself. */}
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={form.errors.email && form.touched.email}
-                      >
-                        <FormLabel
-                          htmlFor="email"
-                          color={theme.colors.black['50']}
+          <Flex
+            p={['2rem', '2rem 3rem']}
+            flex={1}
+            align={'center'}
+            justify={'center'}
+          >
+            <Stack spacing={8} w={'full'} maxW={'lg'}>
+              <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
+                Log In
+              </Heading>
+              <Formik
+                initialValues={{
+                  email: '',
+                  password: '',
+                }}
+                validationSchema={SignInSchema}
+                onSubmit={(values: LoginValues) => handleSubmit(values)}
+              >
+                <Form>
+                  <Stack spacing={8}>
+                    <Field name="email">
+                      {/* These have no typedefinitions from formik itself. */}
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={form.errors.email && form.touched.email}
                         >
-                          Email Address
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="email"
-                          placeholder="you@example.com"
-                          type="email"
-                        />
-
-                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="password">
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.password && form.touched.password
-                        }
-                      >
-                        <FormLabel
-                          htmlFor="password"
-                          color={theme.colors.black['50']}
-                        >
-                          Password
-                        </FormLabel>
-                        <InputGroup>
+                          <FormLabel
+                            htmlFor="email"
+                            color={theme.colors.black['50']}
+                          >
+                            Email Address
+                          </FormLabel>
                           <Input
                             {...field}
-                            id="password"
-                            placeholder="Your password"
-                            type={showPassword ? 'text' : 'password'}
+                            id="email"
+                            placeholder="you@example.com"
+                            type="email"
                           />
-                          <InputRightElement mr="4">
-                            <Button
-                              h="1.75rem"
-                              size="sm"
-                              onClick={() => setShowpassword(!showPassword)}
-                            >
-                              {showPassword ? (
-                                <AiOutlineEyeInvisible />
-                              ) : (
-                                <AiOutlineEye />
-                              )}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <FormErrorMessage>
-                          {form.errors.password}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
 
-                  <Stack spacing={6}>
-                    <Stack
-                      direction={{ base: 'column', sm: 'row' }}
-                      align={'start'}
-                      justify={'space-between'}
-                    >
-                      <NextLink href="/auth/forgot-password/" passHref>
-                        <Link
-                          color={theme.colors.brand['500']}
-                          fontStyle="italic"
-                          fontSize="sm"
+                          <FormErrorMessage>
+                            {form.errors.email}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+
+                    <Field name="password">
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.password && form.touched.password
+                          }
                         >
-                          Forgot Password?
-                        </Link>
-                      </NextLink>
-                    </Stack>
-                    <Flex justify="space-between" align="center">
-                      <NextLink href="/auth/signup" passHref>
-                        <Link color={theme.colors.brand['500']}>
-                          Create an account
-                        </Link>
-                      </NextLink>
-                      <Button
-                        type="submit"
-                        colorscheme={'blue'}
-                        variant={'solid'}
-                        isLoading={isLoading}
-                        loadingText="Signing you in"
+                          <FormLabel
+                            htmlFor="password"
+                            color={theme.colors.black['50']}
+                          >
+                            Password
+                          </FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              id="password"
+                              placeholder="Your password"
+                              type={showPassword ? 'text' : 'password'}
+                            />
+                            <InputRightElement mr="4">
+                              <Button
+                                h="1.75rem"
+                                size="sm"
+                                onClick={() => setShowpassword(!showPassword)}
+                              >
+                                {showPassword ? (
+                                  <AiOutlineEyeInvisible />
+                                ) : (
+                                  <AiOutlineEye />
+                                )}
+                              </Button>
+                            </InputRightElement>
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.password}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+
+                    <Stack spacing={6}>
+                      <Stack
+                        direction={{ base: 'column', sm: 'row' }}
+                        align={'start'}
+                        justify={'space-between'}
                       >
-                        Login
-                      </Button>
-                    </Flex>
+                        <NextLink href="/auth/forgot-password/" passHref>
+                          <Link
+                            color={theme.colors.brand['500']}
+                            fontStyle="italic"
+                            fontSize="sm"
+                          >
+                            Forgot Password?
+                          </Link>
+                        </NextLink>
+                      </Stack>
+                      <Flex justify="space-between" align="center">
+                        <NextLink href="/auth/signup" passHref>
+                          <Link color={theme.colors.brand['500']}>
+                            Create an account
+                          </Link>
+                        </NextLink>
+                        <Button
+                          type="submit"
+                          colorscheme={'blue'}
+                          variant={'solid'}
+                          isLoading={isLoading}
+                          loadingText="Signing you in"
+                        >
+                          Login
+                        </Button>
+                      </Flex>
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Form>
-            </Formik>
-          </Stack>
+                </Form>
+              </Formik>
+            </Stack>
+          </Flex>
         </Flex>
       </AuthLayout>
     </>
