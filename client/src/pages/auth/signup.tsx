@@ -28,6 +28,7 @@ import { useEffect, useState } from 'react'
 import { theme } from '../../themes'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { SEO } from '../../components/Layout/SEO'
+import { BgPattern } from '../../components/BgPattern/BgPattern'
 
 export interface SignUpValues {
   firstName: string
@@ -129,234 +130,228 @@ export default function SignUp() {
       />
       <Navbar />
       <AuthLayout>
-        <Flex flex={1} d={{ base: 'none', md: 'flex' }}>
-          {!imgLoaded && <Skeleton height="100%" width="100%" />}
-          <Image
-            height={!imgLoaded ? '' : '100%'}
-            alt={'Login Image'}
-            objectFit={'cover'}
-            src="/auth.jpg"
-            width="100%"
-            boxSize="49vw"
-            d={!imgLoaded ? 'none' : 'inherit'}
-            onLoad={handleImageLoad}
-          />
-        </Flex>
+        <Flex w="100vw" maxW="1000px">
+          <Flex flex={1.2} d={{ base: 'none', md: 'flex' }}>
+            <BgPattern />
+          </Flex>
 
-        <Flex
-          p={['2rem', '2rem 3rem']}
-          flex={1}
-          align={'center'}
-          justify={'center'}
-        >
-          <Stack spacing={6} w={'full'} maxW={'lg'}>
-            <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
-              Create your account
-            </Heading>
+          <Flex
+            p={['2rem', '2rem 3rem']}
+            flex={1}
+            align={'center'}
+            justify={'center'}
+          >
+            <Stack spacing={6} w={'full'} maxW={'lg'}>
+              <Heading fontSize={'4xl'} color={theme.colors.brand['500']}>
+                Create your account
+              </Heading>
 
-            <Formik
-              initialValues={{
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                acceptTerms: false,
-              }}
-              validationSchema={SignUpSchema}
-              onSubmit={(values: SignUpValues) => handleSubmit(values)}
-            >
-              <Form>
-                <Stack spacing={4}>
-                  <Field name="firstName">
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.firstName && form.touched.firstName
-                        }
-                      >
-                        <FormLabel
-                          htmlFor="email"
-                          color={theme.colors.black['50']}
+              <Formik
+                initialValues={{
+                  email: '',
+                  password: '',
+                  firstName: '',
+                  lastName: '',
+                  acceptTerms: false,
+                }}
+                validationSchema={SignUpSchema}
+                onSubmit={(values: SignUpValues) => handleSubmit(values)}
+              >
+                <Form>
+                  <Stack spacing={4}>
+                    <Field name="firstName">
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.firstName && form.touched.firstName
+                          }
                         >
-                          First Name
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="firstName"
-                          placeholder="First Name"
-                          type="text"
-                        />
-                        <FormErrorMessage>
-                          {form.errors.firstName}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="lastName">
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.lastName && form.touched.lastName
-                        }
-                      >
-                        <FormLabel
-                          htmlFor="email"
-                          color={theme.colors.black['50']}
-                        >
-                          Last Name
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="lastName"
-                          type="text"
-                          placeholder="Last Name"
-                        />
-                        <FormErrorMessage>
-                          {form.errors.lastName}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="email">
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={form.errors.email && form.touched.email}
-                      >
-                        <FormLabel
-                          htmlFor="email"
-                          color={theme.colors.black['50']}
-                        >
-                          Email Address
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="email"
-                          type="email"
-                          placeholder="you@example.com"
-                        />
-                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="password">
-                    {({ field, form }: { field: any; form: any }) => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.password && form.touched.password
-                        }
-                      >
-                        <FormLabel
-                          htmlFor="password"
-                          color={theme.colors.black['50']}
-                        >
-                          Password
-                        </FormLabel>
-                        <InputGroup>
+                          <FormLabel
+                            htmlFor="email"
+                            color={theme.colors.black['50']}
+                          >
+                            First Name
+                          </FormLabel>
                           <Input
                             {...field}
-                            id="password"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
+                            id="firstName"
+                            placeholder="First Name"
+                            type="text"
                           />
-                          <InputRightElement mr="4">
-                            <Button
-                              h="1.75rem"
-                              size="sm"
-                              onClick={() => setShowpassword(!showPassword)}
-                            >
-                              {showPassword ? (
-                                <AiOutlineEyeInvisible />
-                              ) : (
-                                <AiOutlineEye />
-                              )}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <FormErrorMessage>
-                          {form.errors.password}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
+                          <FormErrorMessage>
+                            {form.errors.firstName}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
 
-                  <Stack spacing={5}>
-                    <Stack direction={'row'} align={'center'}>
-                      <Field name="acceptTerms">
-                        {({ field, form }: { field: any; form: any }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.acceptTerms &&
-                              form.touched.acceptTerms
-                            }
+                    <Field name="lastName">
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.lastName && form.touched.lastName
+                          }
+                        >
+                          <FormLabel
+                            htmlFor="email"
+                            color={theme.colors.black['50']}
                           >
-                            <Flex mt={-4}>
-                              <Checkbox
-                                {...field}
-                                type="checkbox"
-                                mr={2}
-                                id="acceptTerms"
-                              />
-                              <FormLabel
-                                htmlFor="acceptTerms"
-                                pt={4}
-                                color={theme.colors.black['100']}
-                              >
-                                By creating an account you agree to the{' '}
-                                <Link
-                                  href="https://handbook.neog.camp/qualifier/tnc"
-                                  target="_blank noreferrer noopener"
-                                  color={theme.colors.brand['500']}
-                                >
-                                  Terms{' '}
-                                </Link>
-                                and{' '}
-                                <Link
-                                  color={theme.colors.brand['500']}
-                                  href="https://handbook.neog.camp/qualifier/privacy"
-                                  target="_blank noreferrer noopener"
-                                >
-                                  Privacy Policy
-                                </Link>
-                              </FormLabel>
-                            </Flex>
-                            <FormErrorMessage>
-                              {form.errors.acceptTerms}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Stack>
+                            Last Name
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="lastName"
+                            type="text"
+                            placeholder="Last Name"
+                          />
+                          <FormErrorMessage>
+                            {form.errors.lastName}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
 
-                    <Flex justify="space-between" align="center">
-                      <NextLink passHref href="/auth/login">
-                        <Link color={theme.colors.brand['500']}>
-                          Log in instead
-                        </Link>
-                      </NextLink>
-                      <Field>
-                        {({ form }: { form: any }) => {
-                          return (
-                            <Button
-                              isLoading={isLoading}
-                              type="submit"
-                              colorscheme={'blue'}
-                              variant={'solid'}
-                              disabled={!form.isValid}
+                    <Field name="email">
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={form.errors.email && form.touched.email}
+                        >
+                          <FormLabel
+                            htmlFor="email"
+                            color={theme.colors.black['50']}
+                          >
+                            Email Address
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="email"
+                            type="email"
+                            placeholder="you@example.com"
+                          />
+                          <FormErrorMessage>
+                            {form.errors.email}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+
+                    <Field name="password">
+                      {({ field, form }: { field: any; form: any }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.password && form.touched.password
+                          }
+                        >
+                          <FormLabel
+                            htmlFor="password"
+                            color={theme.colors.black['50']}
+                          >
+                            Password
+                          </FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              id="password"
+                              type={showPassword ? 'text' : 'password'}
+                              placeholder="Password"
+                            />
+                            <InputRightElement mr="4">
+                              <Button
+                                h="1.75rem"
+                                size="sm"
+                                onClick={() => setShowpassword(!showPassword)}
+                              >
+                                {showPassword ? (
+                                  <AiOutlineEyeInvisible />
+                                ) : (
+                                  <AiOutlineEye />
+                                )}
+                              </Button>
+                            </InputRightElement>
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.password}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+
+                    <Stack spacing={5}>
+                      <Stack direction={'row'} align={'center'}>
+                        <Field name="acceptTerms">
+                          {({ field, form }: { field: any; form: any }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.acceptTerms &&
+                                form.touched.acceptTerms
+                              }
                             >
-                              Create Account
-                            </Button>
-                          )
-                        }}
-                      </Field>
-                    </Flex>
+                              <Flex mt={-4}>
+                                <Checkbox
+                                  {...field}
+                                  type="checkbox"
+                                  mr={2}
+                                  id="acceptTerms"
+                                />
+                                <FormLabel
+                                  htmlFor="acceptTerms"
+                                  pt={4}
+                                  color={theme.colors.black['100']}
+                                >
+                                  By creating an account you agree to the{' '}
+                                  <Link
+                                    href="https://handbook.neog.camp/qualifier/tnc"
+                                    target="_blank noreferrer noopener"
+                                    color={theme.colors.brand['500']}
+                                  >
+                                    Terms{' '}
+                                  </Link>
+                                  and{' '}
+                                  <Link
+                                    color={theme.colors.brand['500']}
+                                    href="https://handbook.neog.camp/qualifier/privacy"
+                                    target="_blank noreferrer noopener"
+                                  >
+                                    Privacy Policy
+                                  </Link>
+                                </FormLabel>
+                              </Flex>
+                              <FormErrorMessage>
+                                {form.errors.acceptTerms}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Stack>
+
+                      <Flex justify="space-between" align="center">
+                        <NextLink passHref href="/auth/login">
+                          <Link color={theme.colors.brand['500']}>
+                            Log in instead
+                          </Link>
+                        </NextLink>
+                        <Field>
+                          {({ form }: { form: any }) => {
+                            return (
+                              <Button
+                                isLoading={isLoading}
+                                type="submit"
+                                colorscheme={'blue'}
+                                variant={'solid'}
+                                disabled={!form.isValid}
+                              >
+                                Create Account
+                              </Button>
+                            )
+                          }}
+                        </Field>
+                      </Flex>
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Form>
-            </Formik>
-          </Stack>
+                </Form>
+              </Formik>
+            </Stack>
+          </Flex>
         </Flex>
       </AuthLayout>
     </>
