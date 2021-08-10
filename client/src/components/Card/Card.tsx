@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image } from '@chakra-ui/react'
+import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { HiArrowCircleRight } from 'react-icons/hi'
 import { BiLinkExternal } from 'react-icons/bi'
@@ -68,13 +68,13 @@ function CardComp({
         {!collapsible && (
           <Flex cursor={'pointer'}>
             {link && link.includes('/checklist') ? (
-              // <Link href={`${link}`}>
+              // \<Link href={`${link}`}>
               <HiArrowCircleRight style={{ height: '30px', width: '30px' }} />
             ) : (
               // </Link>
-              // <a target="_blank" href={`${link}`}>
-              <BiLinkExternal style={{ height: '30px', width: '30px' }} />
-              // </a>
+              <Link href={`${link}`} isExternal>
+                  <BiLinkExternal style={{ height: '30px', width: '30px' }} />
+              </Link>
             )}
           </Flex>
         )}
