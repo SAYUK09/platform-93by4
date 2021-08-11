@@ -31,7 +31,6 @@ export async function requiresAuth(
   try {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const decodedUser = <TokenUser>jwt.verify(token, process.env.JWT_SECRET!)
-    console.log(decodedUser)
     const user = await User.findById(decodedUser.sub)
 
     log.info(user)

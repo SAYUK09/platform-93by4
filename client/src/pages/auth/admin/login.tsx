@@ -40,7 +40,6 @@ export default function Login() {
   })
   async function handleSubmit(data: LoginValues) {
     await login(data)
-      .then((res) => console.log(res))
       .catch((error) => console.log(error.response.data))
   }
 

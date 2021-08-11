@@ -36,7 +36,7 @@ function Dashboard() {
       case 'portfolio_not_submitted':
         setCardLink('/submission/questions')
         break
-      case 'under review':
+      case 'portfolio_under_review':
         setCardLink(undefined)
         break
       case 'portfolio_needs_revision':

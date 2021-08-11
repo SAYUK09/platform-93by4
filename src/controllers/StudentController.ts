@@ -9,7 +9,6 @@ export const submitHandler: RequestHandler = async (req: AuthRequest, res) => {
   const { portfolioUrl, status } = req.body
 
   const count = await PortfolioUrl.estimatedDocumentCount()
-  console.log('count', count)
   const foundUser = (await User.findOne({ email: user?.email }).populate(
     'portfolioUrl'
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,7 +87,6 @@ export const reSubmitHandler: RequestHandler = async (
       status: 'portfolio_under_review',
     }
     if (foundUser && foundUser?.portfolioUrl.portfolioUrl === portfolioUrl) {
-      console.log('count', currentSubmissionCount)
 
       const updatedData = new PortfolioUrl(extend(oldValues, newValues))
       await updatedData.save()

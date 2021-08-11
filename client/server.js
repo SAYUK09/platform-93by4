@@ -15,7 +15,6 @@ app.prepare().then(() => {
 
   expressServer.listen(port, (err) => {
     if (err) throw err
-    console.log(process.env.NODE_ENV)
     console.log(`> Ready on http://localhost:${port}`)
   })
 })

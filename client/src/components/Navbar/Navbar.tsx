@@ -34,6 +34,7 @@ export function Navbar() {
     setLoginStatus(authState?.user?.firstName || 'Login')
   }, [authState])
 
+
   const authRedirect = () => {
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }

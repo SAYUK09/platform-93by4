@@ -94,7 +94,7 @@ const ReSubmissionWindow: React.FC = () => {
         toast({
           title: 'Portfolio URL Exists',
           description:
-            'The link you have submitted already exists, please try again with different link!',
+            'The link you have submitted already exists, please try again with your own link!',
           status: 'error',
           duration: 5000,
           isClosable: true,
