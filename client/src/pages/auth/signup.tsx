@@ -13,6 +13,7 @@ import {
   useToast,
   InputRightElement,
   InputGroup,
+  Image,
 } from '@chakra-ui/react'
 
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
@@ -26,7 +27,6 @@ import { useAuth } from '../../context/AuthContext'
 import { theme } from '../../themes'
 import { AuthLayout, Navbar } from '../../components'
 import { SEO } from '../../components/Layout/SEO'
-import { BgPattern } from '../../components/BgPattern/BgPattern'
 
 export interface SignUpValues {
   firstName: string
@@ -110,7 +110,15 @@ export default function SignUp() {
       <AuthLayout>
         <Flex w="100vw" maxW="1000px">
           <Flex flex={1.2} d={{ base: 'none', md: 'flex' }}>
-            <BgPattern />
+            <Image
+              height={'100%'}
+              alt={'Login Image'}
+              objectFit={'cover'}
+              src="/signup-image.jpg"
+              width="100%"
+              boxSize="100vh"
+              d={'inherit'}
+            />
           </Flex>
 
           <Flex
