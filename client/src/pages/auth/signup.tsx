@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Flex,
   Stack,
@@ -5,28 +6,25 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Image,
   Button,
   Link,
-  Text,
   Checkbox,
   FormErrorMessage,
   useToast,
   InputRightElement,
   InputGroup,
-  Skeleton,
 } from '@chakra-ui/react'
 
-import { AuthLayout, Navbar } from '../../components'
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { Formik, Form, Field } from 'formik'
 import * as yup from 'yup'
+
 import { register } from '../../services/axiosService'
 import { useAuth } from '../../context/AuthContext'
-import { useEffect, useState } from 'react'
 import { theme } from '../../themes'
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
+import { AuthLayout, Navbar } from '../../components'
 import { SEO } from '../../components/Layout/SEO'
 import { BgPattern } from '../../components/BgPattern/BgPattern'
 
@@ -38,7 +36,6 @@ export interface SignUpValues {
   acceptTerms: boolean
 }
 
-// todo -> move this to utils maybe
 const SignUpSchema = yup.object().shape({
   firstName: yup
     .string()
@@ -67,38 +64,24 @@ const SignUpSchema = yup.object().shape({
   acceptTerms: yup
     .bool()
     .oneOf([true], 'Please accept Terms and Privacy Policy.'),
-  // todo -> add regex for matching alpabets, symbols etc
 })
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { authState, setState } = useAuth()
+  const { setState } = useAuth()
   const router = useRouter()
   const toast = useToast()
   const [showPassword, setShowpassword] = useState<boolean>(false)
-  const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
   async function handleSubmit(data: SignUpValues) {
     setIsLoading(true)
+
     await register(data)
-      // use dispatch actions here
       .then((res) => {
         if (res.status === 200) {
-          const { email, firstName, lastName, userId } = res.data.user
-          setState({
-            isAuthenticated: true,
-            user: {
-              email,
-              firstName,
-              lastName,
-              userId,
-              submissionData: null,
-            },
-            isLoading: false,
-          })
-          console.log({ authState, data: res.data })
+          const { email } = res.data.user
           setIsLoading(false)
-          router.push('/auth/email-verification')
+          router.push(`/auth/email-verification?email=${email}`)
         }
       })
       .catch((error) => {
@@ -114,12 +97,7 @@ export default function SignUp() {
           isClosable: true,
           status: 'error',
         })
-        console.log({ error: error })
       })
-  }
-
-  function handleImageLoad() {
-    setImgLoaded(true)
   }
 
   return (

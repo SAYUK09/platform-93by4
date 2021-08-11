@@ -143,7 +143,6 @@ const SubmissionWindow: React.FC = () => {
         router.push('./submission/congrats')
       }
     } catch (err) {
-      console.log({ err })
       if (err.response?.status === 302) {
         toast({
           title: 'Your portfolio is already submitted!',

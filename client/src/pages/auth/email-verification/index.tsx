@@ -1,36 +1,35 @@
+import { useEffect, useState } from 'react'
 import {
   Box,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Progress,
   Button,
-  VStack,
   useToast,
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+
 import { SEO } from '../../../components/Layout/SEO'
-import { useAuth } from '../../../context/AuthContext'
 import { resendLink } from '../../../services/axiosService'
 
 export default function EmailSent() {
-  const { authState } = useAuth()
+  const [email, setEmail] = useState('')
   const toast = useToast()
-
-  console.log(authState?.user)
-
   const router = useRouter()
 
+  useEffect(() => {
+    setEmail(decodeURIComponent(router.query.email as string))
+  }, [router.query.email])
+
   async function handleResend() {
-    console.log(authState)
-    await resendLink(authState?.user?.email)
+    await resendLink(email)
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
           toast({
             title: 'Your email address has already been verified.',
+            description: 'Please log in instead.',
             status: 'info',
           })
           router.push('/')
@@ -38,15 +37,15 @@ export default function EmailSent() {
         if (res.status === 201) {
           toast({
             title: 'Link has been resent to your email address.',
+            description: 'Please check your inbox for a mail from neoG Camp.',
             status: 'info',
           })
         }
       })
       .catch((error) => {
-        console.log({ error })
         toast({
           title: "Couldn't resend email.",
-          description: 'Please try later.',
+          description: 'Please try again later.',
         })
       })
   }
@@ -66,8 +65,6 @@ export default function EmailSent() {
         shadow={'base'}
         overflow="hidden"
       >
-        <Progress size="xs" isIndeterminate />
-
         <Alert
           status="info"
           variant="subtle"
@@ -81,22 +78,16 @@ export default function EmailSent() {
           <AlertTitle mt={4} mb={1} fontSize="lg">
             Verification Email Sent!
           </AlertTitle>
-          <AlertDescription
-            maxWidth="sm"
-            d={'flex'}
-            justifyContent={'center'}
-            flexDirection={'column'}
-          >
-            <VStack spacing={6}>
-              <Text>
-                In order to continue using application, we need to verify your
-                email. A verification link has been sent to you.
-                <br />
-                Please click it verify your account.
-              </Text>
-              <Text>Haven't recieved email yet?</Text>
-              <Button onClick={handleResend}>Click here to resend.</Button>
-            </VStack>
+          <AlertDescription maxWidth="sm">
+            <Text>
+              In order to continue using application, we need to verify your
+              email. A verification link has been sent to you. Please click it
+              verify your account.
+            </Text>
+            <Text>Click this link if you haven't recieved email.</Text>
+            <Button my={4} w={'100%'} onClick={handleResend}>
+              Click here to resend.
+            </Button>
           </AlertDescription>
         </Alert>
       </Box>

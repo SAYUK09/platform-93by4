@@ -34,11 +34,7 @@ export function Navbar() {
     setLoginStatus(authState?.user?.firstName || 'Login')
   }, [authState])
 
-  console.log(authState?.user?.firstName)
-  console.log(loginStatus)
-
   const authRedirect = () => {
-    console.log(loginStatus)
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }
   useEffect(() => {
@@ -91,7 +87,7 @@ export function Navbar() {
       >
         <Link href={authState?.isAuthenticated ? '/dashboard' : '/'} passHref>
           <ChakraLink>
-            <Image src={'/svgs/neogcamp.svg'} alt="neog logo" />
+            <Image src={'/svgs/neogcamp.svg'} alt="neoG Camp" />
           </ChakraLink>
         </Link>
         <Flex alignItems="center">

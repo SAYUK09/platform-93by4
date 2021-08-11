@@ -5,14 +5,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Image,
   Button,
   Link,
   FormErrorMessage,
   useToast,
   InputRightElement,
   InputGroup,
-  Skeleton,
+  Box,
+  Text,
 } from '@chakra-ui/react'
 import { SEO } from '../../components/Layout/SEO'
 import NextLink from 'next/link'
@@ -30,7 +30,7 @@ export interface LoginValues {
   email: string
   password: string
 }
-// @TODO - move this to seperate file
+
 const SignInSchema = yup.object().shape({
   email: yup
     .string()
@@ -46,7 +46,6 @@ export default function Login() {
   const toast = useToast()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showPassword, setShowpassword] = useState<boolean>(false)
-  const [imgLoaded, setImgLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     if (authState?.isAuthenticated) {
@@ -67,7 +66,6 @@ export default function Login() {
     }
     await login(data)
       .then((res) => {
-        console.log(res.data)
         if (res.status === 200) {
           setState({
             isAuthenticated: true,
@@ -90,24 +88,43 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        console.log(error.response.data)
         setIsLoading(false)
         setState({
           isAuthenticated: false,
           user: null,
           isLoading: false,
         })
-        toast({
-          title: 'Failed to log you in.',
-          description: error.response.data.msg,
-          status: 'error',
-          isClosable: true,
-        })
+        if (error.response.data.code === 'EMAIL_NOT_VERIFIED') {
+          return toast({
+            title: 'Failed to log you in.',
+            description: error.response.data.msg,
+            status: 'error',
+            isClosable: true,
+            duration: 9000,
+            render: () => (
+              <Box color="white" rounded="md" p={3} bg="blue.500">
+                <Text>
+                  Your Email address needs verification. Please click on the
+                  link sent to you.
+                </Text>
+                <Flex justifyContent="space-between" alignItems="center">
+                  <Text>Did not recieve link ?</Text>
+                  <Link href="/auth/email-verification/resend-link">
+                    <Button>Click here to resend</Button>
+                  </Link>
+                </Flex>
+              </Box>
+            ),
+          })
+        } else {
+          toast({
+            title: 'Failed to log you in.',
+            description: error.response.data.msg,
+            status: 'error',
+            isClosable: true,
+          })
+        }
       })
-  }
-
-  function handleImageLoad() {
-    setImgLoaded(true)
   }
 
   return (
@@ -144,7 +161,6 @@ export default function Login() {
                 <Form>
                   <Stack spacing={8}>
                     <Field name="email">
-                      {/* These have no typedefinitions from formik itself. */}
                       {({ field, form }: { field: any; form: any }) => (
                         <FormControl
                           isInvalid={form.errors.email && form.touched.email}

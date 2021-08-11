@@ -10,10 +10,8 @@ const withAuth = (WrappedComponent: NextComponentType) => {
     if (typeof window !== 'undefined') {
       const Router = useRouter()
       const { authState } = useAuth()
-      // maybe use react.useMemo here for more optimzation
       const isAuthenticated = authState?.isAuthenticated
       const isLoading = authState?.isLoading
-      const toast = useToast()
       if (!isLoading && !isAuthenticated) {
         Router.push({
           pathname: '/',
@@ -25,7 +23,6 @@ const withAuth = (WrappedComponent: NextComponentType) => {
         )
       }
 
-      console.log({ isAuthenticated, isLoading })
       if (isLoading) {
         return (
           <Center minH="100vh">

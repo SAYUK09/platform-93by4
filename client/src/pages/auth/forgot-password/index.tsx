@@ -5,7 +5,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
   Button,
   FormErrorMessage,
   useToast,
@@ -38,11 +37,9 @@ export default function ForgotPassword() {
           setButtonDisabled(true)
           toast({
             title: 'An email has been sent to you.',
-            description:
-              'Please check your inbox. You can request another request after 5 minutes',
+            description: 'Please check your inbox for a mail from neoG Camp.',
           })
         }
-        console.log(res)
       })
       .catch((error) => {
         setButtonDisabled(false)
@@ -50,7 +47,6 @@ export default function ForgotPassword() {
           title: 'There was some problem sending email.',
           description: 'Please try again after some time.',
         })
-        console.log(error)
       })
   }
 
@@ -115,7 +111,6 @@ export default function ForgotPassword() {
                 )}
               </Field>
 
-              {/* disble this button for 2 mins  */}
               <Button
                 marginTop="1rem"
                 width="100%"

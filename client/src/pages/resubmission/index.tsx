@@ -88,10 +88,8 @@ const ReSubmissionWindow: React.FC = () => {
 
         router.push('./resubmission/congrats')
       }
-      console.log(response.data)
       return response.data
     } catch (err) {
-      console.log('err', err.response)
       if (err.response?.status === 409) {
         toast({
           title: 'Portfolio URL Exists',

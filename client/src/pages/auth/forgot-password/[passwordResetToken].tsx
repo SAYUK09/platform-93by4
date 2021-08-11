@@ -1,7 +1,6 @@
 import {
   Box,
   Heading,
-  Text,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -61,7 +60,6 @@ export default function PasswordResetForm() {
   }) {
     await sendPasswordResetRequest(token, data.password)
       .then((res) => {
-        // console.log('here', res)
         if (res.status === 200) {
           toast({
             title: 'Password has been reset !',
@@ -78,7 +76,6 @@ export default function PasswordResetForm() {
             'Please issue a new link by clicking forgot password button.',
           status: 'error',
         })
-        console.log({ error })
       })
   }
 

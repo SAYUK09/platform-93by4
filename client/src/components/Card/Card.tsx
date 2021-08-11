@@ -158,8 +158,6 @@ export function Card(props: CardPropType) {
     }
   }, [])
 
-  console.log(props.link)
-
   return (
     <>
       {props.link && props.link.includes('/checklist') ? (

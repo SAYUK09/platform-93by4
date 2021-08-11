@@ -68,22 +68,6 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (
         },
       })
 
-      // to persist user info across page refresh. replaced with new token after email
-      // verification.
-      const token = await createToken({
-        _id: user._id,
-        email: user.email,
-      })
-      res.setHeader('Set-Cookie', [
-        `token=${token}; Path=/;HttpOnly;SameSite=None;Secure=true;`,
-      ])
-      // res.cookie('token', token, {
-      //   httpOnly: true,
-      //   secure: process.env.NODE_ENV !== 'development',
-      //   sameSite: 'none',
-      //   domain: '.neog.camp',
-      // })
-
       return res.status(200).json({
         msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
         user: {
@@ -120,20 +104,29 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
   async (req, res) => {
     const { verificationToken } = req.body
 
+    if (!verificationToken) {
+      return res.json({
+        msg: 'No verification token was found. Please check the link.',
+        code: 'NO_TOKEN_FOUND',
+      })
+    }
+
     try {
       const user = await User.findOne({
         verificationToken,
       })
 
       if (!user) {
-        return res.status(200).json({
-          msg: 'No user exists with that email address. Please sign up.',
+        return res.json({
+          msg: 'Invalid or expired token.',
+          code: 'VERIFICATION_TOKEN_EXPIRED',
         })
       }
 
       if (user.isVerified) {
-        return res.status(200).json({
+        return res.json({
           msg: 'You have already verified your email address.',
+          code: 'ALREADY_VERIFIED',
         })
       }
 
@@ -143,6 +136,7 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
       ) {
         return res.status(400).json({
           msg: 'Your verification token has been expired. Please click resend button.',
+          code: 'VERIFICATION_TOKEN_EXPIRED',
         })
       }
 
@@ -169,13 +163,15 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
         ])
 
         // TODO : send cookie here or session here
-        res.status(200).json({
+        res.json({
           msg: 'Your email address has been verified. You may now continue using the website.',
+          code: 'VERIFICATION_SUCCESS',
         })
       }
     } catch (error) {
       return res.status(500).json({
         msg: 'Something went wrong while verifying your email. Please try again or contact support@neogcamp.com',
+        code: 'ERR_INTERNAL_ERROR',
       })
     }
   }
@@ -192,14 +188,9 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
     }).select('+password')
 
     if (!user) {
-      return res.status(404).json({
+      return res.json({
         msg: 'Incorrect email or password. Please check credentials.',
-      })
-    }
-
-    if (!user.isVerified) {
-      return res.status(401).json({
-        msg: 'Your credentials are correct. But please make sure to verify email before signing in.',
+        code: 'BAD_CREDENTIALS',
       })
     }
 
@@ -208,8 +199,17 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
     if (!validPassword) {
       return res.status(404).json({
         msg: 'Incorrect credentials. Please check your email or password.',
+        code: 'BAD_CREDENTIALS',
       })
     }
+
+    if (validPassword && !user.isVerified) {
+      return res.status(401).json({
+        msg: 'Your credentials are correct. But please make sure to verify email before signing in.',
+        code: 'EMAIL_NOT_VERIFIED',
+      })
+    }
+
     const token = createToken({
       _id: user._id,
       email: user.email,
@@ -235,6 +235,8 @@ export const signInHandler: RequestHandler<{}, {}, SignInBody> = async (
       lastName: user.lastName,
       userId: user._id,
       token,
+      code: 'LOGIN_SUCCESS',
+      isVerified: user.isVerified,
     })
   } catch (error) {
     console.log(error.message, error)
@@ -256,14 +258,16 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   })
 
   if (!user) {
-    return res.status(404).json({
+    return res.json({
       msg: 'No user with that email was found.',
+      code: 'USER_NOT_FOUND',
     })
   }
 
   if (user.isVerified) {
     return res.status(200).json({
       msg: 'Your email has already been verified.',
+      code: 'ALREADY_VERIFIED',
     })
   }
 
@@ -271,13 +275,8 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
   const verificationLink = `${req.get(
     'origin'
   )}/auth/email-verification/${verificationToken}`
-  await user.save((err) => {
-    if (err) {
-      return res.status(500).json({
-        msg: 'Something went wrong while registering you. Please try later or contact support@neogcamp.com',
-      })
-    }
-  })
+
+  await user.save()
 
   try {
     await new Email({
@@ -292,6 +291,7 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
     })
     return res.status(201).json({
       msg: `An email with verification link has been sent to you at ${user.email}. Please check your inbox.`,
+      code: 'LINK_SENT',
     })
   } catch (error) {
     user.verificationToken = undefined
@@ -301,6 +301,7 @@ export const resendLinkHandler: RequestHandler<{}, {}, ResendLinkBody> = async (
 
     res.status(500).json({
       msg: 'There was an error while sending verification email. Please click the resend button.',
+      code: 'ERR_INTERNAL_ERROR',
     })
   }
 }
@@ -393,33 +394,11 @@ export const resetPasswordHandler: RequestHandler = async (req, res) => {
 }
 
 export const logoutHandler: RequestHandler = async (req, res) => {
-  try {
-    // res.cookie('token', '', {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV !== 'development',
-    //   sameSite: 'none',
-    //   domain: '.neog.camp',
-    // })
-    res.setHeader('Set-Cookie', [
-      `token=''; Path=/;HttpOnly;SameSite=None;Secure=true;`,
-    ])
-    res.status(200).json({
-      msg: 'Logged out successfully.',
-    })
-  } catch (error) {
-    // res.cookie('token', '', {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV !== 'development',
-    //   sameSite: 'none',
-    //   domain: '.neog.camp',
-    // })
-    res.setHeader('Set-Cookie', [
-      `token=''; Path=/;HttpOnly;SameSite=None;Secure=true;`,
-    ])
-    res.status(500).json({
-      msg: 'Logged out successfully.',
-    })
-  }
+  res.clearCookie('token')
+
+  res.status(200).json({
+    msg: 'Logged out successfully.',
+  })
 }
 
 export const userInfoHandler = async (req: AuthRequest, res: Response) => {
@@ -440,6 +419,7 @@ export const userInfoHandler = async (req: AuthRequest, res: Response) => {
       firstName: foundUser?.firstName,
       lastName: foundUser?.lastName,
       userId: foundUser?._id,
+      isVerified: foundUser?.isVerified,
     })
   } catch (error) {
     res.status(500).json({

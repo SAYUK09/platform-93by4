@@ -50,7 +50,11 @@ export function DashboardIntroCard() {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Image height="100%" src={'/svgs/adminIntro.svg'} />
+        <Image
+          height="100%"
+          src={'/svgs/adminIntro.svg'}
+          alt="Admin intro image"
+        />
       </Flex>
     </Flex>
   )

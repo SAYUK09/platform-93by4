@@ -104,7 +104,11 @@ export default function Home() {
           h={{ base: 'auto', lg: '500px' }}
           px={4}
         >
-          <Image src={'/svgs/landingPage.svg'} layout="responsive" />
+          <Image
+            src={'/svgs/landingPage.svg'}
+            layout="responsive"
+            alt="Your learning journey starts here. Photo of a computer with curly brackets."
+          />
         </Box>
       </Stack>
     </Layout>

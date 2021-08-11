@@ -19,7 +19,6 @@ function Dashboard() {
   useEffect(() => {
     async function fetch() {
       await getDashboard().then((user) => {
-        console.log(user)
         const portfolio = user.foundPortfolio.portfolioUrl
         portfolio !== undefined &&
           (setCurrentStatus(portfolio.status),
