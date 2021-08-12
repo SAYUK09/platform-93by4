@@ -1,7 +1,5 @@
 import {
   Flex,
-  WrapItem,
-  Avatar,
   Text,
   Link as ChakraLink,
   Menu,
@@ -20,7 +18,7 @@ import Router, { useRouter } from 'next/router'
 import { useAuth } from '../../context/AuthContext'
 import { logout } from './../../services/axiosService'
 import { CgProfile, CgLogOut } from 'react-icons/cg'
-import { RiDashboardFill } from 'react-icons/ri'
+import { RiDashboardFill, RiContactsFill } from 'react-icons/ri'
 
 export function Navbar() {
   const { authState } = useAuth()
@@ -117,6 +115,9 @@ export function Navbar() {
             <MenuList bg="black.800" hidden={loginStatus === 'Login' && true}>
               <NextLink href="/dashboard">
                 <MenuItem icon={<RiDashboardFill />}>Dashboard</MenuItem>
+              </NextLink>
+              <NextLink href="/contact">
+                <MenuItem icon={<RiContactsFill />}>Contact</MenuItem>
               </NextLink>
               <MenuItem icon={<CgLogOut />} onClick={onHandleLogout}>
                 Logout

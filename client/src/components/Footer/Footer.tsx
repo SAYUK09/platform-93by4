@@ -55,6 +55,11 @@ export function Footer() {
             )
           })}
         </Grid>
+        <Link href="/contact">
+          <Text fontSize="sm" color="black.00">
+            Contact Us
+          </Text>
+        </Link>
       </Flex>
     </>
   )
