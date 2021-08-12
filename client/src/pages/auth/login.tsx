@@ -78,6 +78,7 @@ export default function Login() {
             },
             isLoading: false,
           })
+          localStorage.setItem('x-auth-token', res.data.token)
           setIsLoading(false)
           toast({
             title: 'Login Successful!',

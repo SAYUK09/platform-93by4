@@ -5,10 +5,30 @@ import { SignUpValues } from '../pages/auth/signup'
 import { submissionValues } from '../pages/submission'
 import { reSubmissionValues } from '../pages/resubmission'
 
+if (typeof window !== 'undefined') {
+  console.log('LOCAL TOKEN', localStorage.getItem('x-auth-token'))
+}
+
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api/`,
   withCredentials: true,
+  headers: {
+    'x-auth-token':
+      typeof window !== 'undefined' && localStorage.getItem('x-auth-token'),
+  },
 })
+
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('x-auth-token')
+    if (token) {
+      config.headers['x-auth-token'] = token
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 /**
  * Auth Services
  * */
@@ -76,6 +96,9 @@ export const getDashboard = async () => {
 }
 
 export const logout = async () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('x-auth-token')
+  }
   const response = await apiClient.post('/auth/logout')
   return response
 }

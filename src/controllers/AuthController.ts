@@ -164,6 +164,7 @@ export const verifyHandler: RequestHandler<{}, {}, EmailVerificationBody> =
         res.json({
           msg: 'Your email address has been verified. You may now continue using the website.',
           code: 'VERIFICATION_SUCCESS',
+          token,
         })
       }
     } catch (error) {
@@ -316,7 +317,6 @@ export const forgotPasswordHandler: RequestHandler = async (req, res) => {
     }
 
     const resetToken = await user.getPasswordResetToken()
-
 
     await user.save()
 

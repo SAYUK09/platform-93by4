@@ -21,6 +21,7 @@ export interface IAuthState {
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
+  token?: string | null
 }
 
 interface IAuthContext {
@@ -39,6 +40,7 @@ const defaultAuthState: IAuthState = {
   },
   isAuthenticated: false,
   isLoading: true,
+  token: '',
 }
 
 const AuthContext = createContext<IAuthContext>({

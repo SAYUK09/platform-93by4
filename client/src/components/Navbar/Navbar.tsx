@@ -34,7 +34,6 @@ export function Navbar() {
     setLoginStatus(authState?.user?.firstName || 'Login')
   }, [authState])
 
-
   const authRedirect = () => {
     return loginStatus === 'Login' ? router.push('/auth/login') : undefined
   }
@@ -55,6 +54,7 @@ export function Navbar() {
         setLoginStatus('Login')
         localStorage.removeItem('neogSubmission')
         localStorage.removeItem('mark15')
+        localStorage.removeItem('x-auth-token')
         router.push('/')
         Router.reload()
       })

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Text, Flex } from '@chakra-ui/react'
+import { Text, Flex, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
 import { Layout, StatusCard, StepCard } from '../../components'
 import {
@@ -13,17 +13,26 @@ import { theme } from '../../themes'
 import { getDashboard } from '../../services/axiosService'
 
 import withAuth from '../../context/WithAuth'
+
 function Dashboard() {
   const [currentStatus, setCurrentStatus] = useState('portfolio_not_submitted')
   const [submissionNo, setSubmissionNo] = useState(null)
+  const toast = useToast()
   useEffect(() => {
     async function fetch() {
-      await getDashboard().then((user) => {
-        const portfolio = user.foundPortfolio.portfolioUrl
-        portfolio !== undefined &&
-          (setCurrentStatus(portfolio.status),
-          setSubmissionNo(portfolio.submissionNo))
-      })
+      await getDashboard()
+        .then((user) => {
+          const portfolio = user.foundPortfolio.portfolioUrl
+          portfolio !== undefined &&
+            (setCurrentStatus(portfolio.status),
+            setSubmissionNo(portfolio.submissionNo))
+        })
+        .catch((err) =>
+          toast({
+            title: 'Something went wrong.',
+            description: 'Please try again.',
+          })
+        )
     }
     fetch()
   }, [])

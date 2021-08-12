@@ -10,27 +10,27 @@ export async function requiresAuth(
   res: Response,
   next: NextFunction
 ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
-  const cookie = req.cookies
-
-  if (!cookie) {
-    return res.status(401).json({
-      msg: 'You are unauthorized to perform this action.',
-      success: false,
-    })
+  if (!req.header('x-auth-token')) {
+    return res.json({ msg: 'Not authorized' })
   }
 
-  const { token } = cookie
-
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      msg: 'You are not authorized to do that.',
-    })
-  }
+  const token = req.header('x-auth-token')
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const decodedUser = <TokenUser>jwt.verify(token, process.env.JWT_SECRET!)
+    if (!token) {
+      throw new Error('not authorized to do that')
+    }
+    const decodedUser = <TokenUser>(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      jwt.verify(token, process.env.JWT_SECRET!)
+    )
+
+    if (!decodedUser) {
+      return res.json({
+        msg: 'Token is invalid.',
+      })
+    }
+
     const user = await User.findById(decodedUser.sub)
 
     log.info(user)
@@ -46,7 +46,6 @@ export async function requiresAuth(
 
     next()
   } catch (error) {
-    console.log(error)
     res.status(401).json({
       success: false,
       msg: 'You are not authorized to access this resource',
