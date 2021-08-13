@@ -34,7 +34,7 @@ export function Footer() {
           &copy; {new Date().getFullYear()} neoG.camp. All rights reserved
         </Text>
         <Grid
-          templateRows="repeat(2, 1fr)"
+          templateRows="repeat(3, 1fr)"
           templateColumns="repeat(2, 1fr)"
           gap={{ base: '3', md: '1' }}
           mt={{ base: '12', md: '5' }}

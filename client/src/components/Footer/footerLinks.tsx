@@ -68,4 +68,9 @@ export const legalLinks: LegalLinks[] = [
     label: 'Refund Policy',
     href: 'https://neog.camp/legal/refund',
   },
+  {
+    id: 5,
+    label: 'Contact Us',
+    href: '/contact',
+  },
 ]
