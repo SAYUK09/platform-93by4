@@ -4,7 +4,6 @@ import {
   Heading,
   Stack,
   Text,
-  Image,
   Center,
   Spinner,
 } from '@chakra-ui/react'
@@ -14,6 +13,7 @@ import { Footer } from '../components/Footer/Footer'
 import NextLink from 'next/link'
 import { useAuth } from '../context/AuthContext'
 import router from 'next/router'
+import LandingIllustration from '../components/Illustrations/LandingIllustration'
 
 export default function Home() {
   const { authState } = useAuth()
@@ -104,11 +104,7 @@ export default function Home() {
           h={{ base: 'auto', lg: '500px' }}
           px={4}
         >
-          <Image
-            src={'/svgs/landingPage.svg'}
-            layout="responsive"
-            alt="Your learning journey starts here. Photo of a computer with curly brackets."
-          />
+          <LandingIllustration />
         </Box>
       </Stack>
     </Layout>

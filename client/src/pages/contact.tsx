@@ -1,6 +1,5 @@
 import { Box, Button, Heading, Text, Flex, Image } from '@chakra-ui/react'
 import { Layout } from '../components'
-import illustration from '/svgs/Illustration-contact.svg'
 import NextLink from 'next/link'
 import { ContactString } from '../data/strings/contact'
 import { SEO } from '../components/Layout/SEO'
@@ -64,6 +63,7 @@ export default function Contact() {
             </Box>
           </Flex>
           <Flex justifyContent="center" mx={['4rem', ' 4rem', '3rem']}>
+            {/* TODO: Use ContactIllustration over here */}
             <Image
               src={'/svgs/Illustration-contact.svg'}
               layout="responsive"

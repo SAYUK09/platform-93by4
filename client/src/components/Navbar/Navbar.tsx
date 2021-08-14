@@ -8,7 +8,6 @@ import {
   MenuList,
   MenuItem,
   useToast,
-  Image,
 } from '@chakra-ui/react'
 import { theme } from '../../themes'
 import { useEffect, useState } from 'react'
@@ -19,6 +18,7 @@ import { useAuth } from '../../context/AuthContext'
 import { logout } from './../../services/axiosService'
 import { CgProfile, CgLogOut } from 'react-icons/cg'
 import { RiDashboardFill, RiContactsFill } from 'react-icons/ri'
+import NeogLogo from './NeogLogo'
 
 export function Navbar() {
   const { authState } = useAuth()
@@ -86,7 +86,7 @@ export function Navbar() {
       >
         <Link href={authState?.isAuthenticated ? '/dashboard' : '/'} passHref>
           <ChakraLink>
-            <Image src={'/svgs/neogcamp.svg'} alt="neoG Camp" />
+            <NeogLogo />
           </ChakraLink>
         </Link>
         <Flex alignItems="center">
@@ -113,9 +113,11 @@ export function Navbar() {
               </Flex>
             </MenuButton>
             <MenuList bg="black.800" hidden={loginStatus === 'Login' && true}>
-              <NextLink href="/dashboard">
-                <MenuItem icon={<RiDashboardFill />}>Dashboard</MenuItem>
-              </NextLink>
+              {router.pathname !== '/dashboard' && (
+                <NextLink href="/dashboard">
+                  <MenuItem icon={<RiDashboardFill />}>Dashboard</MenuItem>
+                </NextLink>
+              )}
               <NextLink href="/contact">
                 <MenuItem icon={<RiContactsFill />}>Contact</MenuItem>
               </NextLink>
