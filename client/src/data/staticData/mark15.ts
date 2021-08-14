@@ -101,7 +101,7 @@ export const CheckListData: CheckListType[] = [
       },
       {
         id: '4e',
-        text: 'Making your portfolio responsive is mandatory. But making your projects & assignments responsive is optional.',
+        text: 'It is mandatory to make your portfolio responsive. Making apps and projects responsive is optional.',
       },
     ],
   },
@@ -328,15 +328,11 @@ export const CheckListData: CheckListType[] = [
       },
       {
         id: '13c',
-        text: 'You have to put dates in different formats eg:  MM/DD/YYYY, DD/MM/YYYY, MM/DD/YY, etc., and check whether the date can be a palindrome date or not. ',
+        text: 'You have to put date DD/MM/YYYY format and check whether the date can be a palindrome date or not. ',
       },
       {
         id: '13d',
         text: 'Show the output whether the user was born on a palindrome date or not.',
-      },
-      {
-        id: '13e',
-        text: 'If not, show the nearest palindrome date and by how many days the user has missed the palindrome date.',
       },
     ],
   },
@@ -402,6 +398,10 @@ export const CheckListData: CheckListType[] = [
       {
         id: '16c',
         text: 'You should not copy any project or blog which will reduce your chances of getting a mark15 and you might be blacklisted from the admission process if you are aiming to apply for level one.',
+      },
+      {
+        id: '16d',
+        text: 'I understand that if any of tasks are incomplete or invalid, I will be asked to resubmit my portfolio. The resubmission would be treated as a new submission and your submission number will be updated.',
       },
     ],
   },
