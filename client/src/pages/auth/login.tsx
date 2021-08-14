@@ -13,6 +13,7 @@ import {
   InputGroup,
   Box,
   Text,
+  Image,
 } from '@chakra-ui/react'
 import { SEO } from '../../components/Layout/SEO'
 import NextLink from 'next/link'
@@ -25,7 +26,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 import { theme } from '../../themes'
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
-import { BgPattern } from '../../components/BgPattern/BgPattern'
+
 export interface LoginValues {
   email: string
   password: string
@@ -138,7 +139,15 @@ export default function Login() {
       <AuthLayout>
         <Flex w="100vw" maxW="1000px">
           <Flex flex={1.2} d={{ base: 'none', md: 'flex' }}>
-            <BgPattern />
+            <Image
+              height={'100%'}
+              alt={'Login Image'}
+              objectFit={'cover'}
+              src="/login-image.jpg"
+              width="100%"
+              boxSize="80vh"
+              d={'inherit'}
+            />
           </Flex>
 
           <Flex
