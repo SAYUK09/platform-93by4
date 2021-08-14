@@ -7,7 +7,7 @@ import {
   Input,
   Button,
   useToast,
-  InputRightElement,
+  Checkbox,
   InputGroup,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -15,7 +15,6 @@ import { useEffect, useState } from 'react'
 import { sendPasswordResetRequest } from '../../../services/axiosService'
 import * as yup from 'yup'
 import { Formik, Form, Field } from 'formik'
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai'
 import { SEO } from '../../../components/Layout/SEO'
 interface PasswordResetValues {
   password: string
@@ -43,8 +42,6 @@ export default function PasswordResetForm() {
   const passwordResetToken = router.query.passwordResetToken as string
 
   const [token, setToken] = useState('')
-
-  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   useEffect(() => {
     if (!passwordResetToken) {
@@ -104,6 +101,7 @@ export default function PasswordResetForm() {
             initialValues={{
               password: '',
               confirmPassword: '',
+              toggle: false,
             }}
             validationSchema={PasswordResetSchema}
             onSubmit={(values: PasswordResetValues) => handleSubmit(values)}
@@ -120,21 +118,8 @@ export default function PasswordResetForm() {
                         {...field}
                         id="password"
                         placeholder="Your password"
-                        type={showPassword ? 'text' : 'password'}
+                        type={form.values.toggle ? 'text' : 'password'}
                       />
-                      <InputRightElement mr="4">
-                        <Button
-                          h="1.75rem"
-                          size="sm"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? (
-                            <AiOutlineEyeInvisible />
-                          ) : (
-                            <AiOutlineEye />
-                          )}
-                        </Button>
-                      </InputRightElement>
                     </InputGroup>
                     <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                   </FormControl>
@@ -152,18 +137,27 @@ export default function PasswordResetForm() {
                     <FormLabel htmlFor="confirmPassword">
                       Confirm New Password
                     </FormLabel>
-                    <Input
-                      {...field}
-                      id="confirmPassword"
-                      placeholder="Re-enter your new password"
-                      type="password"
-                    />
+                    <InputGroup>
+                      <Input
+                        {...field}
+                        id="confirmPassword"
+                        placeholder="Re-enter your new password"
+                        type={form.values.toggle ? 'text' : 'password'}
+                      />
+                    </InputGroup>
                     <FormErrorMessage>
                       {form.errors.confirmPassword}
                     </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
+              <Box mt={4}>
+                <label>
+                  <Field as={Checkbox} type="checkbox" name="toggle">
+                    <span>Show Password</span>
+                  </Field>
+                </label>
+              </Box>
               <Field>
                 {({ form }: { form: any }) => {
                   return (
