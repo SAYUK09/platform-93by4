@@ -20,7 +20,7 @@ export const CheckListData: CheckListType[] = [
     checks: [
       {
         id: '1a',
-        text: 'Take Username as input.',
+        text: 'The quiz can be "Do you know me" or a similar CLI QUIZ on any other topic too. Take Username as input.',
       },
       {
         id: '1b',
