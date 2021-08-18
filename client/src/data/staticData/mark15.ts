@@ -28,7 +28,7 @@ export const CheckListData: CheckListType[] = [
       },
       {
         id: '1c',
-        text: "Display the user's current score.",
+        text: 'Display the final score to the user',
       },
     ],
   },
@@ -51,7 +51,7 @@ export const CheckListData: CheckListType[] = [
       },
       {
         id: '2d',
-        text: "Display the user's current score.",
+        text: 'Display the final score to the user',
       },
     ],
   },
@@ -98,10 +98,6 @@ export const CheckListData: CheckListType[] = [
       {
         id: '4d',
         text: 'It is mandatory to put all your projects, blogs and social media handles majorly Twitter, LinkedIn in your portfolio.',
-      },
-      {
-        id: '4e',
-        text: 'It is mandatory to make your portfolio responsive. Making apps and projects responsive is optional.',
       },
     ],
   },
